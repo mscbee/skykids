@@ -15,9 +15,9 @@ router.use(methodOverride(function(req, res){
 }))
 
 router.route('/')
-    //GET all blobs
+    //GET all accounts
     .get(function(req, res, next) {
-        //retrieve all blobs from Monogo
+        //retrieve all accounts from Monogo
         mongoose.model('Account').find({}, function (err, accounts) {
               if (err) {
                   return console.error(err);
@@ -39,7 +39,7 @@ router.route('/')
               }
         });
     })
-    //POST a new blob
+    //POST a new account
     .post(function(req, res) {
         // Get values from POST request. These can be done through forms or REST calls. These rely on the "name" attributes for forms
         var firstName = req.body.firstName;
@@ -76,7 +76,7 @@ router.route('/')
                         // And forward to success page
                         res.redirect("/accounts");
                     },
-                    //JSON response will show the newly created blob
+                    //JSON response will show the newly created account
                     json: function(){
                         res.json(account);
                     }
@@ -85,7 +85,7 @@ router.route('/')
         })
     });
 
-// GET New Blob page.
+// GET New account page.
 router.get('/new', function(req, res) {
     res.render('accounts/new', { title: 'Add New Account' });
 });
@@ -120,6 +120,108 @@ router.param('id', function(req, res, next, id) {
         }
     });
 });
+
+//GET an individual account by ID to display
+router.route('/:id')
+  .get(function(req, res) {
+    mongoose.model('Account').findById(req.id, function (err, account) {
+      if (err) {
+        console.log('GET Error: There was a problem retrieving: ' + err);
+      } else {
+        console.log('GET Retrieving ID: ' + account._id);
+        var accountdob = account.dob.toISOString();
+        accountdob = accountdob.substring(0, accountdob.indexOf('T'))
+        res.format({
+          html: function(){
+              res.render('accounts/show', {
+                "accountdob" : accountdob,
+                "account" : blob
+              });
+          },
+          json: function(){
+              res.json(account);
+          }
+        });
+      }
+    });
+  });
+
+//GET the individual account by Mongo ID
+router.get('/:id/edit', function(req, res) {
+    //search for the account within Mongo
+    mongoose.model('Account').findById(req.id, function (err, account) {
+        if (err) {
+            console.log('GET Error: There was a problem retrieving: ' + err);
+        } else {
+            //Return account
+            console.log('GET Retrieving ID: ' + account._id);
+            //format the date properly for the value to show correctly in our edit form
+          var accountdob = account.dob.toISOString();
+          accountdob = accountdob.substring(0, accountdob.indexOf('T'))
+            res.format({
+                //HTML response will render the 'edit.jade' template
+                html: function(){
+                       res.render('accounts/edit', {
+                          title: 'Account' + account._id,
+                        "accountdob" : accountdob,
+                          "account" : account
+                      });
+                 },
+                 //JSON response will return the JSON output
+                json: function(){
+                       res.json(account);
+                 }
+            });
+        }
+    });
+});
+
+//PUT to update a blob by ID
+router.put('/:id/edit', function(req, res) {
+    // Get our REST or form values. These rely on the "name" attributes
+    var firstName = req.body.firstName;
+    var lastName = req.body.lastName;
+    var email = req.body.email;
+    var password = req.body.password;
+    var confirmPassword = req.body.confirmPassword;
+    var address = req.body.address;
+    var postcode = req.body.postcode;
+    var phoneNumber = req.body.phoneNumber;
+    var dob = req.body.dob;
+
+   //find the document by ID
+        mongoose.model('Account').findById(req.id, function (err, account) {
+            //update it
+            account.update({
+                firstName : firstName,
+                lastName : lastName,
+                email : email,
+                password : password,
+                confirmPassword : confirmPassword,
+                address : address,
+                postcode : postcode,
+                phoneNumber : postcode,
+                dob : dob
+            }, function (err, accountID) {
+              if (err) {
+                  res.send("There was a problem updating the information to the database: " + err);
+              }
+              else {
+                      //HTML responds by going back to the page or you can be fancy and create a new view that shows a success page.
+                      res.format({
+                          html: function(){
+                               res.redirect("/accounts/" + account._id);
+                         },
+                         //JSON responds showing the updated values
+                        json: function(){
+                               res.json(account);
+                         }
+                      });
+               }
+            })
+        });
+});
+
 
 //DELETE an account by ID
 router.delete('/:id/edit', function (req, res){
