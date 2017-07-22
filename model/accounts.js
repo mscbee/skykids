@@ -9,6 +9,5 @@ var accountSchema = new mongoose.Schema({
   phoneNumber: Number,
   age: { type: Number, min: 18, max: 65 },
   dob: { type: Date, default: Date.now },
-  isloved: Boolean
 });
 mongoose.model('Account', accountSchema);
