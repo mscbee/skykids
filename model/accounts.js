@@ -11,4 +11,6 @@ var accountSchema = new mongoose.Schema({
   dob: { type: Date, default: Date.now },
   isloved: Boolean
 });
-mongoose.model('Account', accountSchema);
+var account = mongoose.model('Account', accountSchema);
+
+module.exports.account = account;
