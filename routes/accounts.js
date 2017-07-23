@@ -51,6 +51,16 @@ router.route('/')
         var postcode = req.body.postcode;
         var phoneNumber = req.body.phoneNumber;
         var dob = req.body.dob;
+        //validation
+        req.checkBody('firstName','First Name is required').notEmpty();
+        req.checkBody('lastName','Last Name is required').notEmpty();
+        req.checkBody('email','Email is required').notEmpty();
+        req.checkBody('password','Password is required').notEmpty();
+        req.checkBody('confirmPassword','Confirmation of password is required').notEmpty();
+        req.checkBody('address','Address is required').notEmpty();
+        req.checkBody('postcode','PostCode is required').notEmpty();
+        req.checkBody('phoneNumber','Phone Number is required').notEmpty();
+        req.checkBody('dob','Date of birth is required').notEmpty();
         //call the create function for our database
         mongoose.model('Account').create({
             firstName : firstName,

@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+    h1.
+        #{title}
+    form#formAddAccount(name="addaccount",method="post",action="/accounts")
+        p First Name:
+            input#inputFirstName(type="text", placeholder="ex. John", name="firstName")
+        p Last Name:
+            input#inputLastName(type="text", placeholder="ex. Smith", name="lastName")
+        p Email:
+            input#inputEmail(type="text", placeholder="ex. abc@domain.com", name="email")
+        p Password:
+            input#inputPassword(type="text", placeholder="ex. p@55w0rd", name="password")
+        p Confirm Password:
+            input#inputConfirmPassword(type="text", placeholder="ex. p@55w0rd", name="confirmPassword")
+        p Address:
+            input#inputAddress(type="text", name="address")
+        p PostCode:
+            input#inputPostCode(type="text", name="postcode")
+        p PhoneNumber:
+            input#inputPhoneNumber(type="text", name="phoneNumber")
+        p DOB:
+            input#inputDob(type="date", name="dob")
+        p
+            button#btnSubmit(type="submit") submit
