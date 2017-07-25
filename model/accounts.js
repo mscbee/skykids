@@ -10,4 +10,6 @@ var accountSchema = new mongoose.Schema({
   phoneNumber: Number,
   dob: { type: Date, default: Date.now },
 });
-mongoose.model('Account', accountSchema);
+var account = mongoose.model('Account', accountSchema);
+
+module.exports.account = account;

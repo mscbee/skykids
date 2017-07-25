@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+      form { width: 400px; }
+      label { float: left; width: 150px; }
+      .clear { clear: both; height: 0; line-height: 10; }
+      .floatright { float: right; }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/js/registration.js"></script>
+  </head>
+<body>
+
+    <h2>Registration</h2>
+    <div class="container">
+    <form action = " " method="post">
+
+      <div>
+          <label>First Name</label>
+          <input type="text" placeholder="eg: John" name="firstName" class="register" id="firstName">
+      </div>
+    <br>
+
+      <div>
+          <label>Last Name</label>
+          <input type="text" placeholder="eg: Smith" name="lastName" class="register" id="lastName">
+      </div>
+    <br>
+
+      <div>
+          <label>Email</label>
+          <input type="text" placeholder="eg: abc@domain.com" name="email" id="email">
+      </div>
+    <br>
+
+      <div>
+          <label>Password</label>
+          <input type="text" name="password" id="password">
+
+      </div>
+    <br>
+
+      <div>
+          <label>Confirm Password</label>
+          <input type="text" name="password2" id="password2">
+      </div>
+    <br>
+
+
+      <div>
+          <label>Address Line 1</label>
+          <input type="text" name="address1" id="address1">
+      </div>
+    <br>
+
+      <div>
+          <label>Address Line 2</label>
+          <input type="text" name="address2" id="address2">
+      </div>
+    <br>
+
+      <div>
+          <label>Town</label>
+          <input type="text" name="town" id="town">
+      </div>
+    <br>
+
+      <div>
+          <label>County</label>
+          <input type="text" name="County" id="county">
+      </div>
+    <br>
+
+      <div>
+          <label>Postcode</label>
+          <input type="text" name="postcode" id="postcode">
+      </div>
+    <br>
+
+      <div>
+          <label>Country</label>
+          <input type="text" name="country" id="country">
+      </div>
+    <br>
+
+      <div>
+          <label>Phone Number</label>
+          <input type="text" name="phoneNumber" id="phonenUmber">
+      </div>
+    <br>
+
+      <div>
+          <label>Date of Birth</label>
+          <input type="text" placeholder="eg: dd/mm/yy" name="dob" id-dob>
+      </div>
+        <br>
+
+        <input type="submit" value="Register" id="submit"/>
+
+   </form>
+   </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+extends ../layout
+<!DOCTYPE html>
+    <html>
+      <head>
+        <title><%= title %></title>
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <style>
+          form { width: 400px; }
+          label { float: left; width: 150px; }
+          .clear { clear: both; height: 0; line-height: 10; }
+          .floatright { float: right; }
+        </style>
+      </head>
+    <body>
+
+        <h2>Details</h2>
+
+      <p> First Name: <%= firstName %></p>
+      <p> First Name: <%= lastName %></p>
+      <p> First Name: <%= email %></p>
+      <p> First Name: <%= address1 %></p>
+      <p> First Name: <%= address2 %></p>
+      <p> First Name: <%= town %></p>
+      <p> First Name: <%= county %></p>
+      <p> First Name: <%= postcode %></p>
+      <p> First Name: <%= country %></p>
+      <p> First Name: <%= phoneNumber %></p>
+      <p> First Name: <%= dob %></p>
+
+      <input type="submit" value="Update" align="left" />
+      <input type="submit" value="Delete" align="right" />
+
+    </body>
+    </html>
