@@ -1,0 +1,13 @@
+{ 
+    "_id" : ObjectId("5976416c64b90aefaed36b68"), 
+    "firstName" : "TestName", 
+    "lastName" : "TestLastName", 
+    "emailAddress" : "test@email.com", 
+    "addressLine1" : "1 Test Street", 
+    "addressLine2" : "TestPlace", 
+    "town" : "TestTown", 
+    "postcode" : "TW1 1AB", 
+    "phoneNumber" : "07766554433", 
+    "dateOfBirth" : "01/01/2001", 
+    "loyaltyStatus" : "Gold"
+}
