@@ -7,4 +7,9 @@ router.get('/', function(req, res, next) {
 names: ['Conor', 'Luke', 'Charlene', 'Sandi', 'Lisa', 'Alex', 'Jas'] });
 });
 
+router.get('/login', function(req, res, next) {
+  res.render('login', { title: 'Express',
+names: ['Conor', 'Luke', 'Charlene', 'Sandi', 'Lisa', 'Alex', 'Jas'] });
+});
+
 module.exports = router;
