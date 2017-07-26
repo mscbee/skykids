@@ -7,9 +7,3 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
-
-var routes = require('./routes/index');
-var blobs = require('./routes/accounts');
-
-app.use('/', routes);
-app.use('/accounts', accounts);
