@@ -1,32 +1,52 @@
-$(document).ready(function() {
-console.log("ready");
-$("form.register").click(function() {
-var firstName = $("#firstName").val();
-var lastName = $("#lastName").val();
-var email = $("#email").val();
-var password = $("#password").val();
-var password2 = $("#password2").val();
-var address1 = $("#address1").val();
-var address2 = $("#address2").val();
-var town = $("#town").val();
-var county = $("#county").val();
-var postcode = $("#postcode").val();
-var country = $("#country").val();
-var phoneNumber = $("#phoneNumber").val();
-var dob = $("#dob").val();
-if (firstName == '' || lastName == '' || email == '' || password == '' || password2 == '' || address1 == '' || address2 == '' || town == '' || county == '' || postcode == '' || country == '' || phoneNumber == '' || dob == '') {
-alert("Please fill all fields...!!!!!!");
-} else if ((password.length) < 8) {
-alert("Password should atleast 8 character in length...!!!!!!");
-} else if (!(password).match(password2)) {
-alert("Your passwords don't match. Try again?");
-} else {
-$.post("account.js", function(data) {
-if (data == 'You have Successfully Registered.....') {
-$("form")[0].reset();
-}
-alert(data);
-});
-}
-});
-});
+$(document).ready(function(){
+  // Initialize form validation on the registration form.
+  // It has the name attribute "registration"
+  $("form[name='registerForm']").validate({
+    rules: {
+      firstName: "required",
+      lastName: "required",
+      email: {// compound rule
+      required: true,
+      email: true,
+            },
+    password: {
+    required: true,
+    minlength: 8
+              },
+  address1: "required",
+  address2: "required",
+  town: "required",
+  county: "required",
+  postcode: "required",
+  country: "required",
+  phoneNumber: "required",
+  dob: "required",
+          },
+        messages: {
+
+            firstName: "Please enter your firstname",
+            lastName: "Please enter your firstname",
+            email: "Please enter your email",
+            password: {
+                required: "Please enter a password",
+                minlength: "Your password must consist of at least 8 characters"
+                      },
+            password2: {
+                required: "Please enter a password",
+                minlength: "Your password must consist of at least 8 characters"
+                        },
+            address1: "Please enter your address line 1",
+            address2: "Please enter your address line 1",
+            town: "Please enter your town",
+            county: "Please enter your county",
+            postcode: "Please enter your postcode",
+            country: "Please enter your county",
+            phoneNumber: "Please enter your phonenumber",
+            dob:"Please enter your Date of Birth",
+
+                }
+
+
+      });
+
+    });

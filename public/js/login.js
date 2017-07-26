@@ -1,12 +1,13 @@
 $(document).ready(function(){
     console.log("ready");
-    
+
     var resetPasswordDiv = $("#resetPasswordWrapper");
     var emailResponseDiv = $("#resetPasswordResponseMessage");
     var responseDiv = $("#responseMessage");
 
     resetPasswordDiv.hide();
 
+    //this just shows and hides the div
     $("#showResetPasswordDiv").click(function(){
       event.preventDefault();
       resetPasswordDiv.slideToggle();
@@ -14,19 +15,23 @@ $(document).ready(function(){
     });
 
     $("#loginButton").click(function(){
+        //Prevent form from refreshing due ot not using submit()
         event.preventDefault();
 
-        var username = $("#username").val().trim();
+        //store the values input into a variable, trim the white spaces from around
+        var userEmail = $("#userEmail").val().trim();
         var password = $("#password").val().trim();
 
         responseDiv.empty();
 
+        //check if the values are empty, if they are tell the user to put some values in
         if (username != "" && password != ""){
 
+          //generate a post and supply the post values as the variables
           $.post({
-            url: 'https://www.google.co.uk/',
+            url: 'https://www.google.co.uk/', //post url location change to localhost:3000/accounts
             data: {
-                    username: username,
+                    userEmail: userEmail,
                     password: password
                   },
             dataType: 'json',

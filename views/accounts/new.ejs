@@ -4,20 +4,28 @@
   <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    <script src="/js/jquery.validate.min.js"></script>
     <style>
       form { width: 400px; }
       label { float: left; width: 150px; }
       .clear { clear: both; height: 0; line-height: 10; }
       .floatright { float: right; }
+
     </style>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="/js/registration.js"></script>
-  </head>
+    <!-- Change the "src" attribute according to your installation path -->
+    <head>
+
+    <script src="/js/registration.js"></script>
+
 <body>
 
     <h2>Registration</h2>
     <div class="container">
-    <form action = " " method="post">
+    <form method="post" id="registerForm" action=" ">
 
       <div>
           <label>First Name</label>
@@ -100,6 +108,7 @@
         <br>
 
         <input type="submit" value="Register" id="submit"/>
+        <div id="responseMessage"></div>
 
    </form>
    </div>
