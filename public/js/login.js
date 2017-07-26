@@ -1,6 +1,6 @@
 $(document).ready(function(){
     console.log("ready");
-    
+
     var resetPasswordDiv = $("#resetPasswordWrapper");
     var emailResponseDiv = $("#resetPasswordResponseMessage");
     var responseDiv = $("#responseMessage");
