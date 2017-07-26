@@ -2,13 +2,14 @@
 
 console.log('This script populates some test products, users into the database. Specfied database as arguement - e.g populatedb mongodb://localhost:27017/skykids_shop');
 
-// Get arguements passed on command line 
+// Get arguments passed on command line 
 var userArgs = process.argv.slice(2);
 
 if(!userArgs[0].startsWith('mongodb://')){
     console.log('Error: You need to specify a valid mongodb URL as the first argument');
 }
 
+// Require async and models
 var async = require('async');
 var Product = require('./model/product');
 //var User = require('./models/user');
@@ -28,6 +29,7 @@ mongoose.connection.once('connected', () => {
 // Listen fo db errors
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+// Store hard coded values for database insertion
 //var users = [];
 var products = [];
 
@@ -52,6 +54,7 @@ var products = [];
 
 // }
 
+// Takes in all model properties, creates product, save product to database
 function productCreate(productName, productDescription, productColour, productDimensionW, productDimensionY, productDimensionH, productWeight, productStockLevel, productImage, productPrice, callback){
     productdetail = {
         productName: productName,
@@ -94,6 +97,7 @@ function productCreate(productName, productDescription, productColour, productDi
 //     ], cb); // optional callback
 // }
 
+// Enter mulitple products simultaneously?
 function createProducts(cb){
     async.parallel([
         function(callback){
@@ -108,11 +112,11 @@ function createProducts(cb){
     ], cb); // optional callback
 }
 
-
+// Run all functions simultaneously e.g createProducts, createUsers etc
 async.series ([
     createProducts
 ],
-function(err, results){
+function(err, results){ // optional callback for errors
     if(err) {
         console.log('FINAL ERR: ' + err);
     } else {
