@@ -16,8 +16,16 @@ var Product = require('./model/product');
 // Create connection and listen for errors
 var mongoose = require('mongoose');
 var mongodb = userArgs[0];
+
+// If database doesn't exist mongoose will create one for you!
 mongoose.connect(mongodb);
-var db = mongoose.connection;
+
+// Drop the database if it exists
+mongoose.connection.once('connected', () => {
+    mongoose.connection.db.dropDatabase();
+});
+
+// Listen fo db errors
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 //var users = [];
