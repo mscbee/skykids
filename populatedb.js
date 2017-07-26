@@ -26,7 +26,7 @@ mongoose.connection.once('connected', () => {
     mongoose.connection.db.dropDatabase();
 });
 
-// Listen fo db errors
+// Listen for db errors
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // Store hard coded values for database insertion
