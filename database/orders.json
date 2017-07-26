@@ -1,0 +1,9 @@
+{ 
+    "_id" : ObjectId("5976463464b90aefaed36cfe"), 
+    "uniqueUserID" : "12345", 
+    "products" : "productID and itemQuantity in array", 
+    "totalQuantity" : NumberInt(2), 
+    "totalWeight" : NumberInt(800), 
+    "totalCost" : NumberInt(40), 
+    "orderStatus" : "1"
+}

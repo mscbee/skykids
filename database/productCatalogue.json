@@ -1,0 +1,14 @@
+{ 
+    "_id" : ObjectId("5976457d64b90aefaed36cab"), 
+    "productName" : "Buzz Lightyear Figure", 
+    "productType" : "Figure", 
+    "productDescription" : "Action figure, Buzz Lightyear", 
+    "productColour" : "multi", 
+    "productDimensionW" : NumberInt(10), 
+    "productDimensionL" : NumberInt(25), 
+    "productDimensionH" : NumberInt(15), 
+    "productWeight" : NumberInt(400), 
+    "productStockLevel" : NumberInt(10), 
+    "productImage" : "buzz.png", 
+    "productPrice" : NumberInt(20)
+}
