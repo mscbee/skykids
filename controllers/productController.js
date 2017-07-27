@@ -2,8 +2,8 @@ var Product = require('../model/product');
 
 // Route to homepage
 exports.index = function(req, res){
-    res.render('../views/catalog.ejs', { title: 'Express', message: 'Welcome to express',
-    names: ['Conor', 'Luke', 'Charlene', 'Sandi', 'Lisa', 'Alex', 'Jas'] });
+    res.render('../views/catalog.ejs', { title: 'Catalog', message: 'Welcome to the SkyKids store',
+    names: ['products', 'basket', 'account'] });
 }
 
 // Display list of all products

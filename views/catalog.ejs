@@ -2,8 +2,17 @@
 <html>
   <%- include ./base.ejs %>
   <body>
-    <h1><%= title %></h1>
-    <p><%= message %></p>
+
+    <article class="c-tile">
+      <div class="c-tile__content">
+        <div class="c-tile__body">
+          <p class="c-heading-delta  u-margin-bottom-none"><%= title %></p>
+          <p class="c-text-body"><%= message %></p>
+        </div>
+      </div>
+    </article>
+
+
     <ul>
       <% for(var i = 0; i < names.length; i++) { %>
         <li><%= names[i] %></li>
