@@ -3,6 +3,7 @@ var router = express.Router();
 
 // Require controller modules
 var product_controller = require('../controllers/productController');
+//var user_controller = require('../controllers/userController');
 
 /// PRODUCT ROUTES ///
 
@@ -32,5 +33,16 @@ router.get('/product/:id', product_controller.product_detail);
 
 /* GET request for list of all Book items. */
 router.get('/product', product_controller.product_list);
+
+/// LOGIN ROUTES ///
+
+//GET request to Render the login page
+//router.get('/login', user_controller.index);
+
+//POST request to test the location for JQuery
+//router.post('/login', user_controller.check);
+
+//POST to reset email address
+//router.post('/login/reset', user_controller.resetPassword);
 
 module.exports = router;

@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="/js/login.js"></script>
-	<title><%= title %></title>
+	<title>Login Page</title>
 </head>
 
 <body>
@@ -22,25 +22,28 @@
 			<header>
 				<h2>Login Form:</h2>
 			</header>
-				<form method="post" id="loginForm">
-					 <input type="text" name="username" id="username" placeholder="Your Username" required>
-					 <input type="password" name="password" id="password" placeholder="***********" required>
-					 <input type="submit" name="login" value="Login" id="loginButton">
+				<form action="/login/" method="post">
+						<label for="loginEmail">Enter your Email Address: </label>
+						<input id="loginEmail" type="email" name="loginEmail" placeholder="Your@Email.Address">
+						<input id="loginPassword" type="password" name="loginPassword" placeholder="**********">
+						<input type="submit" value="Submit Email">
 				</form>
 				<br/>
+				<div id="errorMessage">
+						<%= errorMessage %>
+				</div>
 				<div id="showResetPasswordDiv">Forgotten your password?</div>
-				<div id="responseMessage"></div>
 		</article>
 
 		<article id="resetPasswordWrapper">
 			<header>
 				<h2>Reset Password Form:</h2>
 			</header>
-				<form method="post" id="resetPasswordForm">
-					 <input type="email" name="email" id="email" placeholder="example@example.com" required>
-					 <input type="submit" name="resetPassword" value="Reset Password" id="resetPasswordButton">
-				</form>
-				<div id="resetPasswordResponseMessage"></div>
+			<form action="/login/reset/" method="post">
+					<label for="team_name">Enter to reset: </label>
+					<input id="resetEmail" type="email" name="resetEmail" placeholder="Your@Email.Address">
+					<input type="submit" value="Reset Password">
+			</form>
 		</article>
 
 	</section>

@@ -23,20 +23,25 @@ $(document).ready(function(){
 
         if (username != "" && password != ""){
 
-          $.post({
-            url: 'https://www.google.co.uk/',
-            data: {
-                    username: username,
-                    password: password
-                  },
-            dataType: 'json',
-            error: function() {
-               responseDiv.html('<p>An error has occurred please try again</p>');
-               removeDiv(responseDiv);
+          $.ajax({
+            url: "http://localhost:3000/catalog/login",
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify({"username": username, "password": password}),
+            contentType: "application/json",
+            complete: function() {
+              //called when complete
+              console.log('process complete');
             },
-            success: function() {
-               setTimeout(' window.location.href = "/catalogue"; ',4000);
-            }
+            success: function(data) {
+              console.log(data);
+              console.log('process sucess');
+            },
+            error: function(error) {
+              console.log(error);
+              responseDiv.html('<p>An error has occurred please try again</p>');
+              removeDiv(responseDiv);
+            },
           });
 
         } else {
@@ -56,7 +61,7 @@ $(document).ready(function(){
         if (email != ""){
 
           $.post({
-            url: 'https://www.google.co.uk/',
+            url: '/login',
             data: {
                     email: email
                   },
