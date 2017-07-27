@@ -12,7 +12,7 @@ if(!userArgs[0].startsWith('mongodb://')){
 // Require async and models
 var async = require('async');
 var Product = require('./model/product');
-//var User = require('./models/user');
+var Customer = require('./model/customer');
 
 // Create connection and listen for errors
 var mongoose = require('mongoose');
@@ -30,40 +30,31 @@ mongoose.connection.once('connected', () => {
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // Store hard coded values for database insertion
-//var users = [];
+var customers = [];
 var products = [];
 
-// function userCreate(firstName, lastname, emailAddress, addressLine1, addressLine2, town, postcode, phoneNumber, dateOfBirth, loyaltyStatus, callback){
-//     userdetail = {firstName:firstName, lastname:lastname, emailAddress:emailAddress,
-//                   addressLine1:addressLine1, addressLine2:addressLine2, town:town,
-//                   postcode:postcode, phoneNumber:phoneNumber, dateOfBirth:dateOfBirth, loyaltyStatus}
-    
-//     if(dateOfBirth != false) userdetail.dateOfBirth = dateOfBirth;
-    
-//     var user = new User(userdetail);
+function customerCreate(userId, password, firstName, lastName, email, loginStatus, accessLevel){
+    customerdetail = { userId:userId, password:password, firstName:firstName,
+                  lastName:lastName, email:email, loginStatus:loginStatus, accessLevel:accessLevel }
+        
+    var customer = new Customer(customerdetail);
 
-//     user.save(function (err) {
-//         if(err) {
-//             callback(err, null);
-//             return;
-//         }
-//         console.log('New User: ' + user);
-//         users.push(user);
-//         callback(null, user);
-//     });
+    customer.save(function (err) {
+        if(err) {
+            console.log(err);
+            return;
+        }
+        console.log('New Customer: ' + customer);
+        customers.push(customer);
+    });
 
-// }
+ }
 
 // Takes in all model properties, creates product, save product to database
-function productCreate(productName, productDescription, productColour, productDimensionW, productDimensionY, productDimensionH, productWeight, productStockLevel, productImage, productPrice, callback){
+function productCreate(productName, productDescription, productStockLevel, productImage, productPrice){
     productdetail = {
         productName: productName,
         productDescription: productDescription,
-        productColour: productColour,
-        productDimensionW: productDimensionW,
-        productDimensionY: productDimensionY,
-        productDimensionH: productDimensionH,
-        productWeight: productWeight,
         productStockLevel: productStockLevel,
         productImage: productImage,
         productPrice: productPrice
@@ -73,48 +64,48 @@ function productCreate(productName, productDescription, productColour, productDi
 
     product.save(function (err) {
         if(err) {
-            callback(err, null);
+            console.log(err);
             return;
         }
         console.log('New Product: ' + product);
         products.push(product);
-        callback(null, product);
     });
 
 }
 
-// function createUsers(cb){
-//     async.parallel([
-//         function(callback){
-//             userCreate('Conor', 'Okus', 'myaddress@gmail.com', '7 Mile Street', 'Manford Way', 'London', 'E11 2JF', 111111111111, '15/09/1991', true, callback);
-//         },
-//         function(callback){
-//             userCreate('Lisa', 'Jarman', 'anotheraddress@gmail.com', '7 Silly Street', 'That Way', 'London', 'E11 XXX', 22222111111, '15/05/1995', true, callback);
-//         },
-//         function(callback){
-//             userCreate('Jimmy', 'Cheong', 'myaddressjimmy@gmail.com', '11 Queen Road', 'Brent Cross', 'Essex', 'RM6 4QJ', 33333311111, '12/11/1992', true, callback);
-//         }
-//     ], cb); // optional callback
-// }
+function createCustomers(cb){
+    async.parallel([
+        function(callback){
+            customerCreate('000', 'thisismypassword', 'Michael', 'Lewis', 'micheal.lewis@gmail.com,', 'true', 'true');
+        },
+        function(callback){
+            customerCreate('111', 'tefdwefdwefdrd', 'Phil', 'Brandon', 'phil.brandon@gmail.com,', 'true', 'false');
+        },
+        function(callback){
+            customerCreate('333', 'tefwedcasdqwdew', 'Steve', 'Brown', 'brown.steve@gmail.com,', 'true', 'true');
+        }
+    ], cb); // optional callback
+}
 
 // Enter mulitple products simultaneously?
 function createProducts(cb){
     async.parallel([
         function(callback){
-            productCreate('Toy1', 'This is the description of the toy1', 'red', 100, 100, 100, 200, 5, '/img/toy1.jpg', 20, callback);
+            productCreate('Toy1', 'This is the description of the toy1', 5, '/img/toy1.jpg', 20);
         },
         function(callback){
-            productCreate('Toy2', 'This is the description of the toy2', 'blue', 105, 105, 105, 400, 10, '/img/toy2.jpg', 22, callback);
+            productCreate('Toy2', 'This is the description of the toy2', 10, '/img/toy2.jpg', 22);
         },
         function(callback){
-            productCreate('Toy3', 'This is the description of the toy3', 'purple', 200, 200, 200, 200, 15, '/img/toy3.jpg', 30, callback);
+            productCreate('Toy3', 'This is the description of the toy3', 15, '/img/toy3.jpg', 30);
         }
     ], cb); // optional callback
 }
 
 // Run all functions simultaneously e.g createProducts, createUsers etc
-async.series ([
-    createProducts
+async.parallel ([
+    createProducts,
+    createCustomers
 ],
 function(err, results){ // optional callback for errors
     if(err) {
