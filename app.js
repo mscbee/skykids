@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var account = require('./model/accounts');
 var product = require('./model/product');
-var index = require('./routes/index');
 var users = require('./routes/users');
 var catalog = require('./routes/catalog');
 
@@ -33,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+app.use('/', catalog);
 app.use('/users', users);
 app.use('/catalog', catalog);
 
