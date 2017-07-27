@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var account = require('./model/accounts');
 var product = require('./model/product');
-
 var customer = require('./model/customer');
 
 var users = require('./routes/users');

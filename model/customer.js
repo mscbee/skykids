@@ -1,9 +1,15 @@
-var UserSchema = require('./base/user');
-var mongoose = require('mongoose');
+var User = require('./base/user'); // Include the base schema
+var mongoose = require('mongoose'), 
+    extend = require('mongoose-schema-extend');
 
-var CustomerSchema = new UserSchema({
+var UserSchema = User.getUserSchema(); // Store the user schema
+
+var CustomerSchema = UserSchema.extend({
   // Define customer specific properties
 });
 
+// New customers can be created in userController
+var Customer = mongoose.model('Customer', CustomerSchema);
+
 //Export model
-module.exports = mongoose.model('Customer', CustomerSchema);
+module.exports = Customer;
