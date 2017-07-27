@@ -7,10 +7,9 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var account = require('./model/accounts');
 var product = require('./model/product');
-<<<<<<< HEAD
+
 var customer = require('./model/customer');
-=======
->>>>>>> 3c945b178160a0732641dbadc472ad58627ed450
+
 var users = require('./routes/users');
 var catalog = require('./routes/catalog');
 
