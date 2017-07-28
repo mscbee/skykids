@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // open connection to database, should be in config file?
-var mongoDB = 'mongodb://localhost/27107/';
+var mongoDB = 'mongodb://localhost:27017/skykids_shop';
 mongoose.connect(mongoDB);
 
 // store connection object and add on event to check for errors
