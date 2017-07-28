@@ -7,6 +7,7 @@ $(document).ready(function(){
 
     resetPasswordDiv.hide();
 
+    //this just shows and hides the div
     $("#showResetPasswordDiv").click(function(){
       event.preventDefault();
       resetPasswordDiv.slideToggle();
@@ -14,15 +15,19 @@ $(document).ready(function(){
     });
 
     $("#loginButton").click(function(){
+        //Prevent form from refreshing due ot not using submit()
         event.preventDefault();
 
-        var username = $("#username").val().trim();
+        //store the values input into a variable, trim the white spaces from around
+        var userEmail = $("#userEmail").val().trim();
         var password = $("#password").val().trim();
 
         responseDiv.empty();
 
+        //check if the values are empty, if they are tell the user to put some values in
         if (username != "" && password != ""){
 
+<<<<<<< HEAD
           $.ajax({
             url: "http://localhost:3000/catalog/login",
             type: "POST",
@@ -41,6 +46,8 @@ $(document).ready(function(){
               console.log(error);
               responseDiv.html('<p>An error has occurred please try again</p>');
               removeDiv(responseDiv);
+=======
+>>>>>>> f5fb9865a8d6ca3ed1d0b36af36db23eba1eb001
             },
           });
 

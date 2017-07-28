@@ -2,7 +2,8 @@ var Product = require('../model/product');
 
 // Route to homepage
 exports.index = function(req, res){
-    res.send('NOT IMPLEMENTED: Site Home Page');
+    res.render('../views/catalog.ejs', { title: 'Catalog', message: 'Welcome to the SkyKids store',
+    names: ['products', 'basket', 'account'] });
 }
 
 // Display list of all products
@@ -44,4 +45,3 @@ exports.product_update_get = function(req, res){
 exports.product_update_post = function(req, res){
     res.send('NOT IMPLEMENTED: Product update POST');
 }
-
