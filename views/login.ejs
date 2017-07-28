@@ -30,7 +30,6 @@
 				</form>
 				<br/>
 				<div id="errorMessage">
-						<%= errorMessage %>
 				</div>
 				<div id="showResetPasswordDiv">Forgotten your password?</div>
 		</article>
@@ -39,7 +38,7 @@
 			<header>
 				<h2>Reset Password Form:</h2>
 			</header>
-			<form action="/login/reset/" method="post">
+			<form action="/reset/" method="post">
 					<label for="team_name">Enter to reset: </label>
 					<input id="resetEmail" type="email" name="resetEmail" placeholder="Your@Email.Address">
 					<input type="submit" value="Reset Password">
