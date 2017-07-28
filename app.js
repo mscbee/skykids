@@ -12,6 +12,10 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var catalog = require('./routes/catalog');
 
+//for Register form
+var register = require('./routes/registerRoute');
+var expressValidator = require('express-validator');
+
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
@@ -22,14 +26,23 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+//Register validation
+app.use(expressValidator()); // Add this after the bodyParser middlewares!
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
 
 //app.use('/', index);
 app.use('/', index);
 app.use('/users', users);
 app.use('/catalog', catalog);
 app.use('/account', accounts);
+
+//for Register form
+app.use('/register', register);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
