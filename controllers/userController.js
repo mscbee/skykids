@@ -123,8 +123,6 @@ exports.resetPassword = function(req, res){
     //Send the user an email to reset their password
     res.send('Password reset function ' + emailForPasswordReset);
   }
-}
-      res.send('No errors found ');
-  }
+  res.send('No errors found ');
 
 }

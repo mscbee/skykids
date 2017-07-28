@@ -10,7 +10,6 @@ var product = require('./model/product');
 var customer = require('./model/customer');
 var users = require('./routes/users');
 var catalog = require('./routes/catalog');
-var register = require('./routes/registerRoute');
 
 var app = express();
 
@@ -40,8 +39,6 @@ app.use(expressValidator());
 app.use('/', catalog);
 app.use('/users', users);
 app.use('/catalog', catalog);
-app.use('/login', login);
-app.use('/register', register);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
