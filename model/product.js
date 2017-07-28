@@ -7,11 +7,6 @@ var ProductSchema = Schema(
   {
     productName: {type: String, required: true, max: 100},
     productDescription: {type: String, required: true},
-    productColour: {type: String},
-    productDimensionW: {type: Number},
-    productDimensionY: {type: Number},
-    productDimensionH: {type: Number},
-    productWeight: {type: Number},
     productStockLevel: {type: Number, required: true},
     productImage: {type: String, required: true},
     productPrice: {type: Number, required: true}

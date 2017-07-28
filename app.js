@@ -4,11 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var db = require('./model/db');
+var mongoose = require('mongoose');
 var account = require('./model/accounts');
+<<<<<<< HEAD
 var accounts = require('./routes/accounts');
+=======
 var product = require('./model/product');
-var index = require('./routes/index');
+var customer = require('./model/customer');
+
+>>>>>>> 78d6d60a156db406d4b7fd68612ac4b692629531
 var users = require('./routes/users');
 var catalog = require('./routes/catalog');
 
@@ -21,6 +25,14 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// open connection to database, should be in config file?
+var mongoDB = 'mongodb://localhost/27107/';
+mongoose.connect(mongoDB);
+
+// store connection object and add on event to check for errors
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -32,11 +44,15 @@ app.use(expressValidator()); // Add this after the bodyParser middlewares!
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+<<<<<<< HEAD
 
 
 
 //app.use('/', index);
 app.use('/', index);
+=======
+app.use('/', catalog);
+>>>>>>> 78d6d60a156db406d4b7fd68612ac4b692629531
 app.use('/users', users);
 app.use('/catalog', catalog);
 app.use('/account', accounts);

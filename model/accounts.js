@@ -3,6 +3,7 @@ var accountSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,
+<<<<<<< HEAD
   password: String,
   password2: String,
   address1: String,
@@ -11,6 +12,11 @@ var accountSchema = new mongoose.Schema({
   county: String,
   postcode: String, //mixed doesn't seem to exist but 'string' might not let me input numbers
   country: String,
+=======
+  emailConfirmation: String,
+  address: String,
+  postcode: String,
+>>>>>>> 78d6d60a156db406d4b7fd68612ac4b692629531
   phoneNumber: Number,
   dob: { type: Date, default: Date.now },
 
