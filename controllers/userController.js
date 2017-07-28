@@ -1,7 +1,6 @@
 //var Users = require('../model/userModel');
 
 exports.index = function(req, res){
-<<<<<<< HEAD
   res.render('login', {errorMessage: ""});
 }
 
@@ -15,7 +14,6 @@ exports.check = function(req, res){
   req.sanitize('loginEmail').trim();
   req.sanitize('loginPassword').escape();
   req.sanitize('loginPassword').trim();
-=======
   res.render('register', {errorMessage: ""});
 }
 
@@ -61,15 +59,12 @@ exports.check = function(req, res){
   req.sanitize('custPassword').trim();
   req.sanitize('custConfirmPassword').escape();
   req.sanitize('custConfirmPassword').trim();
->>>>>>> f5fb9865a8d6ca3ed1d0b36af36db23eba1eb001
 
   //Run the validators and store in a variable
   var errors = req.validationErrors();
 
-<<<<<<< HEAD
   var userEmail = req.body.loginEmail;
   var userPassword = req.body.loginPassword;
-=======
   var userEmail = req.body.custFirstName;
   var userPassword = req.body.custLasttName;
   var userPassword = req.body.custEmail;
@@ -81,17 +76,13 @@ exports.check = function(req, res){
   var userPassword = req.body.custDob;
   var userPassword = req.body.custPassword;
   var userPassword = req.body.custConfirmPassword;
->>>>>>> f5fb9865a8d6ca3ed1d0b36af36db23eba1eb001
 
   //BCrypt the password before moving on.
 
   if(errors){
     //If there is errors render a error message in the view
-<<<<<<< HEAD
     res.render('login', {errorMessage: errors});
-=======
     res.render('register', {errorMessage: errors});
->>>>>>> f5fb9865a8d6ca3ed1d0b36af36db23eba1eb001
     //res.send('Errors for some reason ' + userEmail + " " + userPassword);
 
   } else {
@@ -110,7 +101,6 @@ exports.check = function(req, res){
           //}
 
       //});
-<<<<<<< HEAD
       res.send('No errors found ' + userEmail + " " + userPassword);
   }
 
@@ -134,9 +124,7 @@ exports.resetPassword = function(req, res){
     res.send('Password reset function ' + emailForPasswordReset);
   }
 }
-=======
       res.send('No errors found ');
   }
 
 }
->>>>>>> f5fb9865a8d6ca3ed1d0b36af36db23eba1eb001
