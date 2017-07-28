@@ -46,8 +46,6 @@ $(document).ready(function(){
               console.log(error);
               responseDiv.html('<p>An error has occurred please try again</p>');
               removeDiv(responseDiv);
-=======
->>>>>>> f5fb9865a8d6ca3ed1d0b36af36db23eba1eb001
             },
           });
 
