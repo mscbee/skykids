@@ -1,4 +1,4 @@
-//var Users = require('../model/userModel');
+var Customer = require('../model/customer');
 
 exports.index = function(req, res){
   res.render('catalog', {customer: req.customer});
@@ -12,13 +12,11 @@ exports.doRegister = function(req, res){
   //Check to see if the posted fields are empty.
   req.checkBody('custFirstName', 'Please supply a First Name!').notEmpty();
   req.checkBody('custLasttName', 'Please supply a Last Name!').notEmpty();
-  req.checkBody('custEmail', 'Please supply Email Address!').notEmpty();
+  req.checkBody('custEmail', 'Please supply a valid Email Address!').notEmpty().isEmail();
   req.checkBody('custAddress1', 'Please supply Address Line 1!').notEmpty();
   req.checkBody('custAddress2', 'Please supply Address Line 2!').notEmpty();
-  req.checkBody('custTown', 'Please supply Town!').notEmpty();
   req.checkBody('custPostcode', 'Please supply Postcode!').notEmpty();
   req.checkBody('custPhoneNumber', 'Please supply Phone Number!').notEmpty();
-  req.checkBody('custDob', 'Please supply Date Of Birth!').notEmpty();
   req.checkBody('custPassword', 'Please supply a password!').notEmpty();
   req.checkBody('custConfirmPassword', 'Please supply password confirmation!').notEmpty();
 
@@ -33,41 +31,50 @@ exports.doRegister = function(req, res){
   req.sanitize('custAddress1').trim();
   req.sanitize('custAddress2').escape();
   req.sanitize('custAddress2').trim();
-  req.sanitize('custTown').escape();
-  req.sanitize('custTown').trim();
   req.sanitize('custPostcode').escape();
   req.sanitize('custPostcode').trim();
   req.sanitize('custPhoneNumber').escape();
   req.sanitize('custPhoneNumber').trim();
-  req.sanitize('custDob').escape();
-  req.sanitize('custDob').trim();
   req.sanitize('custPassword').escape();
   req.sanitize('custPassword').trim();
   req.sanitize('custConfirmPassword').escape();
   req.sanitize('custConfirmPassword').trim();
 
   //Run the validators and store in a variable
-  var errors = req.validationErrors();
+  var errors = req.getValidationResult();
 
-  var loginEmail = req.body.loginEmail;
-  var loginPassword = req.body.loginPassword;
-  var custFirstName = req.body.custFirstName;
-  var custLasttName = req.body.custLasttName;
-  var custEmail = req.body.custEmail;
-  var custAddress1 = req.body.custAddress1;
-  var custAddress2 = req.body.custAddress2;
-  var custTown = req.body.custTown;
-  var custPostcode = req.body.custPostcode;
-  var custPhoneNumber = req.body.custPhoneNumber;
-  var custDob = req.body.custDob;
-  var custPassword = req.body.custPassword;
-  var custConfirmPassword = req.body.custConfirmPassword;
+  var firstName = req.body.custFirstName;
+  var lastName = req.body.custLasttName;
+  var email = req.body.custEmail;
+  var addressLine1 = req.body.custAddress1;
+  var addressLine2 = req.body.custAddress2;
+  var postcode = req.body.custPostcode;
+  var phoneNumber = req.body.custPhoneNumber;
+  var password = req.body.custPassword;
+  var confirmPassword = req.body.custConfirmPassword;
 
   if(errors){
-    res.send('Errors for some reason ' + custFirstName + " " + custEmail);
+    //res.send('Errors for some reason ' + custFirstName + " " + custEmail);
   } else {
-    res.send('No errors found ' + custFirstName + " " + custEmail);
-  }
+    //res.send('No errors found ' + custFirstName + " " + custEmail);
+    Customer.register(new Customer({ firstName: firstName, lastName: lastName,
+                                      email: email, addressLine1: addressLine1,
+                                    addressLine2: addressLine2, postcode: postcode,
+                                  phoneNumber: phoneNumber, password: password }),
+    password, function(err, customer) {
+          if(err) {
+            return res.render('register', { customer: customer });
+          }
+
+          passport.authenticate('local', {
+            successRedirect: '/catalog',
+            failureRedirect: '/login',
+            failureFlash: true
+      })(req, res, next);
+
+  });
+}
+
 }
 
 exports.login = function(req, res){
@@ -76,7 +83,7 @@ exports.login = function(req, res){
 
 exports.doLogin = function(req, res){
   //Check to see if the posted fields are empty.
-  req.checkBody('loginEmail', 'Please supply a valid email!').notEmpty();
+  req.checkBody('loginEmail', 'Please supply a valid email!').notEmpty().isEmail();
   req.checkBody('loginPassword', 'Please supply a password!').notEmpty();
 
   //Trim and escape values to make sure data isn't dirty
@@ -86,7 +93,7 @@ exports.doLogin = function(req, res){
   req.sanitize('loginPassword').trim();
 
   var userEmail = req.body.loginEmail;
-  var userPassword = req.body.userPassword;
+  var userPassword = req.body.loginPassword;
 
   var errors = req.validationErrors();
 
@@ -103,7 +110,7 @@ exports.logout = function(req, res){
 
 exports.resetPassword = function(req, res){
   //Validate/ Sanitize post data
-  req.checkBody('resetEmail', 'Please supply a valid email!').notEmpty();
+  req.checkBody('resetEmail', 'Please supply a valid email!').notEmpty().isEmail();
   req.sanitize('resetEmail').escape();
   req.sanitize('resetEmail').trim();
 
