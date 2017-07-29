@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-
 var Schema = mongoose.Schema; // Create Schema object
 
 // Base properties for all users

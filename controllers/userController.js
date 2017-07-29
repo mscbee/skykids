@@ -53,27 +53,24 @@ exports.doRegister = function(req, res){
   var password = req.body.custPassword;
   var confirmPassword = req.body.custConfirmPassword;
 
-  if(errors){
-    //res.send('Errors for some reason ' + custFirstName + " " + custEmail);
-  } else {
-    //res.send('No errors found ' + custFirstName + " " + custEmail);
-    Customer.register(new Customer({ firstName: firstName, lastName: lastName,
-                                      email: email, addressLine1: addressLine1,
-                                    addressLine2: addressLine2, postcode: postcode,
-                                  phoneNumber: phoneNumber, password: password }),
-    password, function(err, customer) {
-          if(err) {
-            return res.render('register', { customer: customer });
-          }
+  Customer.register(new Customer({ firstName: firstName, lastName: lastName,
+                                    email: email, addressLine1: addressLine1,
+                                  addressLine2: addressLine2, postcode: postcode,
+                                phoneNumber: phoneNumber, password: password }),
+  password, function(err, customer) {
+        if(err) {
+          //return res.render('register', { customer: customer });
+          res.send('NOOOOOO');
+        }
 
-          passport.authenticate('local', {
-            successRedirect: '/catalog',
-            failureRedirect: '/login',
-            failureFlash: true
-      })(req, res, next);
+        passport.authenticate('local', {
+          successRedirect: '/catalog',
+          failureRedirect: '/login',
+          failureFlash: true
+    })(req, res, next);
 
-  });
-}
+});
+
 
 }
 
