@@ -4,10 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var expressValidator = require('express-validator');
+var http = require('http');
+var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var mongoose = require('mongoose');
+var expressValidator = require('express-validator');
 var product = require('./model/product');
 var customer = require('./model/customer');
 var user = require('./routes/user');
@@ -20,11 +21,8 @@ app.set('view engine', 'ejs');
 
 // open connection to database, should be in config file?
 var mongoDB = 'mongodb://localhost:27017/skykids_shop';
-mongoose.connect(mongoDB);
+//mongoose.connect(mongoDB);
 
-// store connection object and add on event to check for errors
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -47,9 +45,19 @@ app.use('/', user);
 app.use('/catalog', catalog);
 
 var Customer = require('./model/customer');
-passport.use(new LocalStrategy(Customer.authenticate()));
+passport.use(Customer.createStrategy());
 passport.serializeUser(Customer.serializeUser());
 passport.deserializeUser(Customer.deserializeUser());
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect(mongoDB)
+  .then(() =>  console.log('connection successful'))
+  .catch((err) => console.error(err.message));
+
+// store connection object and add on event to check for errors
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

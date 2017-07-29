@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="/js/login.js"></script>
-	<title>Login Page</title>
+	<title>Register Page</title>
 </head>
 
 <body>
@@ -19,50 +19,25 @@
 			<header>
 				<h2>Registration Form:</h2>
 			</header>
-				<form action="/register" method="post" class="container">
+        <form action="/register" method="post" class="container">
         <div>
-          <label for="custFirstName"><b>First Name:</b> </label>
-          <input id="custFirstName" type="text" name="custFirstName" placeholder="First name">
+          <label for="username"><b>Username: </b></label>
+          <input id="username" type="text" name="username" placeholder="Username">
+        </div>
+        <br>
+        <div>
+          <label for="firstName"><b>First Name:</b> </label>
+          <input id="firstName" type="text" name="firstName" placeholder="First name">
         </div>
           <br>
         <div>
-          <label for="custLasttName"><b>Last Name: </b></label>
-          <input id="custLastName" type="text" name="custLastName" placeholder="Last name">
+          <label for="lastName"><b>Last Name: </b></label>
+          <input id="lastName" type="text" name="lastName" placeholder="Last name">
         </div>
           <br>
         <div>
-          <label for="custEmail"><b>Email Address: </b></label>
-          <input id="custEmail" type="email" name="custEmail" placeholder="Your@Email.Address">
-        </div>
-          <br>
-        <div>
-          <label for="custAddress1"><b>Address Line 1: </b></label>
-          <input id="custAddress1" type="text" name="custAddress1" placeholder="Address Line 1">
-        </div>
-          <br>
-        <div>
-          <label for="custAddress2"><b>Address Line 2: </b></label>
-          <input id="custAddress2" type="text" name="custAddress2" placeholder="Address Line 2">
-        </div>
-          <br>
-        <div>
-          <label for="custPostcode"><b>Postcode: </b></label>
-          <input id="custPostcode" type="text" name="custPostcode" placeholder="Postcode">
-        </div>
-          <br>
-        <div>
-          <label for="custPhoneNumber"><b>Phone Number: </b></label>
-          <input id="custPhoneNumber" type="number" name="custPhoneNumber" placeholder="PhoneNumber">
-        </div>
-          <br>
-        <div>
-          <label for="CustPassword"><b>Password: </b></label>
-          <input id="CustPassword" type="password" name="CustPassword" placeholder="**********">
-        </div>
-          <br>
-        <div>
-          <label for="CustConfirmPassword"><b>Confirm Password: </b></label>
-          <input id="CustConfirmPassword" type="password" name="CustConfirmPassword" placeholder="**********">
+          <label for="password"><b>Password: </b></label>
+          <input id="password" type="password" name="password" placeholder="**********">
         </div>
           <br>
           <input type="submit" value="Submit">

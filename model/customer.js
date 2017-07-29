@@ -7,10 +7,10 @@ var UserSchema = User.getUserSchema(); // Store the user schema
 
 var CustomerSchema = UserSchema.extend({
   // Define customer specific properties
-  phoneNumber: { type: String, required: true},
-  addressLine1: { type: String, required: true},
-  addressLine2: { type: String, required: true},
-  postcode: { type: String, required: true},
+  phoneNumber: { type: String },
+  addressLine1: { type: String },
+  addressLine2: { type: String },
+  postcode: { type: String },
   creditCard: { type: String}
 });
 
