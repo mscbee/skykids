@@ -17,12 +17,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // open connection to database, should be in config file?
-var mongoDB = 'mongodb://localhost/27107/';
+var mongoDB = 'mongodb://localhost/27107/skykids_shop';
 mongoose.connect(mongoDB);
 
 // store connection object and add on event to check for errors
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.on('connected', function(){ console.log("Mongo connected")});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

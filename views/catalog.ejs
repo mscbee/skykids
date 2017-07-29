@@ -6,16 +6,22 @@
     <article class="c-tile">
       <div class="c-tile__content">
         <div class="c-tile__body">
-          <p class="c-heading-delta  u-margin-bottom-none"><%= title %></p>
-          <p class="c-text-body"><%= message %></p>
+          <p class="c-heading-delta  u-margin-bottom-none">SkyKids</p>
+          <p class="c-text-body">Welcome to SkyKids</p>
         </div>
       </div>
     </article>
 
 
+    <p><%= product %></p>
+    <p><%= description %></p>
+    <p><%= price %></p>
+
+
+
     <ul>
-      <% for(var i = 0; i < names.length; i++) { %>
-        <li><%= names[i] %></li>
+      <% for(var i = 0; i < list.length; i++) { %>
+        <li><%= list[i] %></li>
         <% } %>
     </ul>
   </body>
