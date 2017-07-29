@@ -51,20 +51,6 @@ passport.use(new LocalStrategy(Customer.authenticate()));
 passport.serializeUser(Customer.serializeUser());
 passport.deserializeUser(Customer.deserializeUser());
 
-mongoose.Promise = global.Promise;
-
-mongoose.connect('mongodb://localhost/27107/skykids_store')
-  .then(() =>  console.log('connection successful'))
-  .catch((err) => console.error(err))
-
-// open connection to database, should be in config file?
-// var mongoDB = 'mongodb://localhost/27107/skykids_store';
-// mongoose.connect(mongoDB);
-
-// // store connection object and add on event to check for errors
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
