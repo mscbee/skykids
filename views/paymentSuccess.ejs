@@ -1,6 +1,27 @@
 <html>
 <%- include ./base.ejs %>
-<body>
-  <h4> Payment success </h4>
-</body>
+
+  <head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  $(window).load(function() {
+  	$(".loader").fadeOut("slow");
+  })
+  </script>
+  <style>
+    .loader {
+  	position: fixed;
+  	left: 0px;
+  	top: 0px;
+  	width: 100%;
+  	height: 100%;
+  	z-index: 9999;
+  	background: url('https://media.giphy.com/media/UFiLH3rAETDIQ/giphy.gif') 50% 50% no-repeat rgb(249,249,249);
+  }
+  </style>
+  </head>
+  <body>
+  <div class="loader"></div>
+  <h4>Payment success!</h4>
+  </body>
 </html>
