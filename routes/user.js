@@ -24,7 +24,7 @@ router.post('/register', user_controller.doRegister);
 router.get('/login', user_controller.login);
 
 //POST request to check the user credentials
-router.post('/login', passport.authenticate('local'), user_controller.doLogin);
+router.post('/login', passport.authenticate('local', { session: true }), user_controller.doLogin);
 
 //POST request to logout
 router.get('/logout', user_controller.logout);

@@ -1,9 +1,8 @@
 var Customer = require('../model/customer');
-
 var userController = {};
 
 userController.index = function(req, res){
-  res.render('catalog', { customer: req.customer });
+  res.render('catalog', { user: req.user });
 }
 
 userController.register = function(req, res){
@@ -44,18 +43,17 @@ userController.doRegister = function(req, res){
           // If registration unsuccessful, send message to user they were unsuccessful
           return res.render('register', { customer : customer });
       }
-
     res.redirect('catalog'); // If registration successful redirect to catalog page
 
     });
 }
 
 userController.login = function(req, res){
-    res.render('login');
+    res.render('login', { user: req.user });
 }
 
 userController.doLogin = function(req, res){
-  res.redirect('catalog');
+    res.redirect('catalog');
 }
 
 userController.logout = function(req, res){
@@ -63,6 +61,7 @@ userController.logout = function(req, res){
   res.redirect('login');
 }
 
+// Need to check passport functionality for resetting password
 userController.resetPassword = function(req, res){
   //Validate/ Sanitize post data
   req.checkBody('resetEmail', 'Please supply a valid email!').notEmpty().isEmail();
