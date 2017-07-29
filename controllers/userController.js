@@ -11,13 +11,14 @@ userController.register = function(req, res){
 }
 
 userController.doRegister = function(req, res){
-  //Check to see if the posted fields are empty.
+  // Sanitize think passport does it inherently? Perhaps sanitize with separate function...
+  // Check to see if the posted fields are empty.
   req.checkBody('username', 'Please supply a valid username').notEmpty()
   req.checkBody('firstName', 'Please supply a First Name!').notEmpty();
   req.checkBody('lastName', 'Please supply a Last Name!').notEmpty();
   req.checkBody('password', 'Please supply a password!').notEmpty();
 
-  //Trim and escape values to make sure data isn't dirty
+  // Trim and escape values to make sure data isn't dirty
   req.sanitize('username').escape();
   req.sanitize('username').trim();
   req.sanitize('firstName').escape();
@@ -27,14 +28,16 @@ userController.doRegister = function(req, res){
   req.sanitize('password').escape();
   req.sanitize('password').trim();
 
-  //Run the validators and store in a variable
+  // Run the validators and store in a variable
   var errors = req.getValidationResult();
 
+  // Variables to pass into customer object
   var username = req.body.username;
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
   var password = req.body.password;
 
+  // Register new customer
   Customer.register(new Customer({ username: username, firstName: firstName, lastName: lastName}),
   password, function(err, customer) {
         if(err) {
