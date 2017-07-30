@@ -1,12 +1,9 @@
 var Customer = require('../model/customer');
+var passport = require("passport");
 var userController = {};
 
-userController.index = function(req, res){
-  res.render('catalog', { user: req.user });
-}
-
 userController.register = function(req, res){
-  res.render('register', {});
+  res.render('register');
 }
 
 userController.doRegister = function(req, res){
@@ -37,31 +34,66 @@ userController.doRegister = function(req, res){
   var password = req.body.password;
 
   // Register new customer
+  console.log("registering: " + username);
   Customer.register(new Customer({ username: username, firstName: firstName, lastName: lastName}),
   password, function(err, customer) {
         if(err) {
+          console.log(err);
           // If registration unsuccessful, send message to user they were unsuccessful
-          return res.render('register', { customer : customer });
+          return res.send(err);
+      } else {
+        // This is where email, text would be sent to user for confirmation
+        // Would require updating fields to include email, phonenumber etc
+        // Currently just returning the registered user for TESTING!
+        res.send({
+                success: true,
+                user: customer // might push this up to user base to avoid confusion
+            });
       }
-    res.redirect('catalog'); // If registration successful redirect to catalog page
-
     });
 }
 
+// Currently checks if user is logged and displays the response
+// Would likely redirect back to homepage, this is just to TEST it works!
+// If they are not logged in then display the login page
 userController.login = function(req, res){
-    res.render('login', { user: req.user });
+    if (req.user) {
+        return res.send({ // Shows details of the logged in user
+            success: true,
+            user: req.user
+        });
+    } else {
+      res.render('login');
+    }
 }
 
+// Authenticate user by using the local strategy by default
 userController.doLogin = function(req, res){
-    res.redirect('catalog');
+  Customer.authenticate()(req.body.username, req.body.password, function(err, customer, options){
+    if(err) return next(err);
+    if(customer === false){ // If it is not a valid customer send error message
+      res.send({
+                message: options.message, // Defined in customer model
+                success: false
+            });
+    } else {
+      req.login(customer, function (err) { // If it is a valid customer login them in and show us customer details
+                res.send({
+                    success: true,
+                    user: customer
+                });
+            });
+    }
+  })
 }
 
+// When logout button is pressed log out the user
 userController.logout = function(req, res){
   req.logout();
   res.redirect('login');
 }
 
-// Need to check passport functionality for resetting password
+// Need to check passport functionality for resetting password!!!
 userController.resetPassword = function(req, res){
   //Validate/ Sanitize post data
   req.checkBody('resetEmail', 'Please supply a valid email!').notEmpty().isEmail();

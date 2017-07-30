@@ -8,6 +8,7 @@ var http = require('http');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
 var expressValidator = require('express-validator');
 var product = require('./model/product');
 var customer = require('./model/customer');
@@ -23,6 +24,18 @@ app.set('view engine', 'ejs');
 var mongoDB = 'mongodb://localhost:27017/skykids_shop';
 //mongoose.connect(mongoDB);
 
+// Serialize/Deserialize should be defined in User/Customer model ideally
+// Required for session DO NOT DELETE!
+var Customer = require('./model/customer');
+passport.use(Customer.createStrategy());
+passport.serializeUser(Customer.serializeUser(function(user, done) {
+  done(null, user.id);
+}));
+passport.deserializeUser(Customer.deserializeUser(function(id, done){
+  Customer.findOne(id, function(err, user){ // Return the one user into sessions
+    done(err, user);
+  })
+}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -30,7 +43,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(require('express-session')({
+app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true
@@ -43,11 +56,6 @@ app.use(expressValidator());
 app.use('/', catalog);
 app.use('/', user);
 app.use('/catalog', catalog);
-
-var Customer = require('./model/customer');
-passport.use(Customer.createStrategy());
-passport.serializeUser(Customer.serializeUser());
-passport.deserializeUser(Customer.deserializeUser());
 
 mongoose.Promise = global.Promise;
 
