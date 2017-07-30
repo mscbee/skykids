@@ -7,7 +7,10 @@ describe('cart', function() {
         var c = new cart();
 
         c.validate(function(err) {
-         expect('cartId').to.be.a('boolean'); //this should fail as we're expecting a number type
+         //cartId is required for each cart!
+         expect(c).to.have.property('cartId');
+
+
             done();
         });
     });
