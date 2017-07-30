@@ -2,14 +2,23 @@ var Product = require('../model/product');
 
 // Route to homepage
 exports.index = function(req, res){
-    res.render('../views/catalog.ejs', { title: 'Catalog', message: 'Welcome to the SkyKids store',
-    names: ['products', 'basket', 'account'] });
-}
+  Product.find({}, (function(err,doc){
+    var productList = [];
+    doc.forEach(function(one){
+      productList[doc] = doc;
+    })
+    res.render('../views/catalog.ejs',{
+        doc
+          });
+    console.log(doc);
+  }));
+};
 
 // Display list of all products
 exports.product_list = function(req, res){
-    res.send('NOT IMPLEMENTED: Product list');
+  res.send('NOT IMPLEMENTED: Product list');
 }
+
 
 // Display detail page for a specific product
 exports.product_detail = function(req, res){

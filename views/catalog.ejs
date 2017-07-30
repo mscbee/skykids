@@ -1,22 +1,66 @@
 <!DOCTYPE html>
 <html>
-  <%- include ./base.ejs %>
+<%- include ./base.ejs %>
   <body>
 
-    <article class="c-tile">
-      <div class="c-tile__content">
-        <div class="c-tile__body">
-          <p class="c-heading-delta  u-margin-bottom-none"><%= title %></p>
-          <p class="c-text-body"><%= message %></p>
+<main id="polaris"><!--whole page-->
+  <div class="polaris-main">
+<!--title section:-->
+    <div class="c-tile--title u-text-center u-margin-top-large u-margin-bottom-small"><h1 class="c-heading-alpha">Welcome to SkyKids Store</h1></div>
+<!-- container for tiles (div and section):-->
+    <div class="c-tile__container c-tile-fluid-containero-container ">
+      <section class="o-layout o-layout--center">
+
+<ul>
+<% for(var i = 0; i < doc.length; i++) { %>
+<!--tile-->
+        <div class="o-layout__item u-width-1/2 c-tile-fluid-scale-1/2 u-width-1/4@legacy-medium c-tile-fluid-scale-1/4@legacy-medium">
+          <section class="c-tile c-tile--fluid c-tile--size-extrasmall c-tile--squarec-shine-context c-tile--default tile-template--link c-tile-theme--text-with-full-background c-tile--white in-view">
+            <a class="c-tile__link" href="/help/home/sky-tv"><!--need to update href here to link to individual product-->
+              <div class="c-tile__content">
+<li>          <div class="c-tile__media"><img src="https://www.sky.com/assets2/help/sky-q-tv-tile.png?downsize=640px:*" alt="TV" class="c-tile__poster"></div></li>
+<li>          <div class="c-tile__body c-tile__caption">
+                    <h2 class="c-tile__title"><%= doc[i].productName %></h2>
+                    <h4><%= doc[i].productPrice %></h4>
+                  <spanclass="c-tile__legal"></span></div></div></li>
+              <div class="c-shine c-tile__shine c-tile__shine--top">
+              <div class="c-shine__rail"></div>
+              <div class="c-shine c-shine--rev c-tile__shine c-tile__shine--bottom">
+              <div class="c-shine__rail"></div>
+              </div></div>
+            </a>
+          </section>
         </div>
-      </div>
-    </article>
+<!--end tile-->
+<% } %>
+</ul>
 
 
-    <ul>
-      <% for(var i = 0; i < names.length; i++) { %>
-        <li><%= names[i] %></li>
-        <% } %>
-    </ul>
-  </body>
-</html>
+<!-- close container for tiles:-->
+</section></div>
+
+<!--section for bottom of page-->
+  <div class="o-container  u-margin-top-none u-margin-bottom">
+    <section id="1" class="c-accordion" role="tablist"><div class="c-accordion__section ">
+      <a href="#" id="tab-1-0" class="c-accordion__label" role="tab" tabindex="1" aria-controls="panel-1-0">Looking for our customer services?</a>
+      <article id="panel-1-0" class="c-accordion__content" role="tabpanel" aria-labelledby="tab-1-0">
+        <div class="c-accordion__inner">
+          <p>Our Sky experts are available seven days a week* and aim to provide the best overall customer service satisfaction.</p>
+          <p>If you’ve already tried to find a solution on our <a href="http://www.sky.com/help">
+            <strong>Help pages</strong></a> but still need to speak to us, please call <a href="tel:03300412639">03300 412 639</a>**.</p>
+            <p class="c-text-caption">*Opening hours vary by department.</p>
+            <p class="c-text-caption">**Calls to Sky contact centres are free for Sky Talk customers. If you’re not with Sky Talk, calls to 03 numbers cost the same as calls to 01 or 02 numbers and are included in your calls package.
+              If you don’t have a calls package, you’ll need to check your provider’s tariff guide as charges may apply.</p>
+  </div></article></div></section></div>
+<!--end section for bottom of page-->
+
+</div><!--polaris main close-->
+</div><!--might be an extra closing tag-->
+</main><!--whole page-->
+
+
+
+
+
+    </body>
+  </html>

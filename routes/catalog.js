@@ -34,6 +34,8 @@ router.get('/product/:id', product_controller.product_detail);
 /* GET request for list of all Book items. */
 router.get('/product', product_controller.product_list);
 
+
+
 /// LOGIN ROUTES ///
 
 //GET request to Render the login page
