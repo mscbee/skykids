@@ -14,6 +14,7 @@ var product = require('./model/product');
 var customer = require('./model/customer');
 var user = require('./routes/user');
 var catalog = require('./routes/catalog');
+var vr = require('./routes/vr');
 
 var app = express();
 
@@ -56,6 +57,7 @@ app.use(expressValidator());
 app.use('/', catalog);
 app.use('/', user);
 app.use('/catalog', catalog);
+app.use('/vr', vr);
 
 mongoose.Promise = global.Promise;
 
