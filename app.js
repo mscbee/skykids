@@ -20,6 +20,7 @@ var catalog = require('./routes/catalog');
 var cart = require('./routes/cart');
 
 
+
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
