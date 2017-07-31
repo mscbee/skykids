@@ -33,9 +33,9 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection 
 var customers = [];
 var products = [];
 
-function customerCreate(userId, password, firstName, lastName, email, loginStatus, accessLevel){
-    customerdetail = { userId:userId, password:password, firstName:firstName,
-                  lastName:lastName, email:email, loginStatus:loginStatus, accessLevel:accessLevel }
+function customerCreate(username, firstName, lastName, email, password, phoneNumber, addressLine1, addressLine2, postcode){
+    customerdetail = {username: username, firstName:firstName, lastName:lastName, email:email, password:password,
+    phoneNumber: phoneNumber, addressLine1: addressLine1, addressLine2: addressLine2, postcode: postcode };
 
     var customer = new Customer(customerdetail);
 
@@ -76,13 +76,13 @@ function productCreate(productName, productDescription, productStockLevel, produ
 function createCustomers(cb){
     async.parallel([
         function(callback){
-            customerCreate('000', 'thisismypassword', 'Michael', 'Lewis', 'micheal.lewis@gmail.com,', 'true', 'true');
+            customerCreate('M','Michael', 'Lewis', 'micheal.lewis@gmail.com,', 'sdqwdqde', '07772233434343', '6 Lew St', 'London', 'E11 2JF');
         },
         function(callback){
-            customerCreate('111', 'tefdwefdwefdrd', 'Phil', 'Brandon', 'phil.brandon@gmail.com,', 'true', 'false');
+            customerCreate('J','John', 'Wilkins', 'john.wilkins@gmail.com,', 'sdewrweqde', '0777243', '6 sdwsdw St', 'Birmoingham', 'BM1 2JT');
         },
         function(callback){
-            customerCreate('333', 'tefwedcasdqwdew', 'Steve', 'Brown', 'brown.steve@gmail.com,', 'true', 'true');
+            customerCreate('S','Steve', 'Lomas', 'steve.lewis@gmail.com,', 'sdqsfdswdqde', '07772233434343', '6 Kings', 'Brighton', 'T11 2FF');
         }
     ], cb); // optional callback
 }
