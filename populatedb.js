@@ -91,13 +91,13 @@ function createCustomers(cb){
 function createProducts(cb){
     async.parallel([
         function(callback){
-            productCreate('Toy1', 'This is the description of the toy1', 5, '/img/toy1.jpg', 20);
+            productCreate('Blossom', 'Blossom description', 5, '/images/blossom.jpg', 20);
         },
         function(callback){
-            productCreate('Toy2', 'This is the description of the toy2', 10, '/img/toy2.jpg', 22);
+            productCreate('Bubbles', 'Bubbles description', 10, '/images/bubbles.jpg', 22);
         },
         function(callback){
-            productCreate('Toy3', 'This is the description of the toy3', 15, '/img/toy3.jpg', 30);
+            productCreate('Buttercup', 'Buttercup description', 15, '/images/buttercup.jpg', 30);
         }
     ], cb); // optional callback
 }
