@@ -18,7 +18,7 @@ var cart = require('./model/cart');
 var user = require('./routes/user');
 var catalog = require('./routes/catalog');
 var cart = require('./routes/cart');
-
+  
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
@@ -28,20 +28,12 @@ app.set('view engine', 'ejs');
 var mongoDB = 'mongodb://localhost:27017/skykids_shop';
 //mongoose.connect(mongoDB);
 
-// Serialize/Deserialize should be defined in User/Customer model ideally
 // Required for session DO NOT DELETE!
 var Customer = require('./model/customer');
 passport.use(Customer.createStrategy());
-passport.serializeUser(Customer.serializeUser(function(user, done) {
-  done(null, user.id);
-}));
-passport.deserializeUser(Customer.deserializeUser(function(id, done){
-  Customer.findOne(id, function(err, user){ // Return the one user into sessions
-    done(err, user);
-  })
-}));
+passport.serializeUser(Customer.serializeUser());
+passport.deserializeUser(Customer.deserializeUser());
 
-// uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
