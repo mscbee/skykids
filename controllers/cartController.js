@@ -7,7 +7,6 @@ cartController.index = function(req, res){
        return res.render('cart', { products: null });
    } 
   var cart = new Cart(req.session.cart);
-  res.send(cart);
   res.render('cart', { products: cart.generateArray(), totalPrice: cart.totalPrice})
 }
 
@@ -47,6 +46,16 @@ cartController.removeFromCart = function(req, res){
     cart.products = productsObj;
     req.session.cart = cart;
     res.send(req.session.cart);
+}
+
+cartController.updateCart = function(req, res){
+    var productId = req.params.id;
+    var quantity = req.params.quantity;
+
+    var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+    cartProducts = cart.generateArray();
+
 }
 
 module.exports = cartController;

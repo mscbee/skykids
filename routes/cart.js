@@ -15,6 +15,9 @@ router.get('/cart/:id', cart_controller.addToCart);
 
 router.get('/cart-remove/:id', cart_controller.removeFromCart);
 
+router.get('/cart-update/:id/:quantity', cart_controller.updateCart);
+
+
 
 
 module.exports = router;
