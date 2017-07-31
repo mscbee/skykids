@@ -1,114 +1,102 @@
-//var Users = require('../model/userModel');
+var Customer = require('../model/customer');
+var passport = require("passport");
+var userController = {};
 
-exports.index = function(req, res){
-  res.render('login', {errorMessage: ""});
+userController.register = function(req, res){
+  res.render('register');
 }
 
-exports.check = function(req, res){
-  //Check to see if the posted fields are empty.
-  req.checkBody('loginEmail', 'Please supply a valid email!').notEmpty();
-  req.checkBody('loginPassword', 'Please supply a password!').notEmpty();
+userController.doRegister = function(req, res){
+  // Sanitize think passport does it inherently? Perhaps sanitize with separate function...
+  // Check to see if the posted fields are empty.
+  req.checkBody('username', 'Please supply a valid username').notEmpty()
+  req.checkBody('firstName', 'Please supply a First Name!').notEmpty();
+  req.checkBody('lastName', 'Please supply a Last Name!').notEmpty();
+  req.checkBody('password', 'Please supply a password!').notEmpty();
 
-  //Trim and escape values to make sure data isn't dirty
-  req.sanitize('loginEmail').escape();
-  req.sanitize('loginEmail').trim();
-  req.sanitize('loginPassword').escape();
-  req.sanitize('loginPassword').trim();
-  res.render('register', {errorMessage: ""});
+  // Trim and escape values to make sure data isn't dirty
+  req.sanitize('username').escape();
+  req.sanitize('username').trim();
+  req.sanitize('firstName').escape();
+  req.sanitize('firstName').trim();
+  req.sanitize('lasttName').escape();
+  req.sanitize('lastName').trim();
+  req.sanitize('password').escape();
+  req.sanitize('password').trim();
+
+  // Run the validators and store in a variable
+  var errors = req.getValidationResult();
+
+  // Variables to pass into customer object
+  var username = req.body.username;
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
+  var password = req.body.password;
+
+  // Register new customer
+  console.log("registering: " + username);
+  Customer.register(new Customer({ username: username, firstName: firstName, lastName: lastName}),
+  password, function(err, customer) {
+        if(err) {
+          console.log(err);
+          // If registration unsuccessful, send message to user they were unsuccessful
+          return res.send(err);
+      } else {
+        // This is where email, text would be sent to user for confirmation
+        // Would require updating fields to include email, phonenumber etc
+        // Currently just returning the registered user for TESTING!
+        res.send({
+                success: true,
+                user: customer // might push this up to user base to avoid confusion
+            });
+      }
+    });
 }
 
-//  create form on GET
-exports.create = function(req, res, next) {
-    res.render('register', { title: 'Create Genre' });
-};
-
-exports.check = function(req, res){
-  //Check to see if the posted fields are empty.
-  req.checkBody('custFirstName', 'Please supply a First Name!').notEmpty();
-  req.checkBody('custLasttName', 'Please supply a Last Name!').notEmpty();
-  req.checkBody('custEmail', 'Please supply Email Address!').notEmpty();
-  req.checkBody('custAddress1', 'Please supply Address Line 1!').notEmpty();
-  req.checkBody('custAddress2', 'Please supply Address Line 2!').notEmpty();
-  req.checkBody('custTown', 'Please supply Town!').notEmpty();
-  req.checkBody('custPostcode', 'Please supply Postcode!').notEmpty();
-  req.checkBody('custPhoneNumber', 'Please supply Phone Number!').notEmpty();
-  req.checkBody('custDob', 'Please supply Date Of Birth!').notEmpty();
-  req.checkBody('custPassword', 'Please supply a password!').notEmpty();
-  req.checkBody('custConfirmPassword', 'Please supply password confirmation!').notEmpty();
-
-  //Trim and escape values to make sure data isn't dirty
-  req.sanitize('custFirstName').escape();
-  req.sanitize('custFirstName').trim();
-  req.sanitize('custLasttName').escape();
-  req.sanitize('custLasttName').trim();
-  req.sanitize('custEmail').escape();
-  req.sanitize('custEmail').trim();
-  req.sanitize('custAddress1').escape();
-  req.sanitize('custAddress1').trim();
-  req.sanitize('custAddress2').escape();
-  req.sanitize('custAddress2').trim();
-  req.sanitize('custTown').escape();
-  req.sanitize('custTown').trim();
-  req.sanitize('custPostcode').escape();
-  req.sanitize('custPostcode').trim();
-  req.sanitize('custPhoneNumber').escape();
-  req.sanitize('custPhoneNumber').trim();
-  req.sanitize('custDob').escape();
-  req.sanitize('custDob').trim();
-  req.sanitize('custPassword').escape();
-  req.sanitize('custPassword').trim();
-  req.sanitize('custConfirmPassword').escape();
-  req.sanitize('custConfirmPassword').trim();
-
-  //Run the validators and store in a variable
-  var errors = req.validationErrors();
-
-  var userEmail = req.body.loginEmail;
-  var userPassword = req.body.loginPassword;
-  var userEmail = req.body.custFirstName;
-  var userPassword = req.body.custLasttName;
-  var userPassword = req.body.custEmail;
-  var userPassword = req.body.custAddress1;
-  var userPassword = req.body.custAddress2;
-  var userPassword = req.body.custTown;
-  var userPassword = req.body.custPostcode;
-  var userPassword = req.body.custPhoneNumber;
-  var userPassword = req.body.custDob;
-  var userPassword = req.body.custPassword;
-  var userPassword = req.body.custConfirmPassword;
-
-  //BCrypt the password before moving on.
-
-  if(errors){
-    //If there is errors render a error message in the view
-    res.render('login', {errorMessage: errors});
-    res.render('register', {errorMessage: errors});
-    //res.send('Errors for some reason ' + userEmail + " " + userPassword);
-
-  } else {
-    //Check the database for values and redirect accordingly
-    //Users.findOne({ 'email': userEmail, 'password': userPassword})
-     //.exec( function(err, emailFound) {
-
-          //if (err) { return next(err); }
-
-          //if (emailFound) {
-              //Email and password exist redirect to catalogue and initiate session/ cookie
-              //res.redirect(catalogue);
-          //}
-          //else {
-              //Error message of some kind
-          //}
-
-      //});
-      res.send('No errors found ' + userEmail + " " + userPassword);
-  }
-
+// Currently checks if user is logged and displays the response
+// Would likely redirect back to homepage, this is just to TEST it works!
+// If they are not logged in then display the login page
+userController.login = function(req, res){
+    if (req.user) {
+        return res.send({ // Shows details of the logged in user
+            success: true,
+            user: req.user
+        });
+    } else {
+      res.render('login');
+    }
 }
 
-exports.resetPassword = function(req, res){
+// Authenticate user by using the local strategy by default
+userController.doLogin = function(req, res){
+  Customer.authenticate()(req.body.username, req.body.password, function(err, customer, options){
+    if(err) return next(err);
+    if(customer === false){ // If it is not a valid customer send error message
+      res.send({
+                message: options.message, // Defined in customer model
+                success: false
+            });
+    } else {
+      req.login(customer, function (err) { // If it is a valid customer login them in and show us customer details
+                res.send({
+                    success: true,
+                    user: customer
+                });
+            });
+    }
+  })
+}
+
+// When logout button is pressed log out the user
+userController.logout = function(req, res){
+  req.logout();
+  res.redirect('login');
+}
+
+// Need to check passport functionality for resetting password!!!
+userController.resetPassword = function(req, res){
   //Validate/ Sanitize post data
-  req.checkBody('resetEmail', 'Please supply a valid email!').notEmpty();
+  req.checkBody('resetEmail', 'Please supply a valid email!').notEmpty().isEmail();
   req.sanitize('resetEmail').escape();
   req.sanitize('resetEmail').trim();
 
@@ -116,13 +104,12 @@ exports.resetPassword = function(req, res){
   var emailForPasswordReset = req.body.resetEmail;
 
   if (errors){
-    //Rerender the login with errors.
-    //res.render('login', {errorMessage: errors});
     res.send('Errors ' + emailForPasswordReset);
   } else {
-    //Send the user an email to reset their password
     res.send('Password reset function ' + emailForPasswordReset);
   }
-  res.send('No errors found ');
 
 }
+
+module.exports = userController;
+

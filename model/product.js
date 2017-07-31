@@ -13,12 +13,5 @@ var ProductSchema = Schema(
   }
 );
 
-// Return the url for single product
-ProductSchema
-.virtual('url')
-.get(function(){
-  return '/catalogue/product' + this._id;
-})
-
 //Export model
 module.exports = mongoose.model('Product', ProductSchema);
