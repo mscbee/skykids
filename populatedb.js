@@ -2,7 +2,7 @@
 
 console.log('This script populates some test products, users into the database. Specfied database as arguement - e.g populatedb mongodb://localhost:27017/skykids_shop');
 
-// Get arguments passed on command line 
+// Get arguments passed on command line
 var userArgs = process.argv.slice(2);
 
 if(!userArgs[0].startsWith('mongodb://')){
@@ -36,7 +36,7 @@ var products = [];
 function customerCreate(userId, password, firstName, lastName, email, loginStatus, accessLevel){
     customerdetail = { userId:userId, password:password, firstName:firstName,
                   lastName:lastName, email:email, loginStatus:loginStatus, accessLevel:accessLevel }
-        
+
     var customer = new Customer(customerdetail);
 
     customer.save(function (err) {
@@ -91,13 +91,13 @@ function createCustomers(cb){
 function createProducts(cb){
     async.parallel([
         function(callback){
-            productCreate('Toy1', 'This is the description of the toy1', 5, '/img/toy1.jpg', 20);
+            productCreate('Toy1', 'This is the description of the toy1', 5, '/images/blossom.jpg', 20);
         },
         function(callback){
-            productCreate('Toy2', 'This is the description of the toy2', 10, '/img/toy2.jpg', 22);
+            productCreate('Toy2', 'This is the description of the toy2', 10, '/images/dora.jpg', 22);
         },
         function(callback){
-            productCreate('Toy3', 'This is the description of the toy3', 15, '/img/toy3.jpg', 30);
+            productCreate('Toy3', 'This is the description of the toy3', 15, '/images/olaf.jpg', 30);
         }
     ], cb); // optional callback
 }
@@ -116,4 +116,3 @@ function(err, results){ // optional callback for errors
     //All done, disconnect from database
     mongoose.connection.close();
 });
-
