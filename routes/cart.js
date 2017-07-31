@@ -11,7 +11,9 @@ var cart_controller = require('../controllers/cartController');
 router.get('/cart', cart_controller.index);
 
 //Router to perform cart operation
-router.get('/cart/:id', cart_controller.addToCart);
+router.get('/add-to-cart/:id', cart_controller.addToCart);
+
+router.get('/cart-reduce/:id', cart_controller.reduceCart);
 
 router.get('/cart-remove/:id', cart_controller.removeFromCart);
 

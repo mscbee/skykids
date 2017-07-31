@@ -13,6 +13,23 @@ module.exports = function Cart(oldCart) {
         this.totalQty++;
         this.totalPrice += storedProduct.product.productPrice;
     };
+
+    this.reduceByOne = function(id) {
+        this.products[id].qty--;
+        this.products[id].price -= this.products[id].product.productPrice;
+        this.totalQty--;
+        this.totalPrice -= this.products[id].product.productPrice;
+
+        if (this.products[id].qty <= 0) {
+            delete this.products[id];
+        }
+    };
+
+    this.removeItem = function(id) {
+        this.totalQty -= this.products[id].qty;
+        this.totalPrice -= this.products[id].price;
+        delete this.products[id];
+    };
     
     this.generateArray = function() {
         var arr = [];

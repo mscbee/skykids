@@ -24,28 +24,23 @@ cartController.addToCart = function(req, res){
     });
 }
 
+// Reduces cart by one currently
+cartController.reduceCart = function(req, res){
+    var productId = req.params.id;
+    var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+    cart.reduceByOne(productId);
+    req.session.cart = cart;
+    res.redirect('/cart');
+}
+
 cartController.removeFromCart = function(req, res){
     var productId = req.params.id;
     var cart = new Cart(req.session.cart ? req.session.cart : {});
 
-    cartProducts = cart.generateArray();
-
-    for(var i = 0; i < cartProducts.length; i++){
-        if(cartProducts[i].product._id == productId){
-            cart.totalPrice -= cartProducts[i].price;
-            cart.totalQty -= cartProducts[i].qty;
-            cartProducts.splice(i, 1);
-        }
-    }
-
-    var productsObj = cartProducts.reduce(function(acc, cur, i){
-        acc[i] = cur;
-        return acc;
-    }, {}); 
-
-    cart.products = productsObj;
+    cart.removeItem(productId);
     req.session.cart = cart;
-    res.send(req.session.cart);
+    res.redirect('/cart');
 }
 
 cartController.updateCart = function(req, res){
