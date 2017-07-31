@@ -12,8 +12,13 @@ var session = require('express-session');
 var expressValidator = require('express-validator');
 var product = require('./model/product');
 var customer = require('./model/customer');
+var cart = require('./model/cart');
+
+// Routes
 var user = require('./routes/user');
 var catalog = require('./routes/catalog');
+var cart = require('./routes/cart');
+
 
 var app = express();
 
@@ -56,6 +61,8 @@ app.use(expressValidator());
 app.use('/', catalog);
 app.use('/', user);
 app.use('/catalog', catalog);
+app.use('/', cart);
+
 
 mongoose.Promise = global.Promise;
 
