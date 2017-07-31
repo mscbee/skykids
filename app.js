@@ -58,8 +58,6 @@ app.use('/', catalog);
 app.use('/', user);
 app.use('/catalog', catalog);
 
-<<<<<<< HEAD
-=======
 mongoose.Promise = global.Promise;
 
 mongoose.connect(mongoDB)
@@ -69,7 +67,6 @@ mongoose.connect(mongoDB)
 // store connection object and add on event to check for errors
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
->>>>>>> cf1dab41c6bc57e56daed0f27e771d37702e1c52
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
