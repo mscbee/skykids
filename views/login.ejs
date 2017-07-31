@@ -22,15 +22,14 @@
 			<header>
 				<h2>Login Form:</h2>
 			</header>
-				<form action="/login/" method="post">
-						<label for="loginEmail">Enter your Email Address: </label>
-						<input id="loginEmail" type="email" name="loginEmail" placeholder="Your@Email.Address">
-						<input id="loginPassword" type="password" name="loginPassword" placeholder="**********">
-						<input type="submit" value="Submit Email">
+				<form action="/login" method="post">
+						<label for="username">Enter your Username: </label>
+						<input id="username" type="username" name="username" placeholder="Username">
+						<input id="password" type="password" name="password" placeholder="password">
+						<input type="submit" value="login">
 				</form>
 				<br/>
 				<div id="errorMessage">
-						<%= errorMessage %>
 				</div>
 				<div id="showResetPasswordDiv">Forgotten your password?</div>
 		</article>
@@ -39,7 +38,7 @@
 			<header>
 				<h2>Reset Password Form:</h2>
 			</header>
-			<form action="/login/reset/" method="post">
+			<form action="/reset/" method="post">
 					<label for="team_name">Enter to reset: </label>
 					<input id="resetEmail" type="email" name="resetEmail" placeholder="Your@Email.Address">
 					<input type="submit" value="Reset Password">

@@ -2,8 +2,15 @@ var Product = require('../model/product');
 
 // Route to homepage
 exports.index = function(req, res){
+    // Use req.user to display certain session variable in the view.
+    // Session wont be available until after login so using something like
+    // req.user.username will return undefined 
+
+
+
     res.render('../views/catalog.ejs', { title: 'Catalog', message: 'Welcome to the SkyKids store',
-    names: ['products', 'basket', 'account'] });
+        names: ['products', 'basket', 'account'] });    
+    
 }
 
 // Display list of all products
