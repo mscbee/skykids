@@ -53,4 +53,32 @@ cartController.updateCart = function(req, res){
 
 }
 
+cartController.showCheckout = function(req, res){
+    if (!req.session.cart) {
+        return res.redirect('/cart');
+    }
+    var cart = new Cart(req.session.cart);
+    //var errMsg = req.flash('error')[0];
+    res.render('checkout', {total: cart.totalPrice}); // Render payment view?
+}
+
+cartController.doCheckout = function(req, res){
+    if (!req.session.cart) {
+        return res.redirect('/cart');
+    }
+    var cart = new Cart(req.session.cart);
+
+    // Add payment gateway
+    // Send order to database
+    // Set cart session to null
+}
+
 module.exports = cartController;
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    req.session.oldUrl = req.url;
+    res.redirect('login');
+}

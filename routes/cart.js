@@ -19,6 +19,12 @@ router.get('/cart-remove/:id', cart_controller.removeFromCart);
 
 router.get('/cart-update/:id/:quantity', cart_controller.updateCart);
 
+router.get('/checkout', cart_controller.showCheckout);
+
+router.post('/checkout', cart_controller.doCheckout);
+
+
+
 
 
 

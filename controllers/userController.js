@@ -34,7 +34,6 @@ userController.doRegister = function(req, res){
   var password = req.body.password;
 
   // Register new customer
-  console.log("registering: " + username);
   Customer.register(new Customer({ username: username, firstName: firstName, lastName: lastName}),
   password, function(err, customer) {
         if(err) {
