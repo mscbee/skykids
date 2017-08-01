@@ -3,13 +3,14 @@ var passport = require("passport");
 var userController = {};
 
 userController.register = function(req, res){
-  res.render('register');
+  res.render('register', { error: false });
 }
 
-userController.doRegister = function(req, res){
+userController.doRegister = function(req, res, next){
   // Sanitize think passport does it inherently? Perhaps sanitize with separate function...
   // Check to see if the posted fields are empty.
-  req.checkBody('username', 'Please supply a valid username').notEmpty()
+  req.checkBody('username', 'Please supply a valid username').notEmpty();
+  req.checkBody('email', 'Please supply a valid email').isEmail().notEmpty();
   req.checkBody('firstName', 'Please supply a First Name!').notEmpty();
   req.checkBody('lastName', 'Please supply a Last Name!').notEmpty();
   req.checkBody('password', 'Please supply a password!').notEmpty();
@@ -17,9 +18,11 @@ userController.doRegister = function(req, res){
   // Trim and escape values to make sure data isn't dirty
   req.sanitize('username').escape();
   req.sanitize('username').trim();
+  req.sanitize('email').escape();
+  req.sanitize('email').trim();
   req.sanitize('firstName').escape();
   req.sanitize('firstName').trim();
-  req.sanitize('lasttName').escape();
+  req.sanitize('lastName').escape();
   req.sanitize('lastName').trim();
   req.sanitize('password').escape();
   req.sanitize('password').trim();
@@ -29,16 +32,26 @@ userController.doRegister = function(req, res){
 
   // Variables to pass into customer object
   var username = req.body.username;
+  var email = req.body.email;
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
   var password = req.body.password;
 
-  // Register new customer
-  Customer.register(new Customer({ username: username, firstName: firstName, lastName: lastName}),
-  password, function(err, customer) {
-        if(err) {
+  errors.then(function(result){
+    if(!result.isEmpty()) {
+      var errors = result.array().map(function (elem) {
+      return elem.msg;
+    });
+    //console.log('There are following validation errors: ' + errors.join('&&'));
+    res.render('register', { error: errors });
+    } else {
+      // Register new customer
+  Customer.register(new Customer({ username: username, email: email, firstName: firstName, lastName: lastName}),
+  password, function(err, customer, options) {
+        // if (err) { return next(err) }
+        if(!customer) {
           // If registration unsuccessful, send message to user they were unsuccessful
-          return res.render('register', { message: err });
+          return res.render('register', { error: err });
       } else {
         // This is where email, text would be sent to user for confirmation
         // Would require updating fields to include email, phonenumber etc
@@ -47,9 +60,12 @@ userController.doRegister = function(req, res){
                 success: true,
                 user: customer // might push this up to user base to avoid confusion
             });
-      }
-    });
-}
+        }
+      });
+     }
+   });
+    
+  }
 
 // Currently checks if user is logged and displays the response
 // Would likely redirect back to homepage, this is just to TEST it works!
@@ -63,11 +79,11 @@ userController.login = function(req, res){
 }
 
 // Authenticate user by using the local strategy by default
-userController.doLogin = function(req, res){
+userController.doLogin = function(req, res, next){
   Customer.authenticate()(req.body.username, req.body.password, function(err, customer, options){
     if(err) return next(err);
-    if(customer === false){
-      return res.render('login',{ message: options.message }); // If it is not a valid customer send error message
+    if(!customer){
+      res.render('login',{ message: options.message }); // If it is not a valid customer send error message
     } else {
       req.login(customer, function (err) { // If it is a valid customer login them in and show us customer details
             res.redirect('/catalog');

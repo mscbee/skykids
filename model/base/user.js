@@ -4,10 +4,10 @@ var Schema = mongoose.Schema; // Create Schema object
 // Base properties for all users
 var UserSchema = new Schema({
     username: { type: String, required: true},
-    password: { type: String},
-    email: {type: String},
-    firstName: { type: String},
-    lastName: { type: String},
+    password: { type: String },
+    email: {type: String },
+    firstName: { type: String },
+    lastName: { type: String },
     loginStatus: { type: String },
     accessLevel: { type: String }
 }, { collection: 'users', discriminatorKey: '_type'}); // Allows us to differentiate between users
