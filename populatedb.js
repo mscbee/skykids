@@ -91,6 +91,7 @@ function createCustomers(cb){
 function createProducts(cb){
     async.parallel([
         function(callback){
+<<<<<<< HEAD
             productCreate('Blossom', 'This is brand new 13 inch Powerpuff Blossom doll ideal for great gifts', 5, '/images/blossom.jpg', 5);
         },
         function(callback){
@@ -126,6 +127,15 @@ function createProducts(cb){
         function(callback){
           productCreate('Walle', 'This is brand new 13 inch Powerpuff Blossom doll ideal for great gifts', 5, '/images/walle.jpg', 5);
             //productCreate('Walle', 'Walle quickly transforms from cube to fully poseable figure in seconds, ready to clean up the world. Simply press 'n' pop action releases his track wheels', 5, '/images/walle.jpg', 20);
+=======
+            productCreate('Toy1', 'This is the description of the toy1', 5, '/images/blossom.jpg', 20);
+        },
+        function(callback){
+            productCreate('Toy2', 'This is the description of the toy2', 10, '/images/dora.jpg', 22);
+        },
+        function(callback){
+            productCreate('Toy3', 'This is the description of the toy3', 15, '/images/olaf.jpg', 30);
+>>>>>>> c0d9b97df3fcac98071ae5c2ec90a3a64afd59e8
         }
     ], cb); // optional callback
 }

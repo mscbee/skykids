@@ -29,7 +29,7 @@ router.get('/product/:id/update', product_controller.product_update_get);
 router.post('/product/:id/update', product_controller.product_update_post);
 
 /* GET request for one Product. */
-router.get('/product/:id', product_controller.product_detail);
+router.get('/product/:id', product_controller.product_index);
 
 /* GET request for list of all Book items. */
 router.get('/product', product_controller.product_list);
