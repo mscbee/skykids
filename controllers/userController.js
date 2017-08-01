@@ -37,9 +37,8 @@ userController.doRegister = function(req, res){
   Customer.register(new Customer({ username: username, firstName: firstName, lastName: lastName}),
   password, function(err, customer) {
         if(err) {
-          console.log(err);
           // If registration unsuccessful, send message to user they were unsuccessful
-          return res.send(err);
+          return res.render('register', { message: err });
       } else {
         // This is where email, text would be sent to user for confirmation
         // Would require updating fields to include email, phonenumber etc
@@ -57,10 +56,7 @@ userController.doRegister = function(req, res){
 // If they are not logged in then display the login page
 userController.login = function(req, res){
     if (req.user) {
-        return res.send({ // Shows details of the logged in user
-            success: true,
-            user: req.user
-        });
+        res.redirect('catalog');
     } else {
       res.render('login');
     }
@@ -70,18 +66,12 @@ userController.login = function(req, res){
 userController.doLogin = function(req, res){
   Customer.authenticate()(req.body.username, req.body.password, function(err, customer, options){
     if(err) return next(err);
-    if(customer === false){ // If it is not a valid customer send error message
-      res.send({
-                message: options.message, // Defined in customer model
-                success: false
-            });
+    if(customer === false){
+      return res.render('login',{ message: options.message }); // If it is not a valid customer send error message
     } else {
       req.login(customer, function (err) { // If it is a valid customer login them in and show us customer details
-                res.send({
-                    success: true,
-                    user: customer
-                });
-            });
+            res.redirect('/catalog');
+          });
     }
   })
 }

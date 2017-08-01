@@ -14,7 +14,8 @@ var CustomerSchema = UserSchema.extend({
   creditCard: { type: String}
 });
 
-var options = ({missingPasswordError: "Forgot password"}); // Can handle errors here 
+var options = ({missingPasswordError: "Forgot password"}); // Can handle errors here
+
 
 //REQUIRED PLUGIN FOR PASSPORT creates statics methods .serializeUser.deserializeUser.authenticate etc DO NOT DELETE
 CustomerSchema.plugin(passportLocalMongoose, options);
