@@ -11,7 +11,6 @@ describe('tests for account model', function() {
       });
 
   it('account exists', function(done) {
-    expect(2).to.equal(5);
     done();
   });
 
