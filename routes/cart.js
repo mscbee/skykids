@@ -24,8 +24,4 @@ router.get('/checkout', cart_controller.showCheckout);
 router.post('/checkout', cart_controller.doCheckout);
 
 
-
-
-
-
 module.exports = router;
