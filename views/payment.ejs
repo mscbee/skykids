@@ -11,8 +11,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="../public/js/payment"
-  <script src="card.min.js"></script>
+  <script src="../public/js/payment"></script>
+
 
   <style>
   body { margin:50px auto; width:600px;}
@@ -138,6 +138,18 @@
                         <div class="col-md-8"></div>
                     </div>
                 </div>
+            </div>
+            <div class="control-group" id="parent">
+                <label label-default="" class="control-label">Mobile Number *</label>
+                <div class="controls">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="number" id="phoneNumber" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" autocomplete="off"   pattern="\d*" maxlength="11" pattern="\d{11}" required="">
+                        </div>
+                        <div class="col-md-8"></div>
+                    </div>
+                </div>
+                <div id="popup" style="display: none"><font  color="red">Please enter your phone number in order to receive an order confirmation text</font></div>
             </div>
             <div class="control-group">
               <label label-default="" class="control-label"></label>
