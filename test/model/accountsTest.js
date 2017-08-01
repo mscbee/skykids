@@ -6,7 +6,7 @@ describe('tests for account model', function() {
   var account;
 
   beforeEach(function(done) {
-        done()
+        done() 
       });
 
   it('account exists', function(done) {
