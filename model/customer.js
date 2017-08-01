@@ -16,6 +16,7 @@ var CustomerSchema = UserSchema.extend({
 
 var options = ({missingPasswordError: "Forgot password"}); // Can handle errors here
 
+
 //REQUIRED PLUGIN FOR PASSPORT creates statics methods .serializeUser.deserializeUser.authenticate etc DO NOT DELETE
 CustomerSchema.plugin(passportLocalMongoose, options);
 
