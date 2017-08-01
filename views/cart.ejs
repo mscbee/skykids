@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <%- include ./base.ejs %>
+  <body>
+    <ul>
+      <% for(var i = 0; i < products.length; i++) { %>
+        <li><%= products[i].product.productName %></li>
+        <input id="productQuanitity<%= products[i].qty%>" type="text" name="productQuanitity" value='<%= products[i].qty%>'>
+        <!-- <button id="updateBastketButton"><a href='/cart-update/<%= products[i].product._id %>/'+document.getElementById("productQuanitity<%= products[i]._id%>"').value'>Update Basket</a></button> -->
+        <button id="removeBastketButton"><a href='/cart-remove/<%= products[i].product._id %>'>Remove</a></button>
+        <% } %>
+    </ul>
+
+    <h1><%= totalPrice %></h1>
+    
+  </body>
+</html>
