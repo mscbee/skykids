@@ -1,20 +1,27 @@
   $(document).ready(function(){
-  $("#panelTest").click(function(){
-    $("#panelToOpen").addClass("is-open");
+  $(".itemPanel").click(function(){
+    $(".panelToOpen").removeClass("is-open");
+    var productName = $(this).attr('id');
+    var panelToOpenId = "#" +productName + "PanelToOpen";
+    $(panelToOpenId).addClass("is-open");
 });
 
     });
 
+//to-open needs removing from panelToOpen class
     $(document).ready(function(){
-    $("#panelClose").click(function(){
-      $("#panelToOpen").removeClass("is-open");
+    $(".panelToOpen").click(function(){
+      var Exit = $(this).attr('id');
+      var panelToCloseId = "#" +Exit;
+      $(panelToCloseId).removeClass("is-open");
   });
 
       });
 
-//TOGGLE - doesn't work, removed in JQuery version 1.9
-// $(document).ready(function(){
-// $("#panelTest").toggle(
-//     function(){$("#panelToOpen").addClass("is-open");},
-//     function(){$("#panelToOpen").removeClass("is-open");
-//   });
+//closing that only works for first panel
+    //   $(document).ready(function(){
+    //   $("#panelClose").click(function(){
+    //     $(".panelToOpen").removeClass("is-open");
+    // });
+    //
+    //     });

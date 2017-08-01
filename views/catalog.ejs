@@ -3,93 +3,83 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/catalog.js"></script>
 <%- include ./base.ejs %>
-<%- include ./header.ejs %>
   <body>
 
-<main id="polaris"><!--whole page-->
+<!--whole page-->
+<main id="polaris">
   <div class="polaris-main">
 <!--title section:-->
-    <div class="c-tile--title u-text-center u-margin-top-large u-margin-bottom-small"><h1 class="c-heading-alpha">Welcome to SkyKids Store</h1></div>
-<!-- container for tiles (div and section):-->
-    <div class="c-tile__container c-tile-fluid-containero-container ">
-      <section class="o-layout o-layout--center">
+    <div class="c-tile--title u-text-center u-margin-top-large u-margin-bottom-small">
+      <h1 class="c-heading-alpha">Welcome to SkyKids Store</h1></div>
 
-<ul>
+<!-- container for tiles (div and section):-->
+
+<div class="o-container">
+<div class="o-layout">
+
 <% for(var i = 0; i < doc.length; i++) { %>
 <!--tile-->
-        <div class="o-layout__item u-width-1/2 c-tile-fluid-scale-1/2 u-width-1/4@legacy-medium c-tile-fluid-scale-1/4@legacy-medium">
-          <section class="c-tile c-tile--fluid c-tile--size-extrasmall c-tile--squarec-shine-context c-tile--default tile-template--link c-tile-theme--text-with-full-background c-tile--white in-view">
-            <a class="c-tile__link">
-              <div class="c-tile__content">
-<li>          <div class="c-tile__media"><img src="<%= doc[i].productImage %>" alt="<%= doc[i].productName %>" class="c-tile__poster"></div></li>
-<li>          <div class="c-tile__body c-tile__caption">
-                    <h2 class="c-tile__title"><%= doc[i].productName %></h2>
-                    <h4>£<%= doc[i].productPrice %></h4>
-                  <spanclass="c-tile__legal"></span></div></div></li>
-              <div class="c-shine c-tile__shine c-tile__shine--top">
-              <div class="c-shine__rail"></div>
-              <div class="c-shine c-shine--rev c-tile__shine c-tile__shine--bottom">
-              <div class="c-shine__rail"></div>
-              </div></div>
-            </a>
-          </section>
-        </div>
-<!--end tile-->
-<% } %>
-</ul>
+<div class ="o-layout__item u-width-1@x-small u-width-1/2@small u-width-1/3@large u-width-1/4@x-large">
+<article class="itemPanel c-tile  c-tile--square" id="<%= doc[i].productName %>">
 
-<!--single product for testing panel-->
-<ul>
-<!--tile-->
-        <div class="o-layout__item u-width-1/2 c-tile-fluid-scale-1/2 u-width-1/4@legacy-medium c-tile-fluid-scale-1/4@legacy-medium">
-          <section class="c-tile c-tile--fluid c-tile--size-extrasmall c-tile--squarec-shine-context c-tile--default tile-template--link c-tile-theme--text-with-full-background c-tile--white in-view">
-            <a class="c-tile__link" id="panelTest">
-              <div class="c-tile__content">
-<li>          <div class="c-tile__media"><img src="<%= doc[1].productImage %>" alt="<%= doc[1].productName %>" class="c-tile__poster"></div></li>
-<li>          <div class="c-tile__body c-tile__caption">
-                    <h2 class="c-tile__title"><%= doc[1].productName %></h2>
-                    <h4>£<%= doc[1].productPrice %></h4>
-                  <spanclass="c-tile__legal"></span></div></div></li>
-              <div class="c-shine c-tile__shine c-tile__shine--top">
-              <div class="c-shine__rail"></div>
-              <div class="c-shine c-shine--rev c-tile__shine c-tile__shine--bottom">
-              <div class="c-shine__rail"></div>
-              </div></div>
-            </a>
-          </section>
-        </div>
-<!--end tile-->
-</ul>
-<!--end single product for testing panel-->
-
-
-
-<!--simple panel-->
-<article id="panelToOpen"class="c-panel ">
-    <div class="c-panel__content">
-        <a class="c-panel__toggle" href="#panelTest" id="panelClose">Close</a>
-        <div class="o-container">
-            <h2 class="c-heading-bravo"><%= doc[1].productName %></h2>
-            <p class="c-text-body"><%= doc[1].productDescription %></p>
-<!--button-->
+    <div class="c-tile__content c-tile__link">
+      <div class="c-tile__media">
+        <img class="c-tile__poster" src="<%= doc[i].productImage %>" alt="<%= doc[i].productName %>">
+      </div>
+      <div class="c-tile__body  c-tile__caption">
+        <h2 class=""><%= doc[i].productName %></h2>
+        <h4>&pound;<%= doc[i].productPrice %></h4>
+        <!--button-->
         <div class="panel-buttons o-layout o-layout--narrow">
         <div class="o-layout__item u-width-1/1 u-width-1/2@legacy-medium">
-        <a href="/help/hub/your-account/sky-id" class="c-btn c-btn--secondary panel-hub-btn u-margin-bottom-small">Add to basket</a>
+        <a href="/product/<%= doc[i]._id%>" class="c-btn c-btn--secondary panel-hub-btn u-margin-bottom-small">View product</a>
         </div></div>
-<!--end button-->
+        <!--button-->
+        <!--button-->
+        <div class="panel-buttons o-layout o-layout--narrow">
+        <div class="o-layout__item u-width-1/1 u-width-1/2@legacy-medium">
+        <a href="/add-to-cart/<%= doc[i]._id%>" class="c-btn c-btn--secondary panel-hub-btn u-margin-bottom-small">Add to basket</a>
+        </div></div>
+        <!--button-->
 
-        </div>
+      </div>
     </div>
 </article>
-<!--simple panel-->
+</div>
+<!--end tile-->
+<% } %>
+
+</div>
+</div>
 
 
-<!-- close container for tiles:-->
-</section></div>
+
+
+
 
 </div><!--polaris main close-->
-</div><!--might be an extra closing tag-->
 </main><!--whole page-->
+
+<!-- <% for(var k = 0; k < doc.length; k++) { %> -->
+<!--individual product panel-->
+        <!-- <article id="<%= doc[k].productName %>PanelToOpen" class="c-panel panelToOpen">
+            <div class="c-panel__content">
+                <a class="c-panel__toggle" href="#<%= doc[k].productName %>ItemTile" id="panelClose">Close</a>
+                <div class="o-container">
+                    <h2 class="c-heading-bravo"><%= doc[k].productName %></h2>
+                    <p class="c-text-body  u-text-constrain"><%= doc[k].productDescription %></p> -->
+        <!--button-->
+                <!-- <div class="panel-buttons o-layout o-layout--narrow">
+                <div class="o-layout__item u-width-1/1 u-width-1/2@legacy-medium">
+                <a href="/help/hub/your-account/sky-id" class="c-btn c-btn--secondary panel-hub-btn u-margin-bottom-small">Add to basket</a>
+                </div></div> -->
+        <!--end button-->
+                <!-- </div>
+            </div>
+        </article> -->
+<!--end individual product panel-->
+
+<!-- <% } %> -->
 
 </body>
 </html>

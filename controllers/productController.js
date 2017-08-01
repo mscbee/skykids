@@ -1,6 +1,6 @@
 var Product = require('../model/product');
 
-// Route to homepage
+// Route to homepage and display all products
 exports.index = function(req, res){
   Product.find({}, (function(err,doc){
     var productList = [];
@@ -21,8 +21,11 @@ exports.product_list = function(req, res){
 
 
 // Display detail page for a specific product
-exports.product_detail = function(req, res){
-    res.send('NOT IMPLEMENTED: Product detail ' + req.param.id);
+exports.product_index = function(req, res){
+  var productId = req.params.id;
+   Product.findOne({_id: productId}, function(err,doc) {
+     res.render('../views/product.ejs',{doc: doc});
+  });
 }
 
 // Display product create form in GET
