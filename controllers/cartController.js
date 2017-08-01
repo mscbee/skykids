@@ -5,9 +5,9 @@ var cartController = {};
 cartController.index = function(req, res){
     if (!req.session.cart) {
        return res.render('cart', { products: null });
-   } 
+   }
   var cart = new Cart(req.session.cart);
-  res.render('cart', { products: cart.generateArray(), totalPrice: cart.totalPrice})
+  res.render('cart', { title: "Cart", products: cart.generateArray(), totalPrice: cart.totalPrice, totalQuantity: cart.totalQty});
 }
 
 cartController.addToCart = function(req, res){
@@ -20,7 +20,9 @@ cartController.addToCart = function(req, res){
        }
         cart.add(product, product.id);
         req.session.cart = cart;
+        //RENDER CART BELOW NOT SEND THE CART INFO
         res.send(req.session.cart);
+        //res.redirect('/cart');
     });
 }
 
@@ -49,8 +51,9 @@ cartController.updateCart = function(req, res){
 
     var cart = new Cart(req.session.cart ? req.session.cart : {});
 
-    cartProducts = cart.generateArray();
-
+    cart.updateByQty(productId, quantity);
+    req.session.cart = cart;
+    res.redirect('/cart');
 }
 
 cartController.showCheckout = function(req, res){
@@ -59,7 +62,7 @@ cartController.showCheckout = function(req, res){
     }
     var cart = new Cart(req.session.cart);
     //var errMsg = req.flash('error')[0];
-    res.render('checkout', {total: cart.totalPrice}); // Render payment view?
+    res.render('payment', {total: cart.totalPrice}); // Render payment view?
 }
 
 cartController.doCheckout = function(req, res){

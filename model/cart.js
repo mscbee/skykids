@@ -25,12 +25,34 @@ module.exports = function Cart(oldCart) {
         }
     };
 
+    // Not working properly, probably defualt to reducing by one
+    this.updateByQty = function(id, qty){
+      var difference = Math.abs(this.products[id].qty - qty);
+      if(qty > this.products[id].qty){
+        this.products[id].qty = qty;
+        this.products[id].price += (this.products[id].product.productPrice * this.products[id].qty);
+        this.totalQty += difference;
+        this.totalPrice += this.products[id].product.productPrice * difference;
+      }
+
+      if(qty < this.products[id].qty){
+        this.products[id].qty = qty;
+        this.products[id].price -= (this.products[id].product.productPrice * this.products[id].qty);
+        this.totalQty -= difference;
+        this.totalPrice -= this.products[id].product.productPrice * difference;
+      }
+
+      if (this.products[id].qty <= 0) {
+          delete this.products[id];
+      }
+    }
+
     this.removeItem = function(id) {
         this.totalQty -= this.products[id].qty;
         this.totalPrice -= this.products[id].price;
         delete this.products[id];
     };
-    
+
     this.generateArray = function() {
         var arr = [];
         for (var id in this.products) {
@@ -39,4 +61,3 @@ module.exports = function Cart(oldCart) {
         return arr;
     };
 };
-
