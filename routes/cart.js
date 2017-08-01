@@ -21,7 +21,7 @@ router.get('/cart-update/:id/:quantity', cart_controller.updateCart);
 
 router.get('/checkout', cart_controller.showCheckout);
 
-router.post('/checkout', cart_controller.doCheckout);
+router.post('/process-payment', cart_controller.processPayment);
 
 
 

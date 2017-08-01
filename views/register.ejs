@@ -1,7 +1,9 @@
 <!DOCTYPE HTML>
 
-<html>
 
+<html>
+<%- include ./base.ejs %>
+<%- include ./header.ejs %>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -10,15 +12,12 @@
 </head>
 
 <body>
-
 	<header>
-		<nav>
-		</nav>
+		<h2>Registration Form </h2>
 	</header>
 
-			<header>
-				<h2>Registration Form:</h2>
-			</header>
+
+
         <form action="/register" method="post" class="container">
         <div>
           <label for="username"><b>Username: </b></label>
