@@ -12,6 +12,16 @@ var UserSchema = new Schema({
     accessLevel: { type: String }
 }, { collection: 'users', discriminatorKey: '_type'}); // Allows us to differentiate between users
 
+UserSchema.statics.serializeUser = function(user, done) {
+  done(null, user.id);
+}
+
+UserSchema.statics.deserializeUser = function(id, done){
+  UserSchema.findOne(id, function(err, user){ // Return the one user into session
+    done(err, user);
+  })
+}
+
 var User  = mongoose.model('User', UserSchema); // Create the model
 
 module.exports = {

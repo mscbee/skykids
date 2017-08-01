@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <%- include ./base.ejs %>
+  <!-- <%- include ./base.ejs %> -->
+  <%- include ./header.ejs %>
 
 <head>
-  <title>Bootstrap Example</title>
+
+  <title>Sky Kids</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
   <style>
   body { margin:50px auto; width:600px;}
 
@@ -57,6 +61,7 @@
 
 
 </head>
+<form action="/process-payment" method="post">
 <div class="container">
     <div class="col-sm-6">
         <fieldset>
@@ -134,10 +139,22 @@
                     </div>
                 </div>
             </div>
+            <div class="control-group" id="parent">
+                <label label-default="" class="control-label">Mobile Number *</label>
+                <div class="controls">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="number" name="phoneNumber" id="phoneNumber" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" autocomplete="off"   pattern="\d*" maxlength="13" pattern="\d{13}" required="">
+                        </div>
+                        <div class="col-md-8"></div>
+                    </div>
+                </div>
+                <div id="popup" style="display: none"><font  color="red">Please enter your phone number in order to receive an order confirmation text</font></div>
+            </div>
             <div class="control-group">
               <label label-default="" class="control-label"></label>
               <div class="controls">
-                  <button type="submit" class="btn btn-primary" onclick="makePayment()">Submit</button>
+                  <button id="payment" type="submit" class="btn btn-primary">Submit</button>
 
                 <button type="button" class="btn btn-default">Cancel</button>
               </div>
@@ -146,13 +163,8 @@
     </div>
 
 </div>
-<script>
-function makePayment() {
+</form>
 
-      window.location="paymentSuccess.html";
-
-}
-</script>
 
 </body>
 </html>
