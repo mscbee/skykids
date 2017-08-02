@@ -1,26 +1,43 @@
 <!DOCTYPE html>
 <html>
-
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align:left;
+}
+</style>
+</head>
+<body>
   <div class="container">
     <h2> Pick List</h2>
 
-    <table>
+    <table style="width:100%">
         <tr>
-          <th> ID</th>
-          <th> Product Name</th>
-          <th> Price</th>
-          <th> Category</th>
+          <th> Order ID</th>
+          <th> Date Crreated</th>
+          <th> Shipping address</th>
+          <th> Customer Id</th>
+          <th> Order Status</th>
           <th> Action</th>
-          <%  for(var i=0; i< data.length; i++) %>
-        <tr>
-          <td> #{item['_id']}</td>
-          <td>  #{item['product_name']}</td>
-          <td> #{item['price']}</td>
-          <td>  #{item['category']}</td>
+
+          <tr>
+            <% for(var i = 0; i < orders.length; i++) { %>
+              <tr >
+              <td ><%= orders[i].customerId %></td>
+              <td ><%= orders[i].dateCreated %></td>
+              <td ><%= orders[i].shippingAddress %></td>
+              <td ><%= orders[i].products %></td>
+              <td ><%= orders[i].quantity %></td>
+              <td ><%= orders[i].orderStatus %></td>
+              </tr>
+              <% } %>
+          </tr>
           <td>
             <a href = "">Edit</a>
-            <a href= "" onlick=alert("you are goign to delete this record.Continue?")>Delete</a>
           </td>
     </table>
+  <!-- }%> -->
   </div>
 </html>
