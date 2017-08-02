@@ -13,8 +13,7 @@ if(!userArgs[0].startsWith('mongodb://')){
 var async = require('async');
 var Product = require('./model/product');
 var Customer = require('./model/customer');
-//staff schema
-//var Employee = require('./model/employee');
+var WarehouseEmployee = require('./model/warehouseEmployee');
 
 // Create connection and listen for errors
 var mongoose = require('mongoose');
@@ -34,8 +33,7 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection 
 // Store hard coded values for database insertion
 var customers = [];
 var products = [];
-//user database
-//var employees = [];
+var warehouseEmployees = [];
 
 function customerCreate(username, firstName, lastName, email, password, phoneNumber, addressLine1, addressLine2, postcode){
     customerdetail = {username: username, firstName:firstName, lastName:lastName, email:email, password:password,
@@ -77,22 +75,22 @@ function productCreate(productName, productDescription, productStockLevel, produ
 
 }
 
-// // Takes in all model properties, create employees, save employees to database
-// function employeeCreate(username, firstName, lastName, email, password){
-//     employeedetail = {username: username, firstName:firstName, lastName:lastName, email:email, password:password};
-//
-//     var employee = new Employee(employeedetail);
-//
-//     user.save(function (err) {
-//         if(err) {
-//             console.log(err);
-//             return;
-//         }
-//         console.log('New employee: ' + employee);
-//         employees.push(employee);
-//     });
-//
-//  }
+// Takes in all model properties, create employees, save employees to database
+function warehouseEmployeeCreate(username, firstName, lastName, email, password){
+    warehouseEmployeeDetail = {username: username, firstName:firstName, lastName:lastName, email:email, password:password};
+
+    var warehouseEmployee = new WarehouseEmployee(warehouseEmployeeDetail);
+
+    warehouseEmployee.save(function (err) {
+        if(err) {
+            console.log(err);
+            return;
+        }
+        console.log('New Warehouse Employee: ' + warehouseEmployee);
+        warehouseEmployees.push(warehouseEmployee);
+    });
+
+ }
 
 
 
@@ -154,36 +152,36 @@ function createProducts(cb){
 }
 
 
-//Insert values for employees
-// function createEmployees(cb){
-//     async.parallel([
-//         function(callback){
-//             employeeCreate('S','Sandra', 'Anderson', 'sandra.anderson@gmail.com,', 'skiwtysfy');
-//         },
-//         function(callback){
-//             customerCreate('T','Thomas', 'Hudson', 'thomas.hudson@gmail.com,', 'sfbksufhsjd');
-//         },
-//         function(callback){
-//             customerCreate('V','Victoria', 'Deadman', 'victoria.deadman@gmail.com,', 'uthkwbfbj');
-//         }
-//         function(callback){
-//             employeeCreate('A','Sandra', 'Anderson', 'sandra.anderson@gmail.com,', 'skiwtysfy');
-//         },
-//         function(callback){
-//             customerCreate('U','Ugo', 'Chiwak', 'ugo.chiwak@gmail.com,', 'iyrecjkkbvqe');
-//         },
-//         function(callback){
-//             customerCreate('F','Florence', 'whitehead', 'florence.whitehead@gmail.com,', 'gibjvasdfdd');
-//         }
-//     ], cb); // optional callback
-// }
+
+function createWarehouseEmployees(cb){
+    async.parallel([
+        function(callback){
+            warehouseEmployeeCreate('S','Sandra', 'Anderson', 'sandra.anderson@gmail.com,', 'skiwtysfy');
+        },
+        function(callback){
+            warehouseEmployeeCreate('T','Thomas', 'Hudson', 'thomas.hudson@gmail.com,', 'sfbksufhsjd');
+        },
+        function(callback){
+            warehouseEmployeeCreate('V','Victoria', 'Deadman', 'victoria.deadman@gmail.com,', 'uthkwbfbj');
+        },
+        function(callback){
+            warehouseEmployeeCreate('A','Sandra', 'Anderson', 'sandra.anderson@gmail.com,', 'skiwtysfy');
+        },
+        function(callback){
+            warehouseEmployeeCreate('U','Ugo', 'Chiwak', 'ugo.chiwak@gmail.com,', 'iyrecjkkbvqe');
+        },
+        function(callback){
+            warehouseEmployeeCreate('F','Florence', 'whitehead', 'florence.whitehead@gmail.com,', 'gibjvasdfdd');
+        }
+    ], cb); // optional callback
+}
 
 
 // Run all functions simultaneously e.g createProducts, createUsers etc
 async.parallel ([
     createProducts,
     createCustomers,
-    //createEmployees
+    createWarehouseEmployees
 ],
 function(err, results){ // optional callback for errors
     if(err) {
