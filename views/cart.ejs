@@ -3,7 +3,7 @@
   <%- include ./base.ejs %>
   <title><%= title %></title>
   <body>
-    <!-- <ul>
+     <ul>
       <% for(var i = 0; i < products.length; i++) { %>
         <li><%= products[i].product.productName %> Unit Price: <%= products[i].product.productPrice %></li>
         <input id="productQuanitity<%= products[i].product._id %>" type="text" name="productQuanitity" value='<%= products[i].qty%>'>
@@ -13,7 +13,7 @@
     </ul>
 
     <h1>Total Price: <%= totalPrice %></h1>
-    <h1>Total Quantity: <%= totalQuantity %></h1> -->
+    <h1>Total Quantity: <%= totalQuantity %></h1> 
 
     <a href="/checkout">Checkout</a>
 

@@ -1,60 +1,72 @@
 <!DOCTYPE HTML>
-
-
 <html>
-<%- include ./base.ejs %>
-<%- include ./header.ejs %>
+
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="/js/login.js"></script>
-	<title>Register Page</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>Register</title>
+  <style>
+    .container {
+      font-size: 14px;
+      width: 400px;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
 </head>
 
 <body>
-	<header>
-		<h2>Registration Form </h2>
-	</header>
+  <div class="container">
+    <div class="row">
+      <div class="well col-xl-offset-3 col-xl-6">
+        <h2>Sign Up</h2>
 
+        <% if (error) { %>
+             <p class="error"><%= error %></p> 
+          <% } %>
 
+        <form action="/register" method="post" id="register-form" novalidate="novalidate">
 
-        <form action="/register" method="post" class="container">
-        <div>
-          <label for="username"><b>Username: </b></label>
-          <input id="username" type="text" name="username" placeholder="Username">
-        </div>
-        <br>
-        <div>
-          <label for="firstName"><b>First Name:</b> </label>
-          <input id="firstName" type="text" name="firstName" placeholder="First name">
-        </div>
-          <br>
-        <div>
-          <label for="lastName"><b>Last Name: </b></label>
-          <input id="lastName" type="text" name="lastName" placeholder="Last name">
-        </div>
-          <br>
-        <div>
-          <label for="password"><b>Password: </b></label>
-          <input id="password" type="password" name="password" placeholder="**********">
-        </div>
-          <br>
-          <input type="submit" value="Submit">
+          <div id="form-content">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input class="form-control" type="text" name="username">
+            </div>
+
+            <div id="form-content">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input class="form-control" type="text" name="email">
+            </div>
+
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input class="form-control" type="firstName" name="firstName">
+            </div>
+
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input class="form-control" type="text" name="lastName">
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input class="form-control" type="text" name="password">
+            </div>
+
+            <div class="form-group">
+              <input class="btn btn-primary" type="submit" name="submit">
+            </div>
+          </div>
+
         </form>
-        <div>
-
-        </div>
-				<br/>
-				<div id="errorMessage">
-          
-				</div>
-
-
-	<aside>
-	</aside>
-
-	<footer>
-	</footer>
+      </div>
+    </div>
+  </div>
 
 </body>
 
