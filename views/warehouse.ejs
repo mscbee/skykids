@@ -15,29 +15,43 @@ table, th, td {
 
     <table style="width:100%">
         <tr>
-          <th> Order ID</th>
-          <th> Date Crreated</th>
-          <th> Shipping address</th>
           <th> Customer Id</th>
+          <th> Date Created</th>
+          <th> Shipping address</th>
+          <th>Products</th>
+          <th> Quantity</th>
           <th> Order Status</th>
           <th> Action</th>
 
           <tr>
-            <% for(var i = 0; i < orders.length; i++) { %>
+            <% for(var i = 0; i < orders.length; i++) {
+              %>
               <tr >
               <td ><%= orders[i].customerId %></td>
               <td ><%= orders[i].dateCreated %></td>
               <td ><%= orders[i].shippingAddress %></td>
-              <td ><%= orders[i].products %></td>
+              <%
+                for(var j = 0; j < orders[i].products.length; j++){
+                  var tempob = orders[i].products[j];
+                  console.log(tempob[0]);
+                  %>
+              <td ><%= orders[i].products[j].product %></td>
+
+              <%
+                }
+              %>
               <td ><%= orders[i].quantity %></td>
               <td ><%= orders[i].orderStatus %></td>
-              </tr>
-              <% } %>
+            </tr>
+
+            <%
+              }
+              %>
           </tr>
           <td>
             <a href = "">Edit</a>
           </td>
     </table>
-  <!-- }%> -->
+
   </div>
 </html>
