@@ -21,11 +21,11 @@ userController.register = function(req, res){
 userController.doRegister = function(req, res, next){
   // Sanitize think passport does it inherently? Perhaps sanitize with separate function...
   // Check to see if the posted fields are empty.
-  req.checkBody('username', 'Please supply a valid username').notEmpty();
-  req.checkBody('email', 'Please supply a valid email').isEmail().notEmpty();
-  req.checkBody('firstName', 'Please supply a First Name!').notEmpty();
-  req.checkBody('lastName', 'Please supply a Last Name!').notEmpty();
-  req.checkBody('password', 'Please supply a password!').notEmpty();
+  req.checkBody('username', ' Please supply a valid username').notEmpty();
+  req.checkBody('email', ' Please supply a valid email').isEmail().notEmpty();
+  req.checkBody('firstName', ' Please supply a first name').notEmpty();
+  req.checkBody('lastName', ' Please supply a last name').notEmpty();
+  req.checkBody('password', ' Please supply a password').notEmpty();
 
   // Trim and escape values to make sure data isn't dirty
   req.sanitize('username').escape();
