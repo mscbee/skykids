@@ -3,6 +3,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/catalog.js"></script>
 <%- include ./base.ejs %>
+<%- include ./header2.ejs %>
   <body>
 
 <!--whole page-->
@@ -12,36 +13,36 @@
     <div class="c-tile--title u-text-center u-margin-top-large u-margin-bottom-small">
       <h1 class="c-heading-alpha">Welcome to SkyKids Store</h1></div>
 
-<!-- container for tiles (div and section):-->
-
+<!-- container for tiles:-->
 <div class="o-container">
 <div class="o-layout">
+
 
 <% for(var i = 0; i < doc.length; i++) { %>
 <!--tile-->
 <div class ="o-layout__item u-width-1@x-small u-width-1/2@small u-width-1/3@large u-width-1/4@x-large">
-<article class="itemPanel c-tile  c-tile--square" id="<%= doc[i].productName %>">
 
+<article class="itemPanel c-tile  c-tile--skykids" id="<%= doc[i].productName %>">
     <div class="c-tile__content c-tile__link">
       <div class="c-tile__media">
         <img class="c-tile__poster" src="<%= doc[i].productImage %>" alt="<%= doc[i].productName %>">
       </div>
-      <div class="c-tile__body  c-tile__caption">
-        <h2 class=""><%= doc[i].productName %></h2>
-        <h4>&pound;<%= doc[i].productPrice %></h4>
-        <!--button-->
+      <div class="c-tile__body  c-tile__caption u-text-center">
+        <h1 class="c-heading-bravo"><%= doc[i].productName %></h1>
+        <h2>&pound;<%= doc[i].productPrice %></h2>
+
+      <!--button-->
         <div class="panel-buttons o-layout o-layout--narrow">
         <div class="o-layout__item u-width-1/1 u-width-1/2@legacy-medium">
         <a href="/product/<%= doc[i]._id%>" class="c-btn c-btn--secondary panel-hub-btn u-margin-bottom-small">View product</a>
         </div></div>
-        <!--button-->
-        <!--button-->
+      <!--button-->
+      <!--button-->
         <div class="panel-buttons o-layout o-layout--narrow">
         <div class="o-layout__item u-width-1/1 u-width-1/2@legacy-medium">
         <a href="/add-to-cart/<%= doc[i]._id%>" class="c-btn c-btn--secondary panel-hub-btn u-margin-bottom-small">Add to basket</a>
         </div></div>
-        <!--button-->
-
+      <!--button-->
       </div>
     </div>
 </article>
@@ -49,37 +50,12 @@
 <!--end tile-->
 <% } %>
 
+<!-- end container for tiles:-->
 </div>
 </div>
-
-
-
-
-
 
 </div><!--polaris main close-->
 </main><!--whole page-->
-
-<!-- <% for(var k = 0; k < doc.length; k++) { %> -->
-<!--individual product panel-->
-        <!-- <article id="<%= doc[k].productName %>PanelToOpen" class="c-panel panelToOpen">
-            <div class="c-panel__content">
-                <a class="c-panel__toggle" href="#<%= doc[k].productName %>ItemTile" id="panelClose">Close</a>
-                <div class="o-container">
-                    <h2 class="c-heading-bravo"><%= doc[k].productName %></h2>
-                    <p class="c-text-body  u-text-constrain"><%= doc[k].productDescription %></p> -->
-        <!--button-->
-                <!-- <div class="panel-buttons o-layout o-layout--narrow">
-                <div class="o-layout__item u-width-1/1 u-width-1/2@legacy-medium">
-                <a href="/help/hub/your-account/sky-id" class="c-btn c-btn--secondary panel-hub-btn u-margin-bottom-small">Add to basket</a>
-                </div></div> -->
-        <!--end button-->
-                <!-- </div>
-            </div>
-        </article> -->
-<!--end individual product panel-->
-
-<!-- <% } %> -->
 
 </body>
 </html>
