@@ -58,15 +58,12 @@ cartController.updateCart = function(req, res){
 }
 
 cartController.showCheckout = function(req, res){
-    // if (!req.session.cart) {
-    //     return res.redirect('/cart');
-    // }
-    // var cart = new Cart(req.session.cart);
-    //var errMsg = req.flash('error')[0];
     res.render('payment'); // Render payment view?
 }
 
 cartController.processPayment = function(req, res){
+  var customerId = req.session.user._id;
+  var date =   
   req.checkBody('phoneNumber','Please Enter phone Number').notEmpty();
   var phoneNumber = req.body.phoneNumber;
   var accountSid = 'AC2fea5b00e75f029c0bb8657e9a5e0c32'; // Your Account SID from www.twilio.com/console
