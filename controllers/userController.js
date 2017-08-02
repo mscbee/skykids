@@ -111,7 +111,7 @@ userController.doLogin = function(req, res, next){
     }
     // Generate a response reflecting authentication status
     if (! user) {
-      return res.render('login', { message : 'Invalid Credentials' });
+      return res.render('login', { message : 'Invalid Credentials', cart: req.session.cart });
     }
     req.login(user, loginErr => {
       if (loginErr) {
