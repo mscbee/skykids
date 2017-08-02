@@ -4,54 +4,73 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<%- include ./base.ejs %>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="/js/login.js"></script>
-	<title>Login Page</title>
+	<title>Sky Kids App Catalog - Login</title>
 </head>
 
 <body>
-
-	<header>
-		<nav>
-		</nav>
-	</header>
-
+<div class="o-layout--center">
 	<section>
 
-		<article>
-			<header>
-				<h2>Login Form:</h2>
-			</header>
-				<form action="/login" method="post">
-						<label for="username">Enter your Username: </label>
-						<input id="username" type="username" name="username" placeholder="Username">
-						<input id="password" type="password" name="password" placeholder="password">
-						<input type="submit" value="login">
-				</form>
-				<br/>
-				<div id="errorMessage">
-				</div>
-				<div id="showResetPasswordDiv">Forgotten your password?</div>
-		</article>
+		<h2 class="c-heading-bravo">Sky Kids App Catalog Login:</h2>
 
-		<article id="resetPasswordWrapper">
+<div class="o-layout__item">
+		<article class="c-tile">
+  	<div class="c-tile__content">
+    <div class="c-tile__body">
+				<form action="/login" method="post">
+					<fieldset>
+						<ul class="c-form-list">
+							<li class="c-form-list__item">
+								<label class="c-form-label" for="username">Enter your Username: <abbr title="This field is required" class="c-form-required">*</abbr></label>
+								<input class="c-form-input" id="username" type="username" name="username" placeholder="Username">
+							</li>
+							<li class="c-form-list__item">
+								<label class="c-form-label" for="password">Enter your Password: <abbr title="This field is required" class="c-form-required">*</abbr></label>
+								<input class="c-form-input" id="password" type="password" name="password" placeholder="*******">
+							</li>
+							<li class="c-form-list__item">
+								<input class="c-btn  c-btn--primary" type="submit" value="login">
+							</li>
+						</ul>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+		</article>
+</div>
+
+	<div id="showResetPasswordDiv">Forgotten your password?</div><br/>
+
+		<div class="o-layout__item">
+			<article id="resetPasswordWrapper" class="c-tile">
+			<div class="c-tile__content">
+			<div class="c-tile__body">
 			<header>
 				<h2>Reset Password Form:</h2>
 			</header>
 			<form action="/reset/" method="post">
-					<label for="team_name">Enter to reset: </label>
-					<input id="resetEmail" type="email" name="resetEmail" placeholder="Your@Email.Address">
-					<input type="submit" value="Reset Password">
+				<fieldset>
+					<ul class="c-form-list">
+						<li class="c-form-list__item">
+					<label class="c-form-label" for="team_name">Enter Email Address for the Account: </label>
+					<input class="c-form-input" id="resetEmail" type="email" name="resetEmail" placeholder="Your@Email.Address">
+					</li>
+					<li class="c-form-list__item">
+					<input class="c-btn  c-btn--primary" type="submit" value="Reset Password">
+				</li>
+			</div>
+			</div>
+			</fieldset>
 			</form>
 		</article>
+	</div>
 
 	</section>
 
-	<aside>
-	</aside>
-
-	<footer>
-	</footer>
+</div>
 
 </body>
 

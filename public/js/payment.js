@@ -22,7 +22,7 @@ $(document).ready(function(){
 
 	  client.messages.create({
 	      body: 'Thanks for your order!',
-	      to: '+447944899080',  // Text to the number from form
+	      to: '+44' + telephone,  // Text to the number from form
 	      from: '+441158246021' // From a valid Twilio number
 	    })
 
