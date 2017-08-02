@@ -53,13 +53,11 @@ userController.doRegister = function(req, res, next){
           // If registration unsuccessful, send message to user they were unsuccessful
           return res.render('register', { error: err });
       } else {
-        // This is where email, text would be sent to user for confirmation
-        // Would require updating fields to include email, phonenumber etc
-        // Currently just returning the registered user for TESTING!
-        res.send({
-                success: true,
-                user: customer // might push this up to user base to avoid confusion
-            });
+        // res.send({
+        //         success: true,
+        //         user: customer // might push this up to user base to avoid confusion
+        //     });
+        res.redirect('/login');
         }
       });
      }

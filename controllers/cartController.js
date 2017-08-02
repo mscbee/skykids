@@ -48,7 +48,7 @@ cartController.removeFromCart = function(req, res){
 
 cartController.updateCart = function(req, res){
     var productId = req.params.id;
-    var quantity = req.params.quantity;
+    var quantity = parseInt(req.params.quantity);
 
     var cart = new Cart(req.session.cart ? req.session.cart : {});
 
