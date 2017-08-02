@@ -13,6 +13,8 @@ if(!userArgs[0].startsWith('mongodb://')){
 var async = require('async');
 var Product = require('./model/product');
 var Customer = require('./model/customer');
+//staff schema
+//var Employee = require('./model/employee');
 
 // Create connection and listen for errors
 var mongoose = require('mongoose');
@@ -32,6 +34,8 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection 
 // Store hard coded values for database insertion
 var customers = [];
 var products = [];
+//user database
+//var employees = [];
 
 function customerCreate(username, firstName, lastName, email, password, phoneNumber, addressLine1, addressLine2, postcode){
     customerdetail = {username: username, firstName:firstName, lastName:lastName, email:email, password:password,
@@ -73,6 +77,25 @@ function productCreate(productName, productDescription, productStockLevel, produ
 
 }
 
+// // Takes in all model properties, create employees, save employees to database
+// function employeeCreate(username, firstName, lastName, email, password){
+//     employeedetail = {username: username, firstName:firstName, lastName:lastName, email:email, password:password};
+//
+//     var employee = new Employee(employeedetail);
+//
+//     user.save(function (err) {
+//         if(err) {
+//             console.log(err);
+//             return;
+//         }
+//         console.log('New employee: ' + employee);
+//         employees.push(employee);
+//     });
+//
+//  }
+
+
+
 function createCustomers(cb){
     async.parallel([
         function(callback){
@@ -91,7 +114,6 @@ function createCustomers(cb){
 function createProducts(cb){
     async.parallel([
         function(callback){
-<<<<<<< HEAD
             productCreate('Blossom', 'This is brand new 13 inch Powerpuff Blossom doll ideal for great gifts', 5, '/images/blossom.jpg', 5);
         },
         function(callback){
@@ -127,23 +149,41 @@ function createProducts(cb){
         function(callback){
           productCreate('Walle', 'This is brand new 13 inch Powerpuff Blossom doll ideal for great gifts', 5, '/images/walle.jpg', 5);
             //productCreate('Walle', 'Walle quickly transforms from cube to fully poseable figure in seconds, ready to clean up the world. Simply press 'n' pop action releases his track wheels', 5, '/images/walle.jpg', 20);
-=======
-            productCreate('Toy1', 'This is the description of the toy1', 5, '/images/blossom.jpg', 20);
-        },
-        function(callback){
-            productCreate('Toy2', 'This is the description of the toy2', 10, '/images/dora.jpg', 22);
-        },
-        function(callback){
-            productCreate('Toy3', 'This is the description of the toy3', 15, '/images/olaf.jpg', 30);
->>>>>>> c0d9b97df3fcac98071ae5c2ec90a3a64afd59e8
         }
     ], cb); // optional callback
 }
 
+
+//Insert values for employees
+// function createEmployees(cb){
+//     async.parallel([
+//         function(callback){
+//             employeeCreate('S','Sandra', 'Anderson', 'sandra.anderson@gmail.com,', 'skiwtysfy');
+//         },
+//         function(callback){
+//             customerCreate('T','Thomas', 'Hudson', 'thomas.hudson@gmail.com,', 'sfbksufhsjd');
+//         },
+//         function(callback){
+//             customerCreate('V','Victoria', 'Deadman', 'victoria.deadman@gmail.com,', 'uthkwbfbj');
+//         }
+//         function(callback){
+//             employeeCreate('A','Sandra', 'Anderson', 'sandra.anderson@gmail.com,', 'skiwtysfy');
+//         },
+//         function(callback){
+//             customerCreate('U','Ugo', 'Chiwak', 'ugo.chiwak@gmail.com,', 'iyrecjkkbvqe');
+//         },
+//         function(callback){
+//             customerCreate('F','Florence', 'whitehead', 'florence.whitehead@gmail.com,', 'gibjvasdfdd');
+//         }
+//     ], cb); // optional callback
+// }
+
+
 // Run all functions simultaneously e.g createProducts, createUsers etc
 async.parallel ([
     createProducts,
-    createCustomers
+    createCustomers,
+    //createEmployees
 ],
 function(err, results){ // optional callback for errors
     if(err) {
