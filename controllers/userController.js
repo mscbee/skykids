@@ -14,8 +14,6 @@ var transporter = nodemailer.createTransport({
    }
 });
 
-
-
 userController.register = function(req, res){
   res.render('register', { error: false, cart: req.session.cart});
 }
@@ -101,22 +99,27 @@ userController.login = function(req, res){
     if (req.user) {
         res.redirect('catalog');
     } else {
-      res.render('login', {cart: req.session.cart});
+      res.render('login', { message: false, cart: req.session.cart});
     }
 }
 
 // Authenticate user by using the local strategy by default
 userController.doLogin = function(req, res, next){
-  Customer.authenticate()(req.body.username, req.body.password, function(err, customer, options){
-    if(err) return next(err);
-    if(!customer){
-      res.render('login',{ message: options.message, cart: req.session.cart }); // If it is not a valid customer send error message
-    } else {
-      req.login(customer, function (err) { // If it is a valid customer login them in and show us customer details
-            res.redirect('/catalog');
-          });
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      return next(err); // Will generate a 500 error
     }
-  })
+    // Generate a response reflecting authentication status
+    if (! user) {
+      return res.render('login', { message : 'Invalid Credentials' });
+    }
+    req.login(user, loginErr => {
+      if (loginErr) {
+        return next(loginErr);
+      }
+      res.redirect('/catalog');
+    });      
+  })(req, res, next);
 }
 
 // When logout button is pressed log out the user
