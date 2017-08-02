@@ -1,4 +1,11 @@
 
+$('#CreditCard').validateCreditCard(function(result)
+    {
+        alert('CC type: ' + result.card_type.name
+          + '\nLength validation: ' + result.length_valid
+          + '\nLuhn validation: ' + result.luhn_valid);
+    });
+
 var twilio = require('twilio');
 $(document).ready(function(){
 	var e = document.getElementById('parent');
