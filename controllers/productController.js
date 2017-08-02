@@ -55,3 +55,8 @@ exports.product_update_get = function(req, res){
 exports.product_update_post = function(req, res){
     res.send('NOT IMPLEMENTED: Product update POST');
 }
+
+// Display AR and VR information page
+exports.product_ar_vr_info = function(req, res){
+    res.render('../views/ar-vr-info.ejs', {cart: req.session.cart});
+}
