@@ -112,40 +112,40 @@ function createCustomers(cb){
 function createProducts(cb){
     async.parallel([
         function(callback){
-            productCreate('Blossom', 'This is brand new 13 inch Powerpuff Blossom doll ideal for great gifts', 5, '/images/blossom.jpg', 5);
+            productCreate('Blossom', 'Brand new 13 inch Powerpuff Girls Blossom doll. Makes an ideal gift!', 5, '/images/blossom.jpg', 5);
         },
         function(callback){
-            productCreate('Bubbles', 'This is brand new 13 inch Powerpuff Bubbles doll ideal for great gifts', 8, '/images/bubbles.jpg', 5);
+            productCreate('Bubbles', 'New 13 inch Powerpuff Girls Bubbles doll - great as a gift for a Powerpuff fan!', 8, '/images/bubbles.jpg', 5);
         },
         function(callback){
-            productCreate('Buttercup', 'This is brand new 13 inch Powerpuff Buttercup doll ideal for great gifts', 10, '/images/buttercup.jpg', 5);
+            productCreate('Buttercup', 'A brand new 13 inch Powerpuff Girl doll, Buttercup is a great gift!', 10, '/images/buttercup.jpg', 5);
         },
         function(callback){
-            productCreate('Buzz', 'Favorite character from Disney/Pixar Toy Story really talks back.Wears movie inspired outfit and has big personality details.', 20, '/images/buzz.jpg', 15);
+            productCreate('Buzz Lightyear', 'A favourite character from Disney/Pixar\'s Toy Story that really talks back! Wears movie-inspired outfit and has a big personality!', 20, '/images/buzz.jpg', 15);
         },
         function(callback){
-            productCreate('Dora', 'This is imported Ty wildly popular Beanie Babies Collection', 15, '/images/dora.jpg', 8);
+            productCreate('Dora', 'Dora The Explorer toy from the wildly popular Beanie Babies Collection.', 15, '/images/dora.jpg', 8);
         },
         function(callback){
-            productCreate('Kion', 'This features motorized roaring action with a mechanical leaping action Kion!Squeeze Kion belly to trigger raging roar', 9, '/images/kion.jpg', 11);
+            productCreate('Kion', 'Features motorised roaring action with a mechanical leaping action! Squeeze Kion\'s belly to trigger a raging roar.', 9, '/images/kion.jpg', 11);
         },
         function(callback){
-            productCreate('Olaf', 'Sing along with Olaf the snowman from the Disney movie Frozen!He will also say some of his funniest phrases from the movie!A great gift for Disney Frozen fans!', 5, '/images/olaf.jpg', 20);
+            productCreate('Olaf', 'Sing along with Olaf the snowman from Disney\'s Frozen! He will also say some of his funniest phrases from the movie! A great gift for Disney Frozen fans!', 5, '/images/olaf.jpg', 20);
         },
         function(callback){
-            productCreate('Pawpatrol', 'This doll is perfect for little hands to hold and pretend play or even trade them.', 12, '/images/pawpatrol.jpg', 10);
+            productCreate('Paw Patrol', 'No job is too big for a group of rescue puppies who work together to protect the community.', 12, '/images/pawpatrol.jpg', 10);
         },
         function(callback){
-            productCreate('Peppa', 'This is Polyester fibers Imported handmade doll with the finest quality standards in the industry', 22, '/images/peppa.jpg', 7);
+            productCreate('Peppa Pig', 'Every day is an adventure for Peppa Pig! With her family and friends there\'s always something to smile about, and a whole world of things to discover.', 22, '/images/peppa.jpg', 7);
         },
         function(callback){
-            productCreate('Po', 'Dance and sing along with this adorable Po soft toy! Gently squeeze Pos hand to change between talking & dancing modes. Po plays the Teletubbies theme tune', 30, '/images/po.jpg', 14);
+            productCreate('Po', 'Dance and sing along with this adorable Po soft toy! Gently squeeze Po\'s hand to change between talking and dancing modes. Po also plays the Teletubbies theme tune.', 30, '/images/po.jpg', 14);
         },
         function(callback){
-            productCreate('Sofia', 'Meet Sofia, the Princess of Enchancia!Sofia is the only Princess with a magical amulet that lets her speak to the animals in the kingdom', 13, '/images/sofia.jpg', 26);
+            productCreate('Sofia', 'Meet Sofia, the Princess of Enchancia! Sofia is the only Princess with a magical amulet that lets her speak to the animals in the kingdom.', 13, '/images/sofia.jpg', 26);
         },
         function(callback){
-          productCreate('Walle', 'This is brand new 13 inch Powerpuff Blossom doll ideal for great gifts', 5, '/images/walle.jpg', 5);
+          productCreate('WALL-E', 'WALL-E quickly transforms from cube to fully poseable figure in seconds, ready to clean up the world. A Simple press \'n\' pop action releases his track wheels.', 5, '/images/walle.jpg', 5);
             //productCreate('Walle', 'Walle quickly transforms from cube to fully poseable figure in seconds, ready to clean up the world. Simply press 'n' pop action releases his track wheels', 5, '/images/walle.jpg', 20);
         }
     ], cb); // optional callback

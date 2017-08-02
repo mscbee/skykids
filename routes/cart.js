@@ -23,6 +23,8 @@ router.get('/checkout', cart_controller.showCheckout);
 
 router.post('/process-payment', cart_controller.processPayment);
 
+router.get('/payment-success', cart_controller.paymentSuccess);
+
 
 
 

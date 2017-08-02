@@ -3,7 +3,7 @@ var passport = require("passport");
 var userController = {};
 
 userController.register = function(req, res){
-  res.render('register', { error: false });
+  res.render('register', { error: false, cart: req.session.cart});
 }
 
 userController.doRegister = function(req, res, next){
@@ -43,7 +43,7 @@ userController.doRegister = function(req, res, next){
       return elem.msg;
     });
     //console.log('There are following validation errors: ' + errors.join('&&'));
-    res.render('register', { error: errors });
+    res.render('register', { error: errors, cart: req.session.cart});
     } else {
       // Register new customer
   Customer.register(new Customer({ username: username, email: email, firstName: firstName, lastName: lastName}),
@@ -51,18 +51,18 @@ userController.doRegister = function(req, res, next){
         // if (err) { return next(err) }
         if(!customer) {
           // If registration unsuccessful, send message to user they were unsuccessful
-          return res.render('register', { error: err });
+          return res.render('register', { error: err, cart: req.session.cart});
       } else {
-        // res.send({
-        //         success: true,
-        //         user: customer // might push this up to user base to avoid confusion
-        //     });
-        res.redirect('/login');
+        res.send({
+                success: true,
+                user: customer // might push this up to user base to avoid confusion
+            });
+        //res.redirect('/login');
         }
       });
      }
    });
-    
+
   }
 
 // Currently checks if user is logged and displays the response
@@ -72,7 +72,7 @@ userController.login = function(req, res){
     if (req.user) {
         res.redirect('catalog');
     } else {
-      res.render('login');
+      res.render('login', {cart: req.session.cart});
     }
 }
 
@@ -81,7 +81,7 @@ userController.doLogin = function(req, res, next){
   Customer.authenticate()(req.body.username, req.body.password, function(err, customer, options){
     if(err) return next(err);
     if(!customer){
-      res.render('login',{ message: options.message }); // If it is not a valid customer send error message
+      res.render('login',{ message: options.message, cart: req.session.cart }); // If it is not a valid customer send error message
     } else {
       req.login(customer, function (err) { // If it is a valid customer login them in and show us customer details
             res.redirect('/catalog');
@@ -115,4 +115,3 @@ userController.resetPassword = function(req, res){
 }
 
 module.exports = userController;
-

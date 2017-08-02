@@ -1,14 +1,15 @@
 var Cart = require('../model/cart');
 var Product = require('../model/product');
+var Order = require('../model/order');
 var twilio = require('twilio');
 var cartController = {};
 
 cartController.index = function(req, res){
     if (!req.session.cart) {
-       return res.render('cart', { products: null });
+       return res.render('cart', { products: null, cart: req.session.cart });
    }
   var cart = new Cart(req.session.cart);
-  res.render('cart', { title: "Cart", products: cart.generateArray(), totalPrice: cart.totalPrice, totalQuantity: cart.totalQty});
+  res.render('cart', { title: "Cart", products: cart.generateArray(), totalPrice: cart.totalPrice, totalQuantity: cart.totalQty, cart: req.session.cart});
 }
 
 cartController.addToCart = function(req, res){
@@ -21,8 +22,6 @@ cartController.addToCart = function(req, res){
        }
         cart.add(product, product.id);
         req.session.cart = cart;
-
-        //Check for the last url location and return or redirect them to cart
         backURL=req.header('Referer') || '/cart';
         res.redirect(backURL);
     });
@@ -64,15 +63,25 @@ cartController.showCheckout = function(req, res){
     // }
     // var cart = new Cart(req.session.cart);
     //var errMsg = req.flash('error')[0];
-    res.render('payment'); // Render payment view?
+    res.render('payment' , {cart: req.session.cart}); // Render payment view?
 }
 
 cartController.processPayment = function(req, res){
-  req.checkBody('phoneNumber','Please Enter phone Number').notEmpty();
+  var customerId = req.user.id;
+  var products = req.session.cart.products;
+  var productsArray = [];
+  var totalQty = req.session.cart.totalQty;
+  var address = req.body.shippingAddress;
+  var orderStatus = 'orderPlaced';
+
+  req.checkBody('phoneNumber','Please enter phone number').notEmpty();
+  req.checkBody('shippingAddress', 'Please enter valid address').notEmpty();
+
   var phoneNumber = req.body.phoneNumber;
   var accountSid = 'AC2fea5b00e75f029c0bb8657e9a5e0c32'; // Your Account SID from www.twilio.com/console
   var authToken = '3985d5a411a88bf2a248f7e6eb313ee9';   // Your Auth Token from www.twilio.com/console
 
+  productsArray.push(products);
 
   var client = new twilio(accountSid, authToken);
 
@@ -82,10 +91,21 @@ cartController.processPayment = function(req, res){
       from: '+441158246021' // From a valid Twilio number
     })
 
-    res.redirect('/catalog');
+    var order = new Order({customerId: customerId, shippingAddress: address,
+                            products: productsArray, quantity: totalQty, orderStatus: orderStatus});
 
+    order.save(function(err){
+        if(err){
+            console.log(err);
+            return;
+        }
+    })
 
+    res.redirect('/payment-success'); // Send to payment process page?
+}
 
+cartController.paymentSuccess = function(req, res){
+    res.render('paymentSuccess', {cart: req.session.cart});
 }
 
 module.exports = cartController;
