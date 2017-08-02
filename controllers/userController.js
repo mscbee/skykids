@@ -53,11 +53,11 @@ userController.doRegister = function(req, res, next){
           // If registration unsuccessful, send message to user they were unsuccessful
           return res.render('register', { error: err });
       } else {
-        // res.send({
-        //         success: true,
-        //         user: customer // might push this up to user base to avoid confusion
-        //     });
-        res.redirect('/login');
+        res.send({
+                success: true,
+                user: customer // might push this up to user base to avoid confusion
+            });
+        //res.redirect('/login');
         }
       });
      }
