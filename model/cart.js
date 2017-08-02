@@ -48,8 +48,8 @@ module.exports = function Cart(oldCart) {
     }
 
     this.removeItem = function(id) {
-        this.totalQty -= this.products[id].qty;
-        this.totalPrice -= this.products[id].price;
+        this.totalQty -= parseInt(this.products[id].qty);
+        this.totalPrice -= parseInt((this.products[id].product.productPrice * this.products[id].qty));
         delete this.products[id];
     };
 
