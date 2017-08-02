@@ -1,13 +1,13 @@
 <html>
 <%- include ./base.ejs %>
 
-  <head>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript">
   $(window).load(function() {
   	$(".loader").fadeOut("slow");
   })
   </script>
+
   <style>
     .loader {
   	position: fixed;
@@ -27,11 +27,13 @@ body {
     display: table-cell;
     vertical-align: middle;
 }
-  </style>
-  </head>
+  </style> -->
+
   <body>
-  <div class="loader"></div>
-  <img src="images/thankyou.jpeg"></img>
-  <h2>Payment processed successfully!</h2>
+  <div class="loader" ></div>
+
+  <div class="o-layout--center u-margin-top-large">
+  <h class="c-heading-alpha">Thanks for your order!</h>
+</div>
   </body>
 </html>
