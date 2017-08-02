@@ -19,11 +19,11 @@
             <a href="/register" class="c-nav__link null">Register</a></li>
             <li class="o-list-inline__item"><a href="/login" class="c-nav__link is-active">Login</a></li>
             <li class="o-list-inline__item u-margin-right-none">
-              <a href="/basket" class="c-nav__link">Basket
+              <a href="/cart" class="c-nav__link">Basket
                 <% if(!cart || cart.length == 0) { %>
 
                 <% } else { %>
-                  <%= cart.totalQty %>
+                  (<%= cart.totalQty %>)
                 <% } %>
               </a></li></ul>
             </nav></div>

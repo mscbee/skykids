@@ -106,7 +106,7 @@ cartController.processPayment = function(req, res){
 }
 
 cartController.paymentSuccess = function(req, res){
-    res.render('paymentSuccess');
+    res.render('paymentSuccess', {cart: req.session.cart});
 }
 
 module.exports = cartController;
