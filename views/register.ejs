@@ -1,60 +1,76 @@
 <!DOCTYPE HTML>
-
 <html>
+  <%- include ./base.ejs %>
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="/js/login.js"></script>
-	<title>Register Page</title>
-</head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>Register</title>
+  <style>
+
+    .error {
+      color: red;
+    }
+  </style>
+
 
 <body>
+  <!-- container for tiles:-->
+  <div class="o-container u-margin-top">
+    <div class ="o-layout__item u-width-1@x-small u-width-1/1@small u-width-1/1@large u-width-1/1@x-large">
 
-	<header>
-		<nav>
-		</nav>
-	</header>
+  <h2 class="c-heading-charlie">Register</h2>
 
-			<header>
-				<h2>Registration Form:</h2>
-			</header>
-        <form action="/register" method="post" class="container">
-        <div>
-          <label for="username"><b>Username: </b></label>
-          <input id="username" type="text" name="username" placeholder="Username">
-        </div>
-        <br>
-        <div>
-          <label for="firstName"><b>First Name:</b> </label>
-          <input id="firstName" type="text" name="firstName" placeholder="First name">
-        </div>
-          <br>
-        <div>
-          <label for="lastName"><b>Last Name: </b></label>
-          <input id="lastName" type="text" name="lastName" placeholder="Last name">
-        </div>
-          <br>
-        <div>
-          <label for="password"><b>Password: </b></label>
-          <input id="password" type="password" name="password" placeholder="**********">
-        </div>
-          <br>
-          <input type="submit" value="Submit">
-        </form>
-        <div>
+  <% if (error) { %>
+       <p class="c-form-list__item is-error u-width-1@x-small u-width-1/1@small u-width-1/1@large u-width-1/1@x-large"><%= error %></p>
+    <% } %>
 
-        </div>
-				<br/>
-				<div id="errorMessage">
-				</div>
+<form action="/register" method="post" id="register-form" novalidate="novalidate">
+<ul class= "c-form-list">
+  <li class="c-form-list__item">
+    <label class="c-form-label" for="firstName">
+      Username <abbr title="This field is required" class="c-form-required">*</abbr>
+    </label>
+    <input type="text" class="c-form-input"  name="username" />
+  </li>
 
+  <li class="c-form-list__item">
+    <label class="c-form-label" for="email">
+      Email <abbr title="This field is required" class="c-form-required">*</abbr>
+    </label>
+    <input type="text" class="c-form-input" placeholder="e.g. Joe@bloggs.com" name="email" />
+  </li>
 
-	<aside>
-	</aside>
+  <li class="c-form-list__item">
+    <label class="c-form-label" for="firstName">
+      First name <abbr title="This field is required" class="c-form-required">*</abbr>
+    </label>
+    <input type="text" class="c-form-input" placeholder="e.g. Joe" name="firstName" />
+  </li>
 
-	<footer>
-	</footer>
+  <li class="c-form-list__item">
+    <label class="c-form-label" for="lastName">
+      Last name <abbr title="This field is required" class="c-form-required">*</abbr>
+    </label>
+    <input type="text" class="c-form-input" placeholder="e.g. Bloggs" name="lastName" />
+  </li>
+
+  <li class="c-form-list__item">
+    <label class="c-form-label" for="password">
+      Password <abbr title="This field is required" class="c-form-required">*</abbr>
+    </label>
+    <input type="password" class="c-form-input" name="password" />
+  </li>
+
+  <li>
+    <input class="c-btn c-btn--primary" type="submit" name="submit">
+  </li>
+
+</ul>
+</form>
+
+</div>
+</div>
+
 
 </body>
 

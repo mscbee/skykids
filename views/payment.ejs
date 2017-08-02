@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <%- include ./base.ejs %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/js/jquery-creditcardvalidator-1.1.0/jquery.creditCardValidator.js"></script>
+
+
+<body>
+
+<style>
+    #parent #popup {
+      display: none;
+    }
+    #parent:hover #popup {
+      display: block;
+    }
+</style>
+
+  <div class="o-container u-margin-top u-margin-bottom-large">
+    <div class ="o-layout__item u-width-1@x-small u-width-1/1@small u-width-1/1@large u-width-1/1@x-large">
+
+      <h2 class="c-heading-charlie">Enter your payment details</h2>
+
+<form action="/process-payment" method="post">
+
+  <ul class= "c-form-list">
+    <li class="c-form-list__item">
+      <label class="c-form-label" for="customerName">
+        Cardholder's Name <abbr title="This field is required" class="c-form-required">*</abbr>
+      </label>
+      <input type="text" class="c-form-input"  name="customerName" pattern="[a-zA-Z]+"/>
+    </li>
+
+    <li class="c-form-list__item">
+      <label class="c-form-label" for="customerName">
+        Card Number <abbr title="This field is required" class="c-form-required">*</abbr>
+      </label>
+      <input type="number" class="c-form-input" id="cardnumber" autocomplete="off"/>
+    </li>
+      <li class="c-form-list__item" id="cardImage">
+          </li>
+
+          <li class="c-form-list__item">
+            <label class="c-form-label" for="expiryDate">
+              Expiry Date <abbr title="This field is required" class="c-form-required">*</abbr>
+            </label>
+             <div class="c-form-select">
+               <select id="f-heroes" class="c-form-select__dropdown">
+                 <option value="01">January</option>
+                 <option value="02">February</option>
+                 <option value="03">March</option>
+                 <option value="04">April</option>
+                 <option value="05">May</option>
+                 <option value="06">June</option>
+                 <option value="07">July</option>
+                 <option value="08">August</option>
+                 <option value="09">September</option>
+                 <option value="10">October</option>
+                 <option value="11">November</option>
+                 <option value="12">December</option>
+               </select>
+             </div>
+
+             <div class="c-form-select">
+               <select id="f-heroes" class="c-form-select__dropdown">
+                 <option>2017</option>
+                 <option>2018</option>
+                 <option>2019</option>
+                 <option>2020</option>
+                 <option>2021</option>
+                 <option>2022</option>
+                 <option>2023</option>
+                 <option>2024</option>
+                 <option>2025</option>
+                 <option>2026</option>
+               </select>
+             </div>
+          </li>
+
+
+          <li class="c-form-list__item">
+            <label class="c-form-label" for="cvv">
+              CVV <abbr title="This field is required" class="c-form-required">*</abbr>
+            </label>
+            <input type="number" class="c-form-input"  name="cvv" autocomplete="off"/>
+          </li>
+
+          <li class="c-form-list__item">
+            <label class="c-form-label" for="address">
+              Address <abbr title="This field is required" class="c-form-required">*</abbr>
+            </label>
+            <input type="text" class="c-form-input"  name="address"/>
+          </li>
+
+          <li class="c-form-list__item" id="parent">
+            <label class="c-form-label" for="phoneNumber">
+              Mobile Number <abbr title="This field is required" class="c-form-required">*</abbr>
+            </label>
+            <input type="number" class="c-form-input"  name="phoneNumber" autocomplete="off"/>
+          </li>
+
+
+            <li>
+              <input id="payment" class="c-btn  c-btn--primary" type="submit" value="Pay">
+              <input class="c-btn  c-btn--primary" value="Cancel" onclick="window.location='/'">
+            </li>
+
+
+
+</form>
+
+</div>
+</div>
+
+<script>
+$(document).ready(function(){
+	console.log('ready');
+
+  $('#cardnumber').validateCreditCard(function(result)
+    {
+      console.log('CC type: ' + result.card_type.name
+        + '\nLength validation: ' + result.length_valid
+        + '\nLuhn validation: ' + result.luhn_valid);
+
+        switch (result.card_type.name) {
+          case 'visa':
+              $('#cardImage').html('<img src="/images/credit-card/visa.png" alt="Visa"></img>');
+              console.log('card type is visa');
+              break;
+          case 'mastercard':
+              $('#cardImage').html('<img src="/images/credit-card/mastercard.png" alt="Mastercard"></img>');
+              console.log('card type is mastercard');
+              break;
+          case 'maestro':
+              $('#cardImage').html('<img src="/images/credit-card/maestro.png" alt"Maestro"></img>');
+              console.log('card type is maestro');
+              break;
+          case 'mastercard':
+              $('#cardImage').html('<img src="/images/credit-card/delta.png" alt= "Delta"></img>');
+              console.log('card type is delta');
+              break;
+          case 'american express':
+              $('#cardImage').html('<img src="/images/credit-card/americanexpress.png" alt="American Express"></img>');
+              console.log('card type is american express');
+              break;
+        }
+    });
+});
+</script>
+
+
+
+
+</body>
+</html>

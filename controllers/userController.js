@@ -1,25 +1,40 @@
 var Customer = require('../model/customer');
 var passport = require("passport");
+var nodemailer = require('nodemailer');
 var userController = {};
 
+var transporter = nodemailer.createTransport({
+   service: "gmail",
+   host: "smtp.gmail.com",
+   port: 465,
+   secure: true, // secure:true for port 465, secure:false for port 587
+   auth: {
+       user: 'info.skykidsapp@gmail.com',
+       pass: 'SkyKidsTest'
+   }
+});
+
 userController.register = function(req, res){
-  res.render('register');
+  res.render('register', { error: false, cart: req.session.cart});
 }
 
-userController.doRegister = function(req, res){
+userController.doRegister = function(req, res, next){
   // Sanitize think passport does it inherently? Perhaps sanitize with separate function...
   // Check to see if the posted fields are empty.
-  req.checkBody('username', 'Please supply a valid username').notEmpty()
-  req.checkBody('firstName', 'Please supply a First Name!').notEmpty();
-  req.checkBody('lastName', 'Please supply a Last Name!').notEmpty();
-  req.checkBody('password', 'Please supply a password!').notEmpty();
+  req.checkBody('username', ' Please supply a valid username').notEmpty();
+  req.checkBody('email', ' Please supply a valid email').isEmail().notEmpty();
+  req.checkBody('firstName', ' Please supply a first name').notEmpty();
+  req.checkBody('lastName', ' Please supply a last name').notEmpty();
+  req.checkBody('password', ' Please supply a password').notEmpty();
 
   // Trim and escape values to make sure data isn't dirty
   req.sanitize('username').escape();
   req.sanitize('username').trim();
+  req.sanitize('email').escape();
+  req.sanitize('email').trim();
   req.sanitize('firstName').escape();
   req.sanitize('firstName').trim();
-  req.sanitize('lasttName').escape();
+  req.sanitize('lastName').escape();
   req.sanitize('lastName').trim();
   req.sanitize('password').escape();
   req.sanitize('password').trim();
@@ -29,62 +44,82 @@ userController.doRegister = function(req, res){
 
   // Variables to pass into customer object
   var username = req.body.username;
+  var email = req.body.email;
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
   var password = req.body.password;
 
-  // Register new customer
-  console.log("registering: " + username);
-  Customer.register(new Customer({ username: username, firstName: firstName, lastName: lastName}),
-  password, function(err, customer) {
-        if(err) {
-          console.log(err);
-          // If registration unsuccessful, send message to user they were unsuccessful
-          return res.send(err);
-      } else {
-        // This is where email, text would be sent to user for confirmation
-        // Would require updating fields to include email, phonenumber etc
-        // Currently just returning the registered user for TESTING!
-        res.send({
-                success: true,
-                user: customer // might push this up to user base to avoid confusion
-            });
-      }
+  errors.then(function(result){
+    if(!result.isEmpty()) {
+      var errors = result.array().map(function (elem) {
+      return elem.msg;
     });
-}
+    //console.log('There are following validation errors: ' + errors.join('&&'));
+    res.render('register', { error: errors, cart: req.session.cart});
+    } else {
+      // Register new customer
+  Customer.register(new Customer({ username: username, email: email, firstName: firstName, lastName: lastName}),
+  password, function(err, customer, options) {
+        // if (err) { return next(err) }
+        if(!customer) {
+          // If registration unsuccessful, send message to user they were unsuccessful
+          return res.render('register', { error: err, cart: req.session.cart});
+      } else {
+        var mailOptions = {
+             from: 'info.skykidsapp@gmail.com', // sender address
+             to: req.body.email, // list of receivers
+             subject: 'Welcome to the SkyKidsAppCatalog!', // Subject line
+             text: 'Hey ' + req.body.firstName + ', Welcome to the Sky Kids App Catalog!', // plain text body
+             html: '<b>Hey ' + req.body.firstName + ', Welcome to the Sky Kids App Catalog</b>' // html body
+         };
+         // send mail with defined transport object
+         transporter.sendMail(mailOptions, (error, info) => {
+             if (error) {
+                 return console.log(error);
+             } else {
+               console.log('Message sent');
+               res.send({
+                 success: true,
+                 user: customer // might push this up to user base to avoid confusion
+               });
+             }
+         });
+        res.redirect('/login');
+        }
+      });
+     }
+   });
+
+  }
 
 // Currently checks if user is logged and displays the response
 // Would likely redirect back to homepage, this is just to TEST it works!
 // If they are not logged in then display the login page
 userController.login = function(req, res){
     if (req.user) {
-        return res.send({ // Shows details of the logged in user
-            success: true,
-            user: req.user
-        });
+        res.redirect('catalog');
     } else {
-      res.render('login');
+      res.render('login', { message: false, cart: req.session.cart});
     }
 }
 
 // Authenticate user by using the local strategy by default
-userController.doLogin = function(req, res){
-  Customer.authenticate()(req.body.username, req.body.password, function(err, customer, options){
-    if(err) return next(err);
-    if(customer === false){ // If it is not a valid customer send error message
-      res.send({
-                message: options.message, // Defined in customer model
-                success: false
-            });
-    } else {
-      req.login(customer, function (err) { // If it is a valid customer login them in and show us customer details
-                res.send({
-                    success: true,
-                    user: customer
-                });
-            });
+userController.doLogin = function(req, res, next){
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      return next(err); // Will generate a 500 error
     }
-  })
+    // Generate a response reflecting authentication status
+    if (! user) {
+      return res.render('login', { message : 'Invalid Credentials', cart: req.session.cart });
+    }
+    req.login(user, loginErr => {
+      if (loginErr) {
+        return next(loginErr);
+      }
+      res.redirect('/catalog');
+    });      
+  })(req, res, next);
 }
 
 // When logout button is pressed log out the user
@@ -112,4 +147,3 @@ userController.resetPassword = function(req, res){
 }
 
 module.exports = userController;
-
