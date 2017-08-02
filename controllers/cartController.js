@@ -21,9 +21,10 @@ cartController.addToCart = function(req, res){
        }
         cart.add(product, product.id);
         req.session.cart = cart;
-        //RENDER CART BELOW NOT SEND THE CART INFO
-        res.send(req.session.cart);
-        //res.redirect('/cart');
+
+        //Check for the last url location and return or redirect them to cart
+        backURL=req.header('Referer') || '/cart';
+        res.redirect(backURL);
     });
 }
 
