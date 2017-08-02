@@ -1,6 +1,20 @@
 var Customer = require('../model/customer');
 var passport = require("passport");
+var nodemailer = require('nodemailer');
 var userController = {};
+
+var transporter = nodemailer.createTransport({
+   service: "gmail",
+   host: "smtp.gmail.com",
+   port: 465,
+   secure: true, // secure:true for port 465, secure:false for port 587
+   auth: {
+       user: 'info.skykidsapp@gmail.com',
+       pass: 'SkyKidsTest'
+   }
+});
+
+
 
 userController.register = function(req, res){
   res.render('register', { error: false, cart: req.session.cart});
@@ -53,11 +67,26 @@ userController.doRegister = function(req, res, next){
           // If registration unsuccessful, send message to user they were unsuccessful
           return res.render('register', { error: err, cart: req.session.cart});
       } else {
-        res.send({
-                success: true,
-                user: customer // might push this up to user base to avoid confusion
-            });
-        //res.redirect('/login');
+        var mailOptions = {
+             from: 'info.skykidsapp@gmail.com', // sender address
+             to: req.body.email, // list of receivers
+             subject: 'Welcome to the SkyKidsAppCatalog!', // Subject line
+             text: 'Hey ' + req.body.firstName + ', Welcome to the Sky Kids App Catalog!', // plain text body
+             html: '<b>Hey ' + req.body.firstName + ', Welcome to the Sky Kids App Catalog</b>' // html body
+         };
+         // send mail with defined transport object
+         transporter.sendMail(mailOptions, (error, info) => {
+             if (error) {
+                 return console.log(error);
+             } else {
+               console.log('Message sent');
+               res.send({
+                 success: true,
+                 user: customer // might push this up to user base to avoid confusion
+               });
+             }
+         });
+        res.redirect('/login');
         }
       });
      }
