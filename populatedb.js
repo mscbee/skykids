@@ -13,6 +13,7 @@ if(!userArgs[0].startsWith('mongodb://')){
 var async = require('async');
 var Product = require('./model/product');
 var Customer = require('./model/customer');
+var WarehouseEmployee = require('./model/warehouseEmployee');
 
 // Create connection and listen for errors
 var mongoose = require('mongoose');
@@ -32,6 +33,7 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection 
 // Store hard coded values for database insertion
 var customers = [];
 var products = [];
+var warehouseEmployees = [];
 
 function customerCreate(username, firstName, lastName, email, password, phoneNumber, addressLine1, addressLine2, postcode){
     customerdetail = {username: username, firstName:firstName, lastName:lastName, email:email, password:password,
@@ -73,6 +75,25 @@ function productCreate(productName, productDescription, productStockLevel, produ
 
 }
 
+// Takes in all model properties, create employees, save employees to database
+function warehouseEmployeeCreate(username, firstName, lastName, email, password){
+    warehouseEmployeeDetail = {username: username, firstName:firstName, lastName:lastName, email:email, password:password};
+
+    var warehouseEmployee = new WarehouseEmployee(warehouseEmployeeDetail);
+
+    warehouseEmployee.save(function (err) {
+        if(err) {
+            console.log(err);
+            return;
+        }
+        console.log('New Warehouse Employee: ' + warehouseEmployee);
+        warehouseEmployees.push(warehouseEmployee);
+    });
+
+ }
+
+
+
 function createCustomers(cb){
     async.parallel([
         function(callback){
@@ -91,21 +112,76 @@ function createCustomers(cb){
 function createProducts(cb){
     async.parallel([
         function(callback){
-            productCreate('Toy1', 'This is the description of the toy1', 5, '/img/toy1.jpg', 20);
+            productCreate('Blossom', 'This is brand new 13 inch Powerpuff Blossom doll ideal for great gifts', 5, '/images/blossom.jpg', 5);
         },
         function(callback){
-            productCreate('Toy2', 'This is the description of the toy2', 10, '/img/toy2.jpg', 22);
+            productCreate('Bubbles', 'This is brand new 13 inch Powerpuff Bubbles doll ideal for great gifts', 8, '/images/bubbles.jpg', 5);
         },
         function(callback){
-            productCreate('Toy3', 'This is the description of the toy3', 15, '/img/toy3.jpg', 30);
+            productCreate('Buttercup', 'This is brand new 13 inch Powerpuff Buttercup doll ideal for great gifts', 10, '/images/buttercup.jpg', 5);
+        },
+        function(callback){
+            productCreate('Buzz', 'Favorite character from Disney/Pixar Toy Story really talks back.Wears movie inspired outfit and has big personality details.', 20, '/images/buzz.jpg', 15);
+        },
+        function(callback){
+            productCreate('Dora', 'This is imported Ty wildly popular Beanie Babies Collection', 15, '/images/dora.jpg', 8);
+        },
+        function(callback){
+            productCreate('Kion', 'This features motorized roaring action with a mechanical leaping action Kion!Squeeze Kion belly to trigger raging roar', 9, '/images/kion.jpg', 11);
+        },
+        function(callback){
+            productCreate('Olaf', 'Sing along with Olaf the snowman from the Disney movie Frozen!He will also say some of his funniest phrases from the movie!A great gift for Disney Frozen fans!', 5, '/images/olaf.jpg', 20);
+        },
+        function(callback){
+            productCreate('Pawpatrol', 'This doll is perfect for little hands to hold and pretend play or even trade them.', 12, '/images/pawpatrol.jpg', 10);
+        },
+        function(callback){
+            productCreate('Peppa', 'This is Polyester fibers Imported handmade doll with the finest quality standards in the industry', 22, '/images/peppa.jpg', 7);
+        },
+        function(callback){
+            productCreate('Po', 'Dance and sing along with this adorable Po soft toy! Gently squeeze Pos hand to change between talking & dancing modes. Po plays the Teletubbies theme tune', 30, '/images/po.jpg', 14);
+        },
+        function(callback){
+            productCreate('Sofia', 'Meet Sofia, the Princess of Enchancia!Sofia is the only Princess with a magical amulet that lets her speak to the animals in the kingdom', 13, '/images/sofia.jpg', 26);
+        },
+        function(callback){
+          productCreate('Walle', 'This is brand new 13 inch Powerpuff Blossom doll ideal for great gifts', 5, '/images/walle.jpg', 5);
+            //productCreate('Walle', 'Walle quickly transforms from cube to fully poseable figure in seconds, ready to clean up the world. Simply press 'n' pop action releases his track wheels', 5, '/images/walle.jpg', 20);
         }
     ], cb); // optional callback
 }
 
+
+
+function createWarehouseEmployees(cb){
+    async.parallel([
+        function(callback){
+            warehouseEmployeeCreate('S','Sandra', 'Anderson', 'sandra.anderson@gmail.com,', 'skiwtysfy');
+        },
+        function(callback){
+            warehouseEmployeeCreate('T','Thomas', 'Hudson', 'thomas.hudson@gmail.com,', 'sfbksufhsjd');
+        },
+        function(callback){
+            warehouseEmployeeCreate('V','Victoria', 'Deadman', 'victoria.deadman@gmail.com,', 'uthkwbfbj');
+        },
+        function(callback){
+            warehouseEmployeeCreate('A','Sandra', 'Anderson', 'sandra.anderson@gmail.com,', 'skiwtysfy');
+        },
+        function(callback){
+            warehouseEmployeeCreate('U','Ugo', 'Chiwak', 'ugo.chiwak@gmail.com,', 'iyrecjkkbvqe');
+        },
+        function(callback){
+            warehouseEmployeeCreate('F','Florence', 'whitehead', 'florence.whitehead@gmail.com,', 'gibjvasdfdd');
+        }
+    ], cb); // optional callback
+}
+
+
 // Run all functions simultaneously e.g createProducts, createUsers etc
 async.parallel ([
     createProducts,
-    createCustomers
+    createCustomers,
+    createWarehouseEmployees
 ],
 function(err, results){ // optional callback for errors
     if(err) {

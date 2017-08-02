@@ -1,22 +1,58 @@
 <!DOCTYPE html>
 <html>
-  <%- include ./base.ejs %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/catalog.js"></script>
+<%- include ./base.ejs %>
   <body>
 
-    <article class="c-tile">
-      <div class="c-tile__content">
-        <div class="c-tile__body">
-          <p class="c-heading-delta  u-margin-bottom-none"><%= title %></p>
-          <p class="c-text-body"><%= message %></p>
-        </div>
+<!--whole page-->
+<main id="polaris">
+  <div class="polaris-main">
+
+
+<!-- container for tiles:-->
+<div class="o-container u-margin-top">
+<div class="o-layout">
+
+
+<% for(var i = 0; i < doc.length; i++) { %>
+<!--tile-->
+<div class ="o-layout__item u-width-1@x-small u-width-1/2@small u-width-1/3@large u-width-1/4@x-large">
+
+<article class="itemPanel c-tile  c-tile--skykids" id="<%= doc[i].productName %>">
+    <div class="c-tile__content c-tile__link">
+      <div class="c-tile__media">
+        <img class="c-tile__poster" src="<%= doc[i].productImage %>" alt="<%= doc[i].productName %>">
       </div>
-    </article>
+      <div class="c-tile__body  c-tile__caption u-text-center">
+        <h1 class="c-heading-bravo"><%= doc[i].productName %></h1>
+        <h2>&pound;<%= doc[i].productPrice %></h2>
 
+      <!--button-->
+        <div class="panel-buttons o-layout o-layout--narrow">
+        <div class="o-layout__item u-width-1/1 u-width-1/2@legacy-medium">
+        <a href="/product/<%= doc[i]._id%>" class="c-btn c-btn--secondary panel-hub-btn u-margin-bottom-small">View product</a>
+        </div></div>
+      <!--button-->
+      <!--button-->
+        <div class="panel-buttons o-layout o-layout--narrow">
+        <div class="o-layout__item u-width-1/1 u-width-1/2@legacy-medium">
+        <a href="/add-to-cart/<%= doc[i]._id%>" class="c-btn c-btn--secondary panel-hub-btn u-margin-bottom-small">Add to basket</a>
+        </div></div>
+      <!--button-->
+      </div>
+    </div>
+</article>
+</div>
+<!--end tile-->
+<% } %>
 
-    <ul>
-      <% for(var i = 0; i < names.length; i++) { %>
-        <li><%= names[i] %></li>
-        <% } %>
-    </ul>
-  </body>
+<!-- end container for tiles:-->
+</div>
+</div>
+
+</div><!--polaris main close-->
+</main><!--whole page-->
+
+</body>
 </html>

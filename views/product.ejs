@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/catalog.js"></script>
+
+<%- include ./base.ejs %>
+
+<body>
+
+  <!-- container for tiles:-->
+<div class="o-container u-margin-top">
+<div class = "o-layout--flush">
+<!-- o-layout--middle -->
+<!-- <div class ="o-layout__item u-width-1@x-small u-width-1/1@small u-width-1/2@medium u-width-1/2@large u-width-1/2@x-large"> -->
+  <div class ="o-layout__item u-width-1@x-small u-width-1/2@small u-margin-left">
+  <article class="c-tile  c-tile--square  c-tile--full  no-anim  in-view">
+    <a class="c-tile__link" href="#">
+      <div class="c-tile__content">
+        <div class="c-tile__media">
+          <img alt="<%= doc.productName %>" class="c-tile__poster" src="<%= doc.productImage %>" />
+        </div>
+      </div>
+    </a>
+  </article>
+</div>
+<!-- </div> -->
+
+<!--extra product details-->
+  <!-- <div class ="o-layout__item u-width-1@x-small u-width-1/1@small u-width-1/2@medium u-width-1/2@large u-width-1/2@x-large u-text-center"> -->
+    <div class ="o-layout__item u-width-1@x-small u-width-1/2@small u-width-1/3@large u-width-1/4@x-large u-margin-left u-text-center">
+    <article class="c-tile  c-tile--sky-kids  c-tile--full  no-anim  in-view">
+    <div class="c-tile__content">
+    <h1 class="c-heading-bravo u-margin-top"><%= doc.productName %></h1>
+    <h1 class="c-heading-bravo u-margin-top">&pound;<%= doc.productPrice %></h1>
+    <p>Currently <%= doc.productStockLevel %> in stock</p>
+    <p><%= doc.productName %>: <%= doc.productDescription %></p>
+<!--button-->
+    <div class="panel-buttons o-layout o-layout--narrow">
+    <div class="o-layout__item u-width-1/1 u-width-1/2@legacy-medium">
+    <a href="/add-to-cart/<%= doc._id%>" class="c-btn c-btn--primary panel-hub-btn u-margin-bottom-large">Add to basket</a>
+    </div></div>
+<!--button-->
+  </div>
+  </article>
+  </div>
+<!--end extra product details-->
+</div>
+</div>
+
+
+
+</body>
+</html>
