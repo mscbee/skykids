@@ -1,21 +1,55 @@
 <!DOCTYPE html>
 <html>
   <%- include ./base.ejs %>
-  <title><%= title %></title>
+  <title>Sky Kids Catalog - Basket</title>
   <body>
-    <ul>
-      <% for(var i = 0; i < products.length; i++) { %>
-        <li><%= products[i].product.productName %> Unit Price: <%= products[i].product.productPrice %></li>
-        <input id="productQuanitity<%= products[i].product._id %>" type="text" name="productQuanitity" value='<%= products[i].qty%>'>
-        <button id="updateBastketButton"><a href='' onclick="this.href='cart-update/<%= products[i].product._id %>/'+document.getElementById('productQuanitity<%= products[i].product._id%>').value" >Update Basket</a></button>
-        <button id="removeBastketButton"><a href='/cart-remove/<%= products[i].product._id %>'>Remove</a></button>
-        <% } %>
-    </ul>
+    <style>
+      #updateBastketButton, #removeBastketButton, #checkoutButton{
+        border:none !important;
+        background-color: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
 
-    <h1>Total Price: <%= totalPrice %></h1>
-    <h1>Total Quantity: <%= totalQuantity %></h1>
+      }
+    </style>
+  <div class="o-layout">
+  <% if(!products || products.length == 0) { %>
+    <h2 class="c-heading-bravo">No products in Basket: <a href="/catalog">View the catalog here to add some!</a></h2>
+  <% } else { %>
 
-    <a href="/checkout">Checkout</a>
+    <h2 class="c-heading-bravo">Your Basket:</h2>
 
+    <div class="o-layout__item">
+      <table class="c-table-simple">
+        <% for(var i = 0; i < products.length; i++) { %>
+          <tr class="c-table-simple__row">
+          <td class="c-table-simple__cell"><%= products[i].product.productName %></td>
+          <td class="c-table-simple__cell">Unit Price: <%= products[i].product.productPrice %></td>
+          <td class="c-table-simple__cell"><input id="productQuanitity<%= products[i].product._id %>" type="text" name="productQuanitity" value='<%= products[i].qty%>'></td>
+          <td class="c-table-simple__cell u-text-right">
+            <button id="updateBastketButton"><a class="c-btn  c-btn--primary" href='' onclick="this.href='cart-update/<%= products[i].product._id %>/'+document.getElementById('productQuanitity<%= products[i].product._id%>').value" >Update</a></button>
+            <button id="removeBastketButton"><a class="c-btn  c-btn--primary" href='/cart-remove/<%= products[i].product._id %>'>Remove</a></button>
+          </td>
+          </tr>
+          <% } %>
+        </table>
+        </div>
+
+      <% if(products.length > 0) { %>
+        <div class="o-layout__item">
+          <table class="c-table-simple">
+      <tr class="c-table-simple__row">
+        <td class="c-table-simple__cell u-text-left">
+        <h1 class="u-text-right">Total Price: &pound;<%= totalPrice %></h1>
+        <h1 class="u-text-right">Total Quantity: <%= totalQuantity %></h1>
+          <button id ="checkoutButton"><a class="c-btn  c-btn--primary  u-margin-right" href="/checkout">Checkout</a></button>
+      </td>
+      </tr>
+    </table>
+  </div>
+      <% } %>
+
+  <% } %>
+</div>
   </body>
 </html>
