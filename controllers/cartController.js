@@ -5,10 +5,10 @@ var cartController = {};
 
 cartController.index = function(req, res){
     if (!req.session.cart) {
-       return res.render('cart', { products: null });
+       return res.render('cart', { products: null, cart: req.session.cart });
    }
   var cart = new Cart(req.session.cart);
-  res.render('cart', { title: "Cart", products: cart.generateArray(), totalPrice: cart.totalPrice, totalQuantity: cart.totalQty});
+  res.render('cart', { title: "Cart", products: cart.generateArray(), totalPrice: cart.totalPrice, totalQuantity: cart.totalQty, cart: req.session.cart});
 }
 
 cartController.addToCart = function(req, res){
@@ -22,8 +22,8 @@ cartController.addToCart = function(req, res){
         cart.add(product, product.id);
         req.session.cart = cart;
         //RENDER CART BELOW NOT SEND THE CART INFO
-        res.send(req.session.cart);
-        //res.redirect('/cart');
+        backURL=req.header('Referer') || '/cart';
+        res.redirect(backURL);
     });
 }
 
@@ -63,7 +63,7 @@ cartController.showCheckout = function(req, res){
     // }
     // var cart = new Cart(req.session.cart);
     //var errMsg = req.flash('error')[0];
-    res.render('payment'); // Render payment view?
+    res.render('payment' , {cart: req.session.cart}); // Render payment view?
 }
 
 cartController.processPayment = function(req, res){

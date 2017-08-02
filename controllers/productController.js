@@ -7,9 +7,7 @@ exports.index = function(req, res){
     doc.forEach(function(one){
       productList[doc] = doc;
     })
-    res.render('../views/catalog.ejs',{
-        doc
-          });
+    res.render('../views/catalog.ejs',{doc, cart: req.session.cart});
     console.log(doc);
   }));
 };
@@ -24,7 +22,7 @@ exports.product_list = function(req, res){
 exports.product_index = function(req, res){
   var productId = req.params.id;
    Product.findOne({_id: productId}, function(err,doc) {
-     res.render('../views/product.ejs',{doc: doc});
+     res.render('../views/product.ejs',{doc: doc, cart: req.session.cart});
   });
 }
 
