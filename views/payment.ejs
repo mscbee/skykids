@@ -35,7 +35,7 @@
       <label class="c-form-label" for="customerName">
         Card Number <abbr title="This field is required" class="c-form-required">*</abbr>
       </label>
-      <input type="number" class="c-form-input" id="cardnumber" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" pattern="\d*" maxlength="16"/>
+      <input type="number" class="c-form-input" id="cardnumber" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" pattern="\d*" maxlength="16" min="14"/>
     </li>
       <li class="c-form-list__item" id="cardImage">
           </li>
@@ -82,7 +82,7 @@
             <label class="c-form-label" for="cvv">
               CVV <abbr title="This field is required" class="c-form-required">*</abbr>
             </label>
-            <input type="number" class="c-form-input"  name="cvv" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" pattern="\d*" maxlength="4"/>
+            <input type="number" class="c-form-input"  name="cvv" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" pattern="\d*" maxlength="4" min="3"/>
           </li>
 
           <li class="c-form-list__item">
