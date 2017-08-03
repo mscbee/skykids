@@ -68,9 +68,9 @@ userController.doRegister = function(req, res, next){
         var mailOptions = {
              from: 'info.skykidsapp@gmail.com', // sender address
              to: req.body.email, // list of receivers
-             subject: 'Welcome to the SkyKidsAppCatalog!', // Subject line
-             text: 'Hey ' + req.body.firstName + ', Welcome to the Sky Kids App Catalog!', // plain text body
-             html: '<b>Hey ' + req.body.firstName + ', Welcome to the Sky Kids App Catalog</b>' // html body
+             subject: 'Welcome to SkyKids Store!', // Subject line
+             text: 'Hey ' + req.body.firstName + ',  Welcome to the SkyKids Store!', // plain text body
+             html: '<b>Hey ' + req.body.firstName + ', Welcome to the SkyKids Store</b>' // html body
          };
          // send mail with defined transport object
          transporter.sendMail(mailOptions, (error, info) => {
@@ -118,7 +118,7 @@ userController.doLogin = function(req, res, next){
         return next(loginErr);
       }
       res.redirect('/catalog');
-    });      
+    });
   })(req, res, next);
 }
 
