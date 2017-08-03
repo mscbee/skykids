@@ -119,6 +119,7 @@ cartController.processPayment = function(req, res){
 }
 
 cartController.paymentSuccess = function(req, res){
+    req.session.cart = {};
     res.render('paymentSuccess', {cart: req.session.cart});
 }
 
