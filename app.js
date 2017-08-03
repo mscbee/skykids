@@ -18,6 +18,7 @@ var warehouseEmployee = require('./model/warehouseEmployee');
 // Routes
 var user = require('./routes/user');
 var catalog = require('./routes/catalog');
+var vr = require('./routes/vr');
 var cart = require('./routes/cart');
 var warehouse = require('./routes/warehouse');
 
@@ -55,6 +56,7 @@ app.use(expressValidator());
 app.use('/', catalog);
 app.use('/', user);
 app.use('/catalog', catalog);
+app.use('/vr', vr);
 app.use('/', cart);
 app.use('/', warehouse);
 

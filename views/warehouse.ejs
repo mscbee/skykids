@@ -109,8 +109,19 @@ table th {
               <td ><%= orders[i].customerId %></td>
               <td ><%= orders[i].dateCreated %></td>
               <td ><%= orders[i].shippingAddress %></td>
-              <td >product</td>
-
+              <%
+                var productsString = "";
+                for(var j = 0; j < orders[i].products.length; j++){
+                  var singleObject = orders[i].products[j];
+                  for (property in singleObject) {
+                    productsString += singleObject[property].product.productName;
+                    productsString += ", ";
+                  }
+                }
+                productsString = productsString.trim();
+                productsString = productsString.slice(0, -1);
+              %>
+              <td ><%= productsString %></td>
               <td ><%= orders[i].quantity %></td>
                 <td default="Placed" id="myTex" onchange="sendMail()">
                 <select>

@@ -3,3 +3,4 @@ npm-debug.log
 test-results.xml
 public/images/.DS_Store
 public/.DS_Store
+package-lock.json

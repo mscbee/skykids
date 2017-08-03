@@ -3,13 +3,27 @@ var Product = require('../model/product');
 var Order = require('../model/order');
 var twilio = require('twilio');
 var cartController = {};
+var vrController = require('../controllers/vrController');
 
 cartController.index = function(req, res){
     if (!req.session.cart) {
-       return res.render('cart', { products: null });
+       return res.render('cart', { products: null, cart: req.session.cart });
    }
   var cart = new Cart(req.session.cart);
-  res.render('cart', { title: "Cart", products: cart.generateArray(), totalPrice: cart.totalPrice, totalQuantity: cart.totalQty});
+  res.render('cart', { title: "Cart", products: cart.generateArray(), totalPrice: cart.totalPrice, totalQuantity: cart.totalQty, cart: req.session.cart});
+}
+
+cartController.vrIndex =  function(req, res){
+  var vrCart = vrController.getVrCart();
+  if(vrCart){
+    req.session.vrCart = vrCart;
+  }
+    if (!req.session.vrCart) {
+      console.log("no vr cart");
+       return res.render('cart', { products: null, cart: req.session.vrCart });
+   }
+  var cart = new Cart(req.session.vrCart);
+  res.render('cart', { title: "Cart", products: cart.generateArray(), totalPrice: cart.totalPrice, totalQuantity: cart.totalQty, cart: req.session.vrCart});
 }
 
 cartController.addToCart = function(req, res){
@@ -22,9 +36,8 @@ cartController.addToCart = function(req, res){
        }
         cart.add(product, product.id);
         req.session.cart = cart;
-        //RENDER CART BELOW NOT SEND THE CART INFO
-        res.send(req.session.cart);
-        //res.redirect('/cart');
+        backURL=req.header('Referer') || '/cart';
+        res.redirect(backURL);
     });
 }
 
@@ -59,7 +72,12 @@ cartController.updateCart = function(req, res){
 }
 
 cartController.showCheckout = function(req, res){
-    res.render('payment'); // Render payment view?
+    // if (!req.session.cart) {
+    //     return res.redirect('/cart');
+    // }
+    // var cart = new Cart(req.session.cart);
+    //var errMsg = req.flash('error')[0];
+    res.render('payment' , {cart: req.session.cart}); // Render payment view?
 }
 
 cartController.processPayment = function(req, res){
@@ -89,19 +107,20 @@ cartController.processPayment = function(req, res){
 
     var order = new Order({customerId: customerId, shippingAddress: address,
                             products: productsArray, quantity: totalQty, orderStatus: orderStatus});
-    
+
     order.save(function(err){
         if(err){
             console.log(err);
             return;
         }
-    })                       
+    })
 
     res.redirect('/payment-success'); // Send to payment process page?
 }
 
 cartController.paymentSuccess = function(req, res){
-    res.render('paymentSuccess');
+    req.session.cart = {};
+    res.render('paymentSuccess', {cart: req.session.cart});
 }
 
 module.exports = cartController;

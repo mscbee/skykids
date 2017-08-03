@@ -1,46 +1,38 @@
 <!DOCTYPE HTML>
-
 <html>
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<%- include ./base.ejs %>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="/js/login.js"></script>
-	<title>Sky Kids App Catalog - Login</title>
-</head>
-
 <body>
-<div class="o-layout--center">
-	<section>
 
-		<h2 class="c-heading-bravo">Sky Kids App Catalog Login:</h2>
 
-<div class="o-layout__item">
-		<article class="c-tile">
-  	<div class="c-tile__content">
-    <div class="c-tile__body">
+		<div class="o-container u-margin-top">
+			<div class ="o-layout__item u-width-1@x-small u-width-1/1@small u-width-1/1@large u-width-1/1@x-large">
+
+		<h2 class="c-heading-charlie">Login</h2>
+
+
 				<form action="/login" method="post">
 					<fieldset>
 						<ul class="c-form-list">
 							<li class="c-form-list__item">
-								<label class="c-form-label" for="username">Enter your Username: <abbr title="This field is required" class="c-form-required">*</abbr></label>
+								<label class="c-form-label" for="username">Enter your username: <abbr title="This field is required" class="c-form-required">*</abbr></label>
 								<input class="c-form-input" id="username" type="username" name="username" placeholder="Username">
 							</li>
 							<li class="c-form-list__item">
-								<label class="c-form-label" for="password">Enter your Password: <abbr title="This field is required" class="c-form-required">*</abbr></label>
+								<label class="c-form-label" for="password">Enter your password: <abbr title="This field is required" class="c-form-required">*</abbr></label>
 								<input class="c-form-input" id="password" type="password" name="password" placeholder="*******">
 							</li>
 							<li class="c-form-list__item">
-								<input class="c-btn  c-btn--primary" type="submit" value="login">
+								<input class="c-btn  c-btn--primary" type="submit" value="Login">
 							</li>
 						</ul>
 					</fieldset>
 				</form>
-			</div>
-		</div>
-		</article>
-</div>
+				<% if (message) { %>
+       <p class="c-form-list__item is-error u-width-1@x-small u-width-1/1@small u-width-1/1@large u-width-1/1@x-large"><%= message %></p>
+    	<% } %>
+
 
 	<div id="showResetPasswordDiv">Forgotten your password?</div><br/>
 
@@ -65,13 +57,11 @@
 			</div>
 			</fieldset>
 			</form>
+
 		</article>
 	</div>
-
-	</section>
-
 </div>
-
+</div>
 </body>
-
+<%- include ./footer.ejs %>
 </html>

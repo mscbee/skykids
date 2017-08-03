@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+  <div class="container">
+    <h2> Pick List</h2>
+
+    <table>
+        <tr>
+          <th> ID</th>
+          <th> Product Name</th>
+          <th> Price</th>
+          <th> Category</th>
+          <th> Action</th>
+          <%  for(var i=0; i< data.length; i++) %>
+        <tr>
+          <td> #{item['_id']}</td>
+          <td>  #{item['product_name']}</td>
+          <td> #{item['price']}</td>
+          <td>  #{item['category']}</td>
+          <td>
+            <a href = "">Edit</a>
+            <a href= "" onlick=alert("you are goign to delete this record.Continue?")>Delete</a>
+          </td>
+    </table>
+  </div>
+  <%- include ./footer.ejs %>
+</html>

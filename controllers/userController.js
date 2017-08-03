@@ -1,19 +1,31 @@
 var Customer = require('../model/customer');
 var passport = require("passport");
+var nodemailer = require('nodemailer');
 var userController = {};
 
+var transporter = nodemailer.createTransport({
+   service: "gmail",
+   host: "smtp.gmail.com",
+   port: 465,
+   secure: true, // secure:true for port 465, secure:false for port 587
+   auth: {
+       user: 'info.skykidsapp@gmail.com',
+       pass: 'SkyKidsTest'
+   }
+});
+
 userController.register = function(req, res){
-  res.render('register', { error: false });
+  res.render('register', { error: false, cart: req.session.cart});
 }
 
 userController.doRegister = function(req, res, next){
   // Sanitize think passport does it inherently? Perhaps sanitize with separate function...
   // Check to see if the posted fields are empty.
-  req.checkBody('username', 'Please supply a valid username').notEmpty();
-  req.checkBody('email', 'Please supply a valid email').isEmail().notEmpty();
-  req.checkBody('firstName', 'Please supply a First Name!').notEmpty();
-  req.checkBody('lastName', 'Please supply a Last Name!').notEmpty();
-  req.checkBody('password', 'Please supply a password!').notEmpty();
+  req.checkBody('username', ' Please supply a valid username').notEmpty();
+  req.checkBody('email', ' Please supply a valid email').isEmail().notEmpty();
+  req.checkBody('firstName', ' Please supply a first name').notEmpty();
+  req.checkBody('lastName', ' Please supply a last name').notEmpty();
+  req.checkBody('password', ' Please supply a password').notEmpty();
 
   // Trim and escape values to make sure data isn't dirty
   req.sanitize('username').escape();
@@ -43,7 +55,7 @@ userController.doRegister = function(req, res, next){
       return elem.msg;
     });
     //console.log('There are following validation errors: ' + errors.join('&&'));
-    res.render('register', { error: errors });
+    res.render('register', { error: errors, cart: req.session.cart});
     } else {
       // Register new customer
   Customer.register(new Customer({ username: username, email: email, firstName: firstName, lastName: lastName}),
@@ -51,18 +63,33 @@ userController.doRegister = function(req, res, next){
         // if (err) { return next(err) }
         if(!customer) {
           // If registration unsuccessful, send message to user they were unsuccessful
-          return res.render('register', { error: err });
+          return res.render('register', { error: err, cart: req.session.cart});
       } else {
-        res.send({
-                success: true,
-                user: customer // might push this up to user base to avoid confusion
-            });
-        //res.redirect('/login');
+        var mailOptions = {
+             from: 'info.skykidsapp@gmail.com', // sender address
+             to: req.body.email, // list of receivers
+             subject: 'Welcome to the SkyKidsAppCatalog!', // Subject line
+             text: 'Hey ' + req.body.firstName + ', Welcome to the Sky Kids App Catalog!', // plain text body
+             html: '<b>Hey ' + req.body.firstName + ', Welcome to the Sky Kids App Catalog</b>' // html body
+         };
+         // send mail with defined transport object
+         transporter.sendMail(mailOptions, (error, info) => {
+             if (error) {
+                 return console.log(error);
+             } else {
+               console.log('Message sent');
+               res.send({
+                 success: true,
+                 user: customer // might push this up to user base to avoid confusion
+               });
+             }
+         });
+        res.redirect('/login');
         }
       });
      }
    });
-    
+
   }
 
 // Currently checks if user is logged and displays the response
@@ -72,22 +99,27 @@ userController.login = function(req, res){
     if (req.user) {
         res.redirect('catalog');
     } else {
-      res.render('login');
+      res.render('login', { message: false, cart: req.session.cart});
     }
 }
 
 // Authenticate user by using the local strategy by default
 userController.doLogin = function(req, res, next){
-  Customer.authenticate()(req.body.username, req.body.password, function(err, customer, options){
-    if(err) return next(err);
-    if(!customer){
-      res.render('login',{ message: options.message }); // If it is not a valid customer send error message
-    } else {
-      req.login(customer, function (err) { // If it is a valid customer login them in and show us customer details
-            res.redirect('/catalog');
-          });
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      return next(err); // Will generate a 500 error
     }
-  })
+    // Generate a response reflecting authentication status
+    if (! user) {
+      return res.render('login', { message : 'Invalid Credentials', cart: req.session.cart });
+    }
+    req.login(user, loginErr => {
+      if (loginErr) {
+        return next(loginErr);
+      }
+      res.redirect('/catalog');
+    });      
+  })(req, res, next);
 }
 
 // When logout button is pressed log out the user
@@ -115,4 +147,3 @@ userController.resetPassword = function(req, res){
 }
 
 module.exports = userController;
-
