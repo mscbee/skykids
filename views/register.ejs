@@ -30,35 +30,35 @@
     <label class="c-form-label" for="firstName">
       Username <abbr title="This field is required" class="c-form-required">*</abbr>
     </label>
-    <input type="text" class="c-form-input"  name="username" />
+    <input type="text" class="c-form-input"  name="username" maxlength="16" />
   </li>
 
   <li class="c-form-list__item">
     <label class="c-form-label" for="email">
       Email <abbr title="This field is required" class="c-form-required">*</abbr>
     </label>
-    <input type="text" class="c-form-input" placeholder="e.g. Joe@bloggs.com" name="email" />
+    <input type="email" class="c-form-input" placeholder="e.g. Joe@bloggs.com" name="email" />
   </li>
 
   <li class="c-form-list__item">
     <label class="c-form-label" for="firstName">
       First name <abbr title="This field is required" class="c-form-required">*</abbr>
     </label>
-    <input type="text" class="c-form-input" placeholder="e.g. Joe" name="firstName" />
+    <input type="text" class="c-form-input" placeholder="e.g. Joe" name="firstName" pattern="[a-zA-Z]+" maxlength="15"/>
   </li>
 
   <li class="c-form-list__item">
     <label class="c-form-label" for="lastName">
       Last name <abbr title="This field is required" class="c-form-required">*</abbr>
     </label>
-    <input type="text" class="c-form-input" placeholder="e.g. Bloggs" name="lastName" />
+    <input type="text" class="c-form-input" placeholder="e.g. Bloggs" name="lastName" pattern="[a-zA-Z]+" maxlength="20"/>
   </li>
 
   <li class="c-form-list__item">
     <label class="c-form-label" for="password">
       Password <abbr title="This field is required" class="c-form-required">*</abbr>
     </label>
-    <input type="password" class="c-form-input" name="password" />
+    <input type="password" class="c-form-input" name="password" minlength="6"/>
   </li>
 
   <li>

@@ -35,7 +35,7 @@
       <label class="c-form-label" for="customerName">
         Card Number <abbr title="This field is required" class="c-form-required">*</abbr>
       </label>
-      <input type="number" class="c-form-input" id="cardnumber" autocomplete="off"/>
+      <input type="number" class="c-form-input" id="cardnumber" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" pattern="\d*" maxlength="16"/>
     </li>
       <li class="c-form-list__item" id="cardImage">
           </li>
@@ -46,6 +46,11 @@
             </label>
              <div class="c-form-select">
                <select id="f-heroes" class="c-form-select__dropdown">
+                 <option value="08">August</option>
+                 <option value="09">September</option>
+                 <option value="10">October</option>
+                 <option value="11">November</option>
+                 <option value="12">December</option>
                  <option value="01">January</option>
                  <option value="02">February</option>
                  <option value="03">March</option>
@@ -53,11 +58,6 @@
                  <option value="05">May</option>
                  <option value="06">June</option>
                  <option value="07">July</option>
-                 <option value="08">August</option>
-                 <option value="09">September</option>
-                 <option value="10">October</option>
-                 <option value="11">November</option>
-                 <option value="12">December</option>
                </select>
              </div>
 
@@ -82,7 +82,7 @@
             <label class="c-form-label" for="cvv">
               CVV <abbr title="This field is required" class="c-form-required">*</abbr>
             </label>
-            <input type="number" class="c-form-input"  name="cvv" autocomplete="off"/>
+            <input type="number" class="c-form-input"  name="cvv" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" pattern="\d*" maxlength="4"/>
           </li>
 
           <li class="c-form-list__item">

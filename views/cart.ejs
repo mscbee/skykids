@@ -33,7 +33,7 @@
           <tr class="c-table-simple__row">
           <td class="c-table-simple__cell"><%= products[i].product.productName %></td>
           <td class="c-table-simple__cell">&pound;<%= products[i].product.productPrice %></td>
-          <td class="c-table-simple__cell"><input id="productQuanitity<%= products[i].product._id %>" type="text" name="productQuanitity" value='<%= products[i].qty%>'></td>
+          <td class="c-table-simple__cell"><input id="productQuanitity<%= products[i].product._id %>" type="number" name="productQuanitity" value='<%= products[i].qty%>'></td>
           <td class="c-table-simple__cell u-text-right">
             <button id="updateBastketButton"><a class="c-btn  c-btn--primary" href='' onclick="this.href='cart-update/<%= products[i].product._id %>/'+document.getElementById('productQuanitity<%= products[i].product._id%>').value" >Update</a></button>
             <button id="removeBastketButton"><a class="c-btn  c-btn--primary" href='/cart-remove/<%= products[i].product._id %>'>Remove</a></button>
