@@ -3,6 +3,7 @@ var Product = require('../model/product');
 var Order = require('../model/order');
 var twilio = require('twilio');
 var cartController = {};
+var vrController = require('../controllers/vrController');
 
 cartController.index = function(req, res){
     if (!req.session.cart) {
@@ -10,6 +11,19 @@ cartController.index = function(req, res){
    }
   var cart = new Cart(req.session.cart);
   res.render('cart', { title: "Cart", products: cart.generateArray(), totalPrice: cart.totalPrice, totalQuantity: cart.totalQty, cart: req.session.cart});
+}
+
+cartController.vrIndex =  function(req, res){
+  var vrCart = vrController.getVrCart();
+  if(vrCart){
+    req.session.vrCart = vrCart;
+  }
+    if (!req.session.vrCart) {
+      console.log("no vr cart");
+       return res.render('cart', { products: null, cart: req.session.vrCart });
+   }
+  var cart = new Cart(req.session.vrCart);
+  res.render('cart', { title: "Cart", products: cart.generateArray(), totalPrice: cart.totalPrice, totalQuantity: cart.totalQty, cart: req.session.vrCart});
 }
 
 cartController.addToCart = function(req, res){
@@ -105,6 +119,7 @@ cartController.processPayment = function(req, res){
 }
 
 cartController.paymentSuccess = function(req, res){
+    req.session.cart = {};
     res.render('paymentSuccess', {cart: req.session.cart});
 }
 

@@ -20,7 +20,7 @@
             <li class="o-list-inline__item"><a href="/login" class="c-nav__link is-active">Login</a></li>
             <li class="o-list-inline__item u-margin-right-none">
               <a href="/cart" class="c-nav__link">Basket
-                <% if(!cart || cart.length == 0) { %>
+                <% if(!cart || cart.length == 0 || Object.keys(cart).length === 0 && cart.constructor === Object) { %>
 
                 <% } else { %>
                   (<%= cart.totalQty %>)
