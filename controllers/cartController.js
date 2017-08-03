@@ -65,8 +65,9 @@ cartController.updateCart = function(req, res){
     var quantity = parseInt(req.params.quantity);
 
     var cart = new Cart(req.session.cart ? req.session.cart : {});
-
-    cart.updateByQty(productId, quantity);
+    if(quantity >= 0){
+        cart.updateByQty(productId, quantity);
+    }
     req.session.cart = cart;
     res.redirect('/cart');
 }
@@ -85,7 +86,7 @@ cartController.processPayment = function(req, res){
   var products = req.session.cart.products;
   var productsArray = [];
   var totalQty = req.session.cart.totalQty;
-  var address = req.body.shippingAddress;
+  var address = req.body.address;
   var orderStatus = 'orderPlaced';
 
   req.checkBody('phoneNumber','Please enter phone number').notEmpty();
