@@ -18,8 +18,12 @@ var warehouseEmployee = require('./model/warehouseEmployee');
 // Routes
 var user = require('./routes/user');
 var catalog = require('./routes/catalog');
+var vr = require('./routes/vr');
 var cart = require('./routes/cart');
+<<<<<<< HEAD
 var warehouse = require('./routes/warehouse');
+=======
+>>>>>>> a17121bf12bb6fcea53978431a1da124ee4ae27f
 
 var app = express();
 
@@ -55,9 +59,14 @@ app.use(expressValidator());
 app.use('/', catalog);
 app.use('/', user);
 app.use('/catalog', catalog);
+app.use('/vr', vr);
 app.use('/', cart);
+<<<<<<< HEAD
 app.use('/', warehouse);
 
+=======
+app.use('/test', vr);
+>>>>>>> a17121bf12bb6fcea53978431a1da124ee4ae27f
 
 mongoose.Promise = global.Promise;
 
