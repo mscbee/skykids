@@ -65,8 +65,9 @@ cartController.updateCart = function(req, res){
     var quantity = parseInt(req.params.quantity);
 
     var cart = new Cart(req.session.cart ? req.session.cart : {});
-
-    cart.updateByQty(productId, quantity);
+    if(quantity >= 0){
+        cart.updateByQty(productId, quantity);
+    }
     req.session.cart = cart;
     res.redirect('/cart');
 }
