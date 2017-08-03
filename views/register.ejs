@@ -30,7 +30,7 @@
     <label class="c-form-label" for="firstName">
       Username <abbr title="This field is required" class="c-form-required">*</abbr>
     </label>
-    <input type="text" class="c-form-input"  name="username" maxlength="16" />
+    <input type="text" class="c-form-input"  name="username" maxlength="16" pattern="[^()/><\][\\\x22,;|*]+"/>
   </li>
 
   <li class="c-form-list__item">
@@ -44,14 +44,14 @@
     <label class="c-form-label" for="firstName">
       First name <abbr title="This field is required" class="c-form-required">*</abbr>
     </label>
-    <input type="text" class="c-form-input" placeholder="e.g. Joe" name="firstName" pattern="[a-zA-Z]+" maxlength="15"/>
+    <input type="text" class="c-form-input" placeholder="e.g. Joe" name="firstName" pattern="[a-zA-Z]+" maxlength="15" pattern='[A-Za-z\\s]*'/>
   </li>
 
   <li class="c-form-list__item">
     <label class="c-form-label" for="lastName">
       Last name <abbr title="This field is required" class="c-form-required">*</abbr>
     </label>
-    <input type="text" class="c-form-input" placeholder="e.g. Bloggs" name="lastName" pattern="[a-zA-Z]+" maxlength="20"/>
+    <input type="text" class="c-form-input" placeholder="e.g. Bloggs" name="lastName" pattern="[a-zA-Z]+" maxlength="20" pattern='[A-Za-z\\s]*'/>
   </li>
 
   <li class="c-form-list__item">
