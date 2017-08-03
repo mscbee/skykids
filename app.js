@@ -56,6 +56,7 @@ app.use('/', user);
 app.use('/catalog', catalog);
 app.use('/vr', vr);
 app.use('/', cart);
+app.use('/test', vr);
 
 mongoose.Promise = global.Promise;
 

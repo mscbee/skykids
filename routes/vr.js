@@ -8,6 +8,6 @@ var vr_controller = require('../controllers/vrController');
 ///  Register vr ///
 
 //Router to perform registration check
-router.post('/', vr_controller.sendOrder);
+router.post('/', vr_controller.vrController.sendOrder);
 
 module.exports = router;
