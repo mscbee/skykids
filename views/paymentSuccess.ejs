@@ -1,39 +1,55 @@
 <html>
 <%- include ./base.ejs %>
 
-  <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript">
-  $(window).load(function() {
-  	$(".loader").fadeOut("slow");
-  })
-  </script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-  <style>
-    .loader {
-  	position: fixed;
-  	left: 0px;
-  	top: 0px;
-  	width: 100%;
-  	height: 100%;
-  	z-index: 9999;
-  	background: url('https://media.giphy.com/media/UFiLH3rAETDIQ/giphy.gif') 50% 50% no-repeat rgb(249,249,249);
-  }
-  html {
-    display: table;
-    margin: auto;
-}
+<script type="text/javascript">
 
-body {
-    display: table-cell;
-    vertical-align: middle;
+$(window).load(function() {
+   var myDiv = document.getElementById("myDiv"),
+
+     show = function(){
+       myDiv.style.display = "block";
+       setTimeout(hide, 3000); // 5 seconds
+     },
+
+     hide = function(){
+       myDiv.style.display = "none";
+     };
+
+   show();
+ })();
+
+</script>
+
+<style>
+ .loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('https://media.giphy.com/media/DTqMOhLgCKv1m/giphy.gif') 50% 50% no-repeat rgb(249,249,249);
 }
-  </style> -->
+</style>
 
   <body>
-  <div class="loader" ></div>
+  <div class="loader" id="myDiv" ></div>
 
   <div class="o-layout--center u-margin-top-large">
   <h class="c-heading-alpha">Thanks for your order!</h>
 </div>
+
+<script>
+$( document ).ready(function() {
+  window.setTimeout(function(){
+    location.href = "/catalog";
+  }, 7000);
+});
+
+
+ </script>
+
   </body>
 </html>
