@@ -13,12 +13,14 @@ var expressValidator = require('express-validator');
 var product = require('./model/product');
 var customer = require('./model/customer');
 var cart = require('./model/cart');
+var warehouseEmployee = require('./model/warehouseEmployee');
 
 // Routes
 var user = require('./routes/user');
 var catalog = require('./routes/catalog');
 var vr = require('./routes/vr');
 var cart = require('./routes/cart');
+var warehouse = require('./routes/warehouse');
 
 var app = express();
 
@@ -56,7 +58,8 @@ app.use('/', user);
 app.use('/catalog', catalog);
 app.use('/vr', vr);
 app.use('/', cart);
-app.use('/test', vr);
+app.use('/', warehouse);
+
 
 mongoose.Promise = global.Promise;
 
