@@ -1,73 +1,77 @@
 <!DOCTYPE HTML>
 <html>
+  <%- include ./base.ejs %>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <title>Register</title>
   <style>
-    .container {
-      font-size: 14px;
-      width: 400px;
-    }
 
     .error {
       color: red;
     }
   </style>
-</head>
+
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="well col-xl-offset-3 col-xl-6">
-        <h2>Sign Up</h2>
+  <!-- container for tiles:-->
+  <div class="o-container u-margin-top">
+    <div class ="o-layout__item u-width-1@x-small u-width-1/1@small u-width-1/1@large u-width-1/1@x-large">
 
-        <% if (error) { %>
-             <p class="error"><%= error %></p> 
-          <% } %>
+  <h2 class="c-heading-charlie">Register</h2>
 
-        <form action="/register" method="post" id="register-form" novalidate="novalidate">
+  <% if (error) { %>
+       <p class="c-form-list__item is-error u-width-1@x-small u-width-1/1@small u-width-1/1@large u-width-1/1@x-large"><%= error %></p>
+    <% } %>
 
-          <div id="form-content">
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input class="form-control" type="text" name="username">
-            </div>
+<form action="/register" method="post" id="register-form" novalidate="novalidate">
+<ul class= "c-form-list">
+  <li class="c-form-list__item">
+    <label class="c-form-label" for="firstName">
+      Username <abbr title="This field is required" class="c-form-required">*</abbr>
+    </label>
+    <input type="text" class="c-form-input"  name="username" maxlength="16" pattern="[^()/><\][\\\x22,;|*]+"/>
+  </li>
 
-            <div id="form-content">
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input class="form-control" type="text" name="email">
-            </div>
+  <li class="c-form-list__item">
+    <label class="c-form-label" for="email">
+      Email <abbr title="This field is required" class="c-form-required">*</abbr>
+    </label>
+    <input type="email" class="c-form-input" placeholder="e.g. Joe@bloggs.com" name="email" />
+  </li>
 
-            <div class="form-group">
-              <label for="firstName">First Name</label>
-              <input class="form-control" type="firstName" name="firstName">
-            </div>
+  <li class="c-form-list__item">
+    <label class="c-form-label" for="firstName">
+      First name <abbr title="This field is required" class="c-form-required">*</abbr>
+    </label>
+    <input type="text" class="c-form-input" placeholder="e.g. Joe" name="firstName" pattern="[a-zA-Z]+" maxlength="15" pattern='[A-Za-z\\s]*'/>
+  </li>
 
-            <div class="form-group">
-              <label for="lastName">Last Name</label>
-              <input class="form-control" type="text" name="lastName">
-            </div>
+  <li class="c-form-list__item">
+    <label class="c-form-label" for="lastName">
+      Last name <abbr title="This field is required" class="c-form-required">*</abbr>
+    </label>
+    <input type="text" class="c-form-input" placeholder="e.g. Bloggs" name="lastName" pattern="[a-zA-Z]+" maxlength="20" pattern='[A-Za-z\\s]*'/>
+  </li>
 
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input class="form-control" type="text" name="password">
-            </div>
+  <li class="c-form-list__item">
+    <label class="c-form-label" for="password">
+      Password <abbr title="This field is required" class="c-form-required">*</abbr>
+    </label>
+    <input type="password" class="c-form-input" name="password" minlength="6"/>
+  </li>
 
-            <div class="form-group">
-              <input class="btn btn-primary" type="submit" name="submit">
-            </div>
-          </div>
+  <li>
+    <input class="c-btn c-btn--primary" type="submit" name="submit">
+  </li>
 
-        </form>
-      </div>
-    </div>
-  </div>
+</ul>
+</form>
+
+</div>
+</div>
+
 
 </body>
-
+<%- include ./footer.ejs %>
 </html>

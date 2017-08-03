@@ -1,174 +1,116 @@
 <!DOCTYPE html>
 <html>
-  <!-- <%- include ./base.ejs %> -->
-  <%- include ./header.ejs %>
-
-<head>
-
-  <title>SkyKids Store</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <%- include ./base.ejs %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="/js/jquery-creditcardvalidator-1.1.0/jquery.creditCardValidator.js"></script>
 
 
+<body>
 
-  <style>
-  body { margin:50px auto; width:600px;}
+<style>
+    #parent #popup {
+      display: none;
+    }
+    #parent:hover #popup {
+      display: block;
+    }
+</style>
 
-/* CSS for Credit Card Payment form */
-.credit-card-box .panel-title {
-    display: inline;
-    font-weight: bold;
-}
-.credit-card-box .form-control.error {
-    border-color: red;
-    outline: 0;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,0,0,0.6);
-}
-.credit-card-box label.error {
-  font-weight: bold;
-  color: red;
-  padding: 2px 8px;
-  margin-top: 2px;
-}
-.credit-card-box .payment-errors {
-  font-weight: bold;
-  color: red;
-  padding: 2px 8px;
-  margin-top: 2px;
-}
-.credit-card-box label {
-    display: block;
-}
-/* The old "center div vertically" hack */
-.credit-card-box .display-table {
-    display: table;
-}
-.credit-card-box .display-tr {
-    display: table-row;
-}
-.credit-card-box .display-td {
-    display: table-cell;
-    vertical-align: middle;
-    width: 50%;
-}
-/* Just looks nicer */
-.credit-card-box .panel-heading img {
-    min-width: 180px;
-}
-  </style>
+  <div class="o-container u-margin-top u-margin-bottom-large">
+    <div class ="o-layout__item u-width-1@x-small u-width-1/1@small u-width-1/1@large u-width-1/1@x-large">
 
+      <h2 class="c-heading-charlie">Enter your payment details</h2>
 
-</head>
 <form action="/process-payment" method="post">
-<div class="container">
-    <div class="col-sm-6">
-        <fieldset>
-            <legend>Payment</legend>
-            <div class="control-group">
-                <label label-default="" class="control-label">Card Holder's Name</label>
-                <div class="controls">
-                    <input type="text" class="form-control" pattern="[a-zA-Z]+" title="First and last name" required="">
-                </div>
-            </div>
-            <div class="control-group">
-                <label label-default="" class="control-label">Card Number</label>
-                <div class="controls">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <input type="number" id="cardnumber" class="form-control" autocomplete="off" required="">
-                          </div>
-                          <div id="cardImage"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="control-group">
-                <label label-default="" class="control-label">Card Expiry Date</label>
-                <div class="controls">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <select class="form-control" name="cc_exp_mo">
-                                <option value="01">January</option>
-                                <option value="02">February</option>
-                                <option value="03">March</option>
-                                <option value="04">April</option>
-                                <option value="05">May</option>
-                                <option value="06">June</option>
-                                <option value="07">July</option>
-                                <option value="08">August</option>
-                                <option value="09">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-control" name="cc_exp_yr">
-                                <option>2017</option>
-                                <option>2018</option>
-                                <option>2019</option>
-                                <option>2020</option>
-                                <option>2021</option>
-                                <option>2022</option>
-                                <option>2023</option>
-                                <option>2024</option>
-                                <option>2025</option>
-                                <option>2026</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="control-group">
-                <label label-default="" class="control-label">Card CVV</label>
-                <div class="controls">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <input type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" autocomplete="off"   pattern="\d*" maxlength="3" pattern="\d{3}" title="Three digits at back of your card" required="">
-                        </div>
-                        <div class="col-md-8"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="control-group" id="parent">
-                <label label-default="" class="control-label">Shipping Address</label>
-                <div class="controls">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <input type="text" name="shippingAddress" id="shippingAddress" class="form-control" autocomplete="off"/>
-                        </div>
-                        <div class="col-md-8"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="control-group" id="parent">
-                <label label-default="" class="control-label">Mobile Number *</label>
-                <div class="controls">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <input type="number" name="phoneNumber" id="phoneNumber" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" autocomplete="off"   pattern="\d*" maxlength="13" pattern="\d{13}" required="">
-                        </div>
-                        <div class="col-md-8"></div>
-                    </div>
-                </div>
-                <div id="popup" style="display: none"><font  color="red">Please enter your phone number in order to receive an order confirmation text</font></div>
-            </div>
-            <div class="control-group">
-              <label label-default="" class="control-label"></label>
-              <div class="controls">
-                  <button id="payment" type="submit" class="btn btn-primary">Submit</button>
 
-                <button type="button" class="btn btn-default">Cancel</button>
-              </div>
-            </div>
-        </fieldset>
-    </div>
+  <ul class= "c-form-list">
+    <li class="c-form-list__item">
+      <label class="c-form-label" for="customerName">
+        Cardholder's Name <abbr title="This field is required" class="c-form-required">*</abbr>
+      </label>
+      <input type="text" class="c-form-input"  name="customerName" pattern="[a-zA-Z]+"/>
+    </li>
+
+    <li class="c-form-list__item">
+      <label class="c-form-label" for="customerName">
+        Card Number <abbr title="This field is required" class="c-form-required">*</abbr>
+      </label>
+      <input type="number" class="c-form-input" id="cardnumber" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" pattern="\d*" maxlength="16" min="14"/>
+    </li>
+      <li class="c-form-list__item" id="cardImage">
+          </li>
+
+          <li class="c-form-list__item">
+            <label class="c-form-label" for="expiryDate">
+              Expiry Date <abbr title="This field is required" class="c-form-required">*</abbr>
+            </label>
+             <div class="c-form-select">
+               <select id="f-heroes" class="c-form-select__dropdown">
+                 <option value="08">August</option>
+                 <option value="09">September</option>
+                 <option value="10">October</option>
+                 <option value="11">November</option>
+                 <option value="12">December</option>
+                 <option value="01">January</option>
+                 <option value="02">February</option>
+                 <option value="03">March</option>
+                 <option value="04">April</option>
+                 <option value="05">May</option>
+                 <option value="06">June</option>
+                 <option value="07">July</option>
+               </select>
+             </div>
+
+             <div class="c-form-select">
+               <select id="f-heroes" class="c-form-select__dropdown">
+                 <option>2017</option>
+                 <option>2018</option>
+                 <option>2019</option>
+                 <option>2020</option>
+                 <option>2021</option>
+                 <option>2022</option>
+                 <option>2023</option>
+                 <option>2024</option>
+                 <option>2025</option>
+                 <option>2026</option>
+               </select>
+             </div>
+          </li>
+
+
+          <li class="c-form-list__item">
+            <label class="c-form-label" for="cvv">
+              CVV <abbr title="This field is required" class="c-form-required">*</abbr>
+            </label>
+            <input type="number" class="c-form-input"  name="cvv" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" pattern="\d*" maxlength="4" min="3"/>
+          </li>
+
+          <li class="c-form-list__item">
+            <label class="c-form-label" for="address">
+              Address <abbr title="This field is required" class="c-form-required">*</abbr>
+            </label>
+            <input type="text" class="c-form-input"  name="address"/>
+          </li>
+
+          <li class="c-form-list__item" id="parent">
+            <label class="c-form-label" for="phoneNumber">
+              Mobile Number <abbr title="This field is required" class="c-form-required">*</abbr>
+            </label>
+            <input type="number" class="c-form-input"  name="phoneNumber" autocomplete="off"/>
+          </li>
+
+
+            <li>
+              <input id="payment" class="c-btn  c-btn--primary" type="submit" value="Pay">
+              <input class="c-btn  c-btn--primary" value="Cancel" onclick="window.location='/'">
+            </li>
+
+
+
+</form>
 
 </div>
-</form>
+</div>
 
 <script>
 $(document).ready(function(){
@@ -205,5 +147,10 @@ $(document).ready(function(){
     });
 });
 </script>
+
+
+
+
 </body>
+<%- include ./footer.ejs %>
 </html>
