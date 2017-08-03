@@ -12,7 +12,7 @@ var OrderSchema = Schema (
     shippingAddress: { type:String, required: true }, // Use form  address
     products: [{}], // Cart session
     quantity: { type:Number, required:true}, // Cart session
-    orderStatus: { type:String,  enum: ['orderPlaced','picked', 'packed', 'dispatched', 'delivered'], required:true } // Set by warehouse 
+    orderStatus: { type:String,  enum: ['orderPlaced','picked', 'packed', 'dispatched', 'delivered'], required:true } // Set by warehouse
 
   }
 
