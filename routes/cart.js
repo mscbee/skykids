@@ -10,6 +10,8 @@ var cart_controller = require('../controllers/cartController');
 //Router to render cart view
 router.get('/cart', cart_controller.index);
 
+router.get('/vrCart', cart_controller.vrIndex); 
+
 //Router to perform cart operation
 router.get('/add-to-cart/:id', cart_controller.addToCart);
 
