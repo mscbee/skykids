@@ -31,15 +31,18 @@ table, th, td {
               <td ><%= orders[i].dateCreated %></td>
               <td ><%= orders[i].shippingAddress %></td>
               <%
+                var productsString = "";
                 for(var j = 0; j < orders[i].products.length; j++){
-                  var tempob = orders[i].products[j];
-                  console.log(tempob[0]);
-                  %>
-              <td ><%= orders[i].products[j].product %></td>
-
-              <%
+                  var singleObject = orders[i].products[j];
+                  for (property in singleObject) {
+                    productsString += singleObject[property].product.productName;
+                    productsString += ", ";
+                  }
                 }
+                productsString = productsString.trim();
+                productsString = productsString.slice(0, -1);
               %>
+              <td ><%= productsString %></td>
               <td ><%= orders[i].quantity %></td>
               <td ><%= orders[i].orderStatus %></td>
             </tr>
