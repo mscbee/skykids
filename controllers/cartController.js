@@ -86,7 +86,7 @@ cartController.processPayment = function(req, res){
   var products = req.session.cart.products;
   var productsArray = [];
   var totalQty = req.session.cart.totalQty;
-  var address = req.body.shippingAddress;
+  var address = req.body.address;
   var orderStatus = 'orderPlaced';
 
   req.checkBody('phoneNumber','Please enter phone number').notEmpty();
