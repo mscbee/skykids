@@ -73,12 +73,16 @@ cartController.updateCart = function(req, res){
 }
 
 cartController.showCheckout = function(req, res){
-    // if (!req.session.cart) {
-    //     return res.redirect('/cart');
-    // }
-    // var cart = new Cart(req.session.cart);
-    //var errMsg = req.flash('error')[0];
-    res.render('payment' , {cart: req.session.cart}); // Render payment view?
+    if(!req.user){
+      res.redirect('/login');
+    } else {
+      if (!req.session.cart) {
+          res.redirect('/cart');
+      } else {
+        res.render('payment' , {cart: req.session.cart});
+      }
+    }
+
 }
 
 cartController.processPayment = function(req, res){
